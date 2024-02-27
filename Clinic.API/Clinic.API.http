@@ -1,0 +1,6 @@
+@Clinic.API_HostAddress = http://localhost:5138
+
+GET {{Clinic.API_HostAddress}}/
+Accept: application/json
+
+###
