@@ -11,6 +11,7 @@ namespace Clinic.DAL
         public ClinicDbContext(DbContextOptions<ClinicDbContext> options, IConfiguration configuration) : base(options)
         {
             _configuration = configuration;
+            Database.EnsureCreated();
         }
 
         public DbSet<OfficeEntity> Offices { get; set; }

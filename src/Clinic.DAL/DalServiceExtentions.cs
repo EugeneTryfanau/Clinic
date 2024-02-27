@@ -3,7 +3,6 @@ using Clinic.DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace Clinic.DAL
 {
@@ -13,7 +12,7 @@ namespace Clinic.DAL
         {
             services.AddDbContext<ClinicDbContext>((serviceProvider, options) =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("ConnectionString"), b => b.MigrationsAssembly("Clinic.DAL"));
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Clinic.DAL"));
             });
 
             services.AddScoped<IOfficeRepository, OfficeRepository>();
