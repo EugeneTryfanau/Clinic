@@ -13,13 +13,13 @@ namespace Clinic.DAL.Repositories
         {
             IQueryable<OfficeEntity> query = _dbContext.Offices.AsQueryable();
 
-            if (!string.IsNullOrEmpty(address))
+            if (!string.IsNullOrWhiteSpace(address))
             {
                 var firstNameLower = address.ToLower();
                 query = query.Where(x => EF.Functions.Like(x.Address.ToLower(), $"%{address}%"));
             }
 
-            if (!string.IsNullOrEmpty(phoneNumber))
+            if (!string.IsNullOrWhiteSpace(phoneNumber))
             {
                 query = query.Where(x => EF.Functions.Like(x.RegistryPhoneNumber, $"%{phoneNumber}%"));
             }
