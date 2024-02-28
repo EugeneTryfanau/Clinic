@@ -59,7 +59,6 @@ namespace Clinic.API.Controllers
         public async Task Delete(Guid id, CancellationToken cancellationToken)
         {
             await _officeService.DeleteAsync(id, cancellationToken);
-
         }
     }
 }
