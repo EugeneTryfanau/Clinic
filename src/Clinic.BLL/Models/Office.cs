@@ -1,8 +1,8 @@
 ﻿using static Clinic.DAL.Entities.EnumsEntity;
 
-namespace Clinic.DAL.Entities
+namespace Clinic.BLL.Models
 {
-    public class OfficeEntity
+    public class Office
     {
         public Guid Id { get; set; }
         public required string Address { get; set; }
