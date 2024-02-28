@@ -9,6 +9,8 @@ namespace Clinic.API.Mapper
         public ViewModelMapperProfile()
         {
             CreateMap<OfficeViewModel, Office>().ReverseMap();
+            CreateMap<CreateOfficeViewModel, Office>().ReverseMap();
+            CreateMap<UpdateOfficeViewModel, Office>().ReverseMap();
         }
     }
 }
