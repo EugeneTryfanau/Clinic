@@ -7,7 +7,7 @@ using static Clinic.DAL.Entities.EnumsEntity;
 
 namespace Clinic.API.Controllers
 {
-    [Route("api/offices")]
+    [Route("api/[controller]")]
     [ApiController]
     public class OfficesController : ControllerBase
     {
