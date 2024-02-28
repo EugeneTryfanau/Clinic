@@ -1,16 +1,19 @@
 ﻿using AutoMapper;
 using Clinic.API.ViewModels.Office;
 using Clinic.BLL.Models;
+using Clinic.DAL.Entities;
 
 namespace Clinic.API.Mapper
 {
-    public class ViewModelMapperProfile : Profile
+    public class MapperProfile : Profile
     {
-        public ViewModelMapperProfile()
+        public MapperProfile()
         {
             CreateMap<OfficeViewModel, Office>().ReverseMap();
             CreateMap<CreateOfficeViewModel, Office>().ReverseMap();
             CreateMap<UpdateOfficeViewModel, Office>().ReverseMap();
+
+            CreateMap<OfficeEntity, Office>().ReverseMap();
         }
     }
 }
