@@ -1,43 +1,34 @@
 ﻿using Clinic.DAL.Entities;
 using Clinic.DAL.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.DAL.Repositories
 {
-    public class OfficeRepository : IOfficeRepository
+    public class OfficeRepository : Repository<OfficeEntity>, IOfficeRepository
     {
-        public Task<OfficeEntity> AddAsync(OfficeEntity entity, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+        public OfficeRepository(ClinicDbContext dbContext) : base(dbContext) { }
 
-        public Task<IEnumerable<OfficeEntity>> GetAllAsync(CancellationToken cancellationToken)
+        public async Task<IEnumerable<OfficeEntity>> GetAllAsync(string? address, string? phoneNumber, OfficeStatus? isActive, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
-        }
+            IQueryable<OfficeEntity> query = _dbContext.Offices.AsQueryable();
 
-        public Task<IEnumerable<OfficeEntity>> GetAllAsync(string address, string phoneNumber, string isActive, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            if (!string.IsNullOrWhiteSpace(address))
+            {
+                var firstNameLower = address.ToLower();
+                query = query.Where(x => EF.Functions.Like(x.Address.ToLower(), $"%{address}%"));
+            }
 
-        public Task<OfficeEntity> GetByIdAsync(Guid id, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            if (!string.IsNullOrWhiteSpace(phoneNumber))
+            {
+                query = query.Where(x => EF.Functions.Like(x.RegistryPhoneNumber, $"%{phoneNumber}%"));
+            }
 
-        public Task<OfficeEntity> UpdateAsync(OfficeEntity entity, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
-        }
+            if (isActive != null)
+            {
+                query = query.Where(x => x.IsActive == isActive);
+            }
 
-        public Task DeleteAsync(OfficeEntity entity, CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
+            return await query.ToListAsync(cancellationToken);
         }
     }
 }

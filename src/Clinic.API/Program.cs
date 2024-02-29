@@ -1,4 +1,5 @@
 using Clinic.DAL;
+using Clinic.BLL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +8,9 @@ var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
 
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDALDependencies(configuration);
+builder.Services.AddBLLDependencies();
 
 builder.Services.AddControllers();
 
