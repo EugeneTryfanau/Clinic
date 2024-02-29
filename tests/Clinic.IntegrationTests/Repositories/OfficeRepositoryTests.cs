@@ -36,7 +36,6 @@ namespace Clinic.IntegrationTests.Repositories
         [Fact]
         public async Task Update_Entity_ReturnsEntity()
         {
-            Thread.Sleep(2000);
             var entity = TestOfficeEntities.Office;
             entity.RegistryPhoneNumber = "375296475784";
 
