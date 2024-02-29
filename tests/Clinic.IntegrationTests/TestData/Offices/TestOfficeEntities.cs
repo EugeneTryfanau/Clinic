@@ -9,7 +9,7 @@ namespace Clinic.IntegrationTests.TestData.Offices
             Id = new Guid("b37b1e25-8a6f-48dd-965b-0581911bb383"),
             Address = "Terehina",
             RegistryPhoneNumber = "375293849405",
-            IsActive = EnumsEntity.OfficeStatus.Active
+            IsActive = OfficeStatus.Active
         };
 
         public static OfficeEntity UpdatedOffice => new()
@@ -17,7 +17,7 @@ namespace Clinic.IntegrationTests.TestData.Offices
             Id = new Guid("b37b1e25-8a6f-48dd-965b-0581911bb383"),
             Address = "Terehina",
             RegistryPhoneNumber = "375296475784",
-            IsActive = EnumsEntity.OfficeStatus.Active
+            IsActive = OfficeStatus.Active
         };
 
         public static List<OfficeEntity> OfficeEntityCollection => new()
