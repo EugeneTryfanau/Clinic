@@ -1,4 +1,4 @@
-﻿using static Clinic.DAL.Entities.EnumsEntity;
+﻿using Clinic.DAL.Entities;
 
 namespace Clinic.BLL.Models
 {

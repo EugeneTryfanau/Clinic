@@ -2,8 +2,8 @@
 using Clinic.API.ViewModels.Office;
 using Clinic.BLL.Interfaces;
 using Clinic.BLL.Models;
+using Clinic.DAL.Entities;
 using Microsoft.AspNetCore.Mvc;
-using static Clinic.DAL.Entities.EnumsEntity;
 
 namespace Clinic.API.Controllers
 {

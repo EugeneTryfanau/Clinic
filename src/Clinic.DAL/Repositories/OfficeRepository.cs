@@ -1,7 +1,6 @@
 ﻿using Clinic.DAL.Entities;
 using Clinic.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using static Clinic.DAL.Entities.EnumsEntity;
 
 namespace Clinic.DAL.Repositories
 {
