@@ -22,7 +22,7 @@ namespace Clinic.IntegrationTests.TestData.Offices
 
         public static List<OfficeEntity> OfficeEntityCollection => new()
         {
-            Office,
+            new() { Id = new Guid("b37b1e25-8a6f-48dd-965b-0581911bb382"), Address = "123", RegistryPhoneNumber = "123", IsActive = OfficeStatus.Active},
         };
     }
 }
