@@ -1,6 +1,5 @@
 ﻿using Clinic.BLL.Models;
 using Clinic.DAL.Entities;
-using static Clinic.DAL.Entities.EnumsEntity;
 
 namespace Clinic.BLL.Interfaces
 {

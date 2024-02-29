@@ -1,17 +1,9 @@
-﻿using System;
-using System.ComponentModel;
-using System.Text.Json.Serialization;
-
-namespace Clinic.DAL.Entities
+﻿namespace Clinic.DAL.Entities
 {
-    public class EnumsEntity
+    public enum OfficeStatus
     {
-        [JsonConverter(typeof(JsonStringEnumConverter))]
-        [DefaultValue(OfficeStatus.Inactive)]
-        public enum OfficeStatus
-        {
-            Inactive,
-            Active
-        }
+        None = 0,
+        Active,
+        Inactive
     }
 }

@@ -3,7 +3,6 @@ using Clinic.BLL.Interfaces;
 using Clinic.BLL.Models;
 using Clinic.DAL.Entities;
 using Clinic.DAL.Interfaces;
-using static Clinic.DAL.Entities.EnumsEntity;
 
 namespace Clinic.BLL.Services
 {
