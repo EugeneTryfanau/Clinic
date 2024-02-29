@@ -1,88 +1,112 @@
-﻿using Clinic.DAL.Entities;
+﻿using Clinic.API.ViewModels.Office;
 using Clinic.IntegrationTests.TestData.Offices;
 using Newtonsoft.Json;
 using System.Net;
 using System.Text;
 
-namespace Clinic.IntegrationTests.ApiTests
+namespace Clinic.IntegrationTests.ApiTests;
+
+public class OfficeControllerTests : IntegrationTestsBase
 {
-    public class OfficeControllerTests : IntegrationTestsBase
+    [Fact]
+    public async Task CreateOffice_ValidInput_ReturnsOk()
     {
-        private static OfficeEntity TestEntity { get; set; }
+        var expectedModel = TestOfficeViewModels.CreateOffice();
+        var json = JsonConvert.SerializeObject(expectedModel);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-        [Fact]
-        public async Task CreateOffice_ValidInput_ReturnsOk()
+        using var request = new HttpRequestMessage(HttpMethod.Post, $"/api/offices");
+        request.Content = content;
+
+        var actualResult = await Client.SendAsync(request);
+        var responseResult = await actualResult.Content.ReadAsStringAsync();
+        var responseModel = JsonConvert.DeserializeObject<OfficeViewModel>(responseResult);
+
+        actualResult.StatusCode.ShouldBe(HttpStatusCode.OK);
+        expectedModel.ShouldBeEquivalentTo(responseModel);
+    }
+
+    [Fact]
+    public async Task GetAllOffices_ReturnsOk()
+    {
+        List<OfficeViewModel> expectedModelsList = new();
+
+        for (int i = 1; i < 3; i++)
         {
-            var entity = TestOfficeModels.CreateOfficeRequest;
-            var json = JsonConvert.SerializeObject(entity);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var createRequest = TestOfficeViewModels.CreateOffice();
 
-            using var request = new HttpRequestMessage(HttpMethod.Post, $"/api/Offices");
-            request.Content = content;
-            
-            var actualResult = await Client.SendAsync(request);
-            var responseResult = actualResult.Content.ReadAsStringAsync();
+            var expectedModel = await CreateOffice(createRequest);
 
-            TestEntity = JsonConvert.DeserializeObject<OfficeEntity>(responseResult.Result);
-
-            actualResult.StatusCode.ShouldBe(HttpStatusCode.OK);
-            TestEntity.Address.ShouldBeEquivalentTo(entity.Address);
-            TestEntity.RegistryPhoneNumber.ShouldBeEquivalentTo(entity.RegistryPhoneNumber);
-            TestEntity.IsActive.ShouldBeEquivalentTo(entity.IsActive);
-            Context.Offices.Last().ShouldBeEquivalentTo(TestEntity);
+            expectedModelsList.Add(expectedModel!);
         }
 
-        [Fact]
-        public async Task GetAllOffices_ReturnsOk()
+        var responseModels = await GetAll();
+
+        responseModels.ShouldNotBeNull();
+        foreach (var expectedModel in expectedModelsList)
         {
-            Thread.Sleep(2000);
-            using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/Offices");
-            
-            var actualResult = await Client.SendAsync(request);
-            var responseResult = actualResult.Content.ReadAsStringAsync();
-
-            var resultEntities = JsonConvert.DeserializeObject<IEnumerable<OfficeEntity>>(responseResult.Result);
-
-            actualResult.StatusCode.ShouldBe(HttpStatusCode.OK);
-            Context.Offices.First().ShouldBeEquivalentTo(TestEntity);
+            responseModels.Select(x => x.Id).ShouldContain(expectedModel.Id);
         }
+    }
 
-        [Fact]
-        public async Task UpdateOffice_ValidInput_ReturnsOk()
-        {
-            Thread.Sleep(4000);
-            var entity = TestOfficeModels.CreateOfficeRequest;
-            entity.Id = TestEntity.Id;
-            var json = JsonConvert.SerializeObject(entity);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            
-            using var request = new HttpRequestMessage(HttpMethod.Put, $"/api/Offices/{TestEntity.Id}");
-            request.Content = content;
+    [Fact]
+    public async Task UpdateOffice_ValidInput_ReturnsOk()
+    {
+        var createRequest = TestOfficeViewModels.CreateOffice();
+        var expectedModel = await CreateOffice(createRequest);
+        expectedModel!.Address = Guid.NewGuid().ToString();
 
-            var actualResult = await Client.SendAsync(request);
-            var responseResult = actualResult.Content.ReadAsStringAsync();
+        var content = new StringContent(JsonConvert.SerializeObject(expectedModel), Encoding.UTF8, "application/json");
+        using var request = new HttpRequestMessage(HttpMethod.Put, $"/api/offices/{expectedModel.Id}");
+        request.Content = content;
 
-            var resultEntity = JsonConvert.DeserializeObject<OfficeEntity>(responseResult.Result);
+        var actualResult = await Client.SendAsync(request);
+        var responseResult = await actualResult.Content.ReadAsStringAsync();
 
-            actualResult.StatusCode.ShouldBe(HttpStatusCode.OK);
-            resultEntity.Id.ShouldBeEquivalentTo(TestEntity.Id);
-            resultEntity.Address.ShouldBeEquivalentTo(entity.Address);
-            resultEntity.RegistryPhoneNumber.ShouldBeEquivalentTo(entity.RegistryPhoneNumber);
-            resultEntity.IsActive.ShouldBeEquivalentTo(entity.IsActive);
-        }
+        var responseModel = JsonConvert.DeserializeObject<OfficeViewModel>(responseResult);
 
-        [Fact]
-        public async Task DeleteOffice_ValidInput_ReturnsOk()
-        {
-            Thread.Sleep(6000);
+        actualResult.StatusCode.ShouldBe(HttpStatusCode.OK);
+        responseModel.ShouldBeEquivalentTo(expectedModel);
+    }
 
-            using var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/Offices/{TestEntity.Id}");
+    [Fact]
+    public async Task DeleteOffice_ValidInput_ReturnsOk()
+    {
+        var expectedModel = await CreateOffice(TestOfficeViewModels.CreateOffice());
 
-            var actualResult = await Client.SendAsync(request);
-            var responseResult = actualResult.Content.ReadAsStringAsync();
+        using var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/offices/{expectedModel!.Id}");
 
-            actualResult.StatusCode.ShouldBe(HttpStatusCode.OK);
-            Context.Offices.ToList().ShouldBeEmpty();
-        }
+        var actualResult = await Client.SendAsync(request);
+        var responseResult = actualResult.Content.ReadAsStringAsync();
+
+        actualResult.StatusCode.ShouldBe(HttpStatusCode.OK);
+
+        var offices = await GetAll();
+        offices.ShouldNotBeNull().ShouldNotBeEmpty();
+        offices.ShouldNotContain(expectedModel);
+    }
+
+    private async Task<OfficeViewModel?> CreateOffice(OfficeViewModel request)
+    {
+        var json = JsonConvert.SerializeObject(request);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        using var createRequest = new HttpRequestMessage(HttpMethod.Post, $"/api/offices");
+        createRequest.Content = content;
+        var response = await Client.SendAsync(createRequest);
+        response.EnsureSuccessStatusCode();
+
+        var responseResult = await response.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<OfficeViewModel>(responseResult);
+    }
+
+    private async Task<IEnumerable<OfficeViewModel>?> GetAll()
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Get, $"/api/offices");
+
+        var response = await Client.SendAsync(request);
+        response.EnsureSuccessStatusCode();
+        var responseResult = await response.Content.ReadAsStringAsync();
+        return JsonConvert.DeserializeObject<IEnumerable<OfficeViewModel>>(responseResult);
     }
 }
