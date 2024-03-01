@@ -25,7 +25,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Clinic.API\Clinic.API.csproj" />
-    <ProjectReference Include="..\..\src\Clinic.DAL\Clinic.DAL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

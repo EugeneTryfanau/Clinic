@@ -27,6 +27,26 @@ public class OfficeControllerTests : IntegrationTestsBase
     }
 
     [Fact]
+    public async Task CreateOffice_InvalidInput_ReturnsInternalServerError()
+    {
+        var expectedModel = TestOfficeViewModels.CreateOffice();
+        expectedModel.Address = null;
+
+        var json = JsonConvert.SerializeObject(expectedModel);
+        var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+        using var request = new HttpRequestMessage(HttpMethod.Post, $"/api/offices");
+        request.Content = content;
+
+        var actualResult = await Client.SendAsync(request);
+        var responseResult = await actualResult.Content.ReadAsStringAsync();
+        var responseModel = responseResult.Contains("Exception") ? null : JsonConvert.DeserializeObject<OfficeViewModel>(responseResult);
+
+        actualResult.StatusCode.ShouldBe(HttpStatusCode.InternalServerError);
+        responseModel.ShouldBeEquivalentTo(null);
+    }
+
+    [Fact]
     public async Task GetAllOffices_ReturnsOk()
     {
         List<OfficeViewModel> expectedModelsList = new();
@@ -62,7 +82,6 @@ public class OfficeControllerTests : IntegrationTestsBase
 
         var actualResult = await Client.SendAsync(request);
         var responseResult = await actualResult.Content.ReadAsStringAsync();
-
         var responseModel = JsonConvert.DeserializeObject<OfficeViewModel>(responseResult);
 
         actualResult.StatusCode.ShouldBe(HttpStatusCode.OK);
