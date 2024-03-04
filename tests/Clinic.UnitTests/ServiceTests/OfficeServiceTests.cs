@@ -164,7 +164,7 @@ namespace Clinic.UnitTests.ServiceTests
         }
 
         [Fact]
-        public async Task DeleteModel_InvalidId_ShouldResiveRequestWithNull()
+        public async Task DeleteAsync_InvalidId_ShouldResiveRequestWithNull()
         {
             //Arrange
             var id = new Guid();
