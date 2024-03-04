@@ -5,7 +5,7 @@ using Clinic.DAL.Entities;
 
 namespace Clinic.API.Mapper
 {
-    public partial class MapperProfile : Profile
+    public class MapperProfile : Profile
     {
         public MapperProfile()
         {
