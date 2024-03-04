@@ -31,7 +31,7 @@ namespace Clinic.UnitTests.ServiceTests
         }
 
         [Fact]
-        public async Task GetById_ValidId_ReturnOffice()
+        public async Task GetByIdAsync_ValidId_ReturnOffice()
         {
             //Arrange
             var id = new Guid();
@@ -48,7 +48,7 @@ namespace Clinic.UnitTests.ServiceTests
         }
 
         [Fact]
-        public async Task GetById_InvalidId_ReturnNull()
+        public async Task GetByIdAsync_InvalidId_ReturnNull()
         {
             //Arrange
             var id = new Guid();
@@ -112,7 +112,7 @@ namespace Clinic.UnitTests.ServiceTests
         }
 
         [Fact]
-        public async Task UpdateAsync_ValidModel_ReturnUpdatedOffice()
+        public async Task UpdateAsync_ValidData_ReturnUpdatedOffice()
         {
             //Arrange
             var office = TestOfficeModels.Office;
@@ -130,7 +130,7 @@ namespace Clinic.UnitTests.ServiceTests
         }
 
         [Fact]
-        public async Task UpdateModel_InvalidModel_ShouldNotResiveRequest()
+        public async Task UpdateAsync_InvalidData_ShouldNotResiveRequest()
         {
             //Arrange
             var office = TestOfficeModels.Office;
