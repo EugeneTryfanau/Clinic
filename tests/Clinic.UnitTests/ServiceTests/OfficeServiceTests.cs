@@ -6,7 +6,10 @@ using Clinic.DAL.Entities;
 using Clinic.DAL.Interfaces;
 using Clinic.UnitTests.TestData.Offices;
 using NSubstitute;
+using NSubstitute.ReturnsExtensions;
 using Shouldly;
+using System;
+using System.Net.Sockets;
 
 namespace Clinic.UnitTests.ServiceTests
 {
@@ -47,6 +50,21 @@ namespace Clinic.UnitTests.ServiceTests
         }
 
         [Fact]
+        public async Task GetById_InvalidId_ReturnNull()
+        {
+            //Arrange
+            var id = new Guid();
+            _officeRepository.GetByIdAsync(id, default).ReturnsNull();
+
+            //Act
+            var result = await _officeService.GetByIdAsync(id, default);
+
+            //Assert
+            await _officeRepository.Received(1).GetByIdAsync(id, default);
+            result.ShouldBeNull();
+        }
+
+        [Fact]
         public async Task GetAllAsync_ByIsActive_ReturnCollectionOfOffices()
         {
             //Arrange
@@ -80,7 +98,23 @@ namespace Clinic.UnitTests.ServiceTests
         }
 
         [Fact]
-        public async Task UpdateAsync_ReturnUpdatedOffice()
+        public async Task CreateModel_InvalidModel_ShouldNotResiveRequest()
+        {
+            //Arrange
+            var officeEntity = TestOfficeModels.Office;
+            var officeModel = _mapper.Map<Office>(officeEntity);
+
+            _officeRepository.AddAsync(Arg.Any<OfficeEntity>(), default).ReturnsNull();
+
+            //Act
+            var action = async () => await _officeService.CreateAsync(officeModel, default);
+
+            //Assert
+            await _officeRepository.DidNotReceive().AddAsync(Arg.Any<OfficeEntity>(), default);
+        }
+
+        [Fact]
+        public async Task UpdateAsync_ValidModel_ReturnUpdatedOffice()
         {
             //Arrange
             var office = TestOfficeModels.Office;
@@ -98,7 +132,25 @@ namespace Clinic.UnitTests.ServiceTests
         }
 
         [Fact]
-        public async Task DeleteAsync_ShouldReceiveOneRequest()
+        public async Task UpdateModel_InvalidModel_ShouldNotResiveRequest()
+        {
+            //Arrange
+            var office = TestOfficeModels.Office;
+            var changedOffice = _mapper.Map<Office>(office);
+            changedOffice.Address = "New address";
+            var resultOffice = _mapper.Map<OfficeEntity>(changedOffice);
+
+            _officeRepository.UpdateAsync(Arg.Any<OfficeEntity>(), default).ReturnsNull();
+
+            //Act
+            var action = async () => await _officeService.UpdateAsync(changedOffice, default);
+
+            //Assert
+            await _officeRepository.DidNotReceive().UpdateAsync(Arg.Any<OfficeEntity>(), default);
+        }
+
+        [Fact]
+        public async Task DeleteAsync_ValidId_ShouldReceiveOneRequest()
         {
             //Arrange
             var id = new Guid();
@@ -111,6 +163,21 @@ namespace Clinic.UnitTests.ServiceTests
 
             //Assert
             await _officeRepository.Received(1).DeleteAsync(office, default);
+        }
+
+        [Fact]
+        public async Task DeleteModel_InvalidId_ShouldResiveRequestWithNull()
+        {
+            //Arrange
+            var id = new Guid();
+
+            _officeRepository.GetByIdAsync(id, default).ReturnsNull();
+
+            //Act
+            await _officeService.DeleteAsync(id, default);
+
+            //Assert
+            await _officeRepository.Received(1).DeleteAsync(Arg.Do<OfficeEntity>(null), default);
         }
     }
 }
