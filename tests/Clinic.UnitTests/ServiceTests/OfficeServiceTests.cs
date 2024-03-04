@@ -7,7 +7,6 @@ using Clinic.DAL.Interfaces;
 using Clinic.UnitTests.TestData.Offices;
 using NSubstitute;
 using Shouldly;
-using System.Collections.Generic;
 
 namespace Clinic.UnitTests.ServiceTests
 {
@@ -31,29 +30,86 @@ namespace Clinic.UnitTests.ServiceTests
         }
 
         [Fact]
+        public async Task GetById_ValidId_ReturnOffice()
+        {
+            //Arrange
+            var id = new Guid();
+            var office = TestOfficeModels.Office;
+
+            _officeRepository.GetByIdAsync(id, default).Returns(office);
+
+            //Act
+            var result = await _officeService.GetByIdAsync(id, default);
+
+            //Assert
+            result.ShouldNotBeNull();
+            result.Address.ShouldBeEquivalentTo(office.Address);
+        }
+
+        [Fact]
         public async Task GetAllAsync_ByIsActive_ReturnCollectionOfOffices()
         {
-            _officeRepository.GetAllAsync(null, null, OfficeStatus.Active, Arg.Any<CancellationToken>()).Returns(
-                    _mapper.Map<IEnumerable<OfficeEntity>>(TestOfficeModels.SortOffices(null, null, OfficeStatus.Active, new CancellationToken()))
-                );
-            
+            //Arrange
+            var office = _mapper.Map<IEnumerable<OfficeEntity>>(TestOfficeModels.SortOffices(null, null, OfficeStatus.Active, default));
+            _officeRepository.GetAllAsync(null, null, OfficeStatus.Active, Arg.Any<CancellationToken>()).Returns(office);
+
+            //Act
             var result = await _officeService.GetAllAsync(null, null, OfficeStatus.Active, new CancellationToken());
-            
+
+            //Assert
             await _officeRepository.Received(1).GetAllAsync(null, null, OfficeStatus.Active, Arg.Any<CancellationToken>());
             result.Count().ShouldBeEquivalentTo(1);
         }
 
-        //ыыыыынеыыыыыыыыыыыыыыыыыыыыыыработаетыыыыыыыыыыыыыы
-        //[Fact]
-        //public async Task CreateOfficeAsync_ReturnCreatedOffice()
-        //{
-        //    var kek = TestOfficeModels.Office;
-        //    _officeRepository.AddAsync(kek, Arg.Any<CancellationToken>()).Returns(kek);
-        //    var sendObject = _mapper.Map<Office>(kek);
 
-        //    var result = await _officeService.CreateAsync(sendObject, CancellationToken.None);
+        [Fact]
+        public async Task CreateAsync_ReturnCreatedOffice()
+        {
+            //Arrange
+            var officeEntity = TestOfficeModels.Office;
+            var officeModel = _mapper.Map<Office>(officeEntity);
 
-        //    result.ShouldBeEquivalentTo(sendObject);
-        //}
+            _officeRepository.AddAsync(Arg.Any<OfficeEntity>(), default).Returns(officeEntity);
+
+            //Act
+            var result = await _officeService.CreateAsync(officeModel, default);
+
+            //Assert
+            result.Address.ShouldBeEquivalentTo(officeEntity.Address);
+        }
+
+        [Fact]
+        public async Task UpdateAsync_ReturnUpdatedOffice()
+        {
+            //Arrange
+            var office = TestOfficeModels.Office;
+            var changedOffice = _mapper.Map<Office>(office);
+            changedOffice.Address = "New address";
+            var resultOffice = _mapper.Map<OfficeEntity>(changedOffice);
+
+            _officeRepository.UpdateAsync(Arg.Any<OfficeEntity>(), default).Returns(resultOffice);
+
+            //Act
+            var result = await _officeService.UpdateAsync(changedOffice, default);
+
+            //Assert
+            result.Address.ShouldBeEquivalentTo(changedOffice.Address);
+        }
+
+        [Fact]
+        public async Task DeleteAsync_ShouldReceiveOneRequest()
+        {
+            //Arrange
+            var id = new Guid();
+            var office = TestOfficeModels.Office;
+
+            _officeRepository.GetByIdAsync(id, default).Returns(office);
+
+            //Act
+            await _officeService.DeleteAsync(id, default);
+
+            //Assert
+            await _officeRepository.Received(1).DeleteAsync(office, default);
+        }
     }
 }
