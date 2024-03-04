@@ -80,7 +80,7 @@ namespace Clinic.UnitTests.ServiceTests
 
 
         [Fact]
-        public async Task CreateAsync_ReturnCreatedOffice()
+        public async Task CreateAsync_ValidData_ReturnCreatedOffice()
         {
             //Arrange
             var officeEntity = TestOfficeModels.Office;
@@ -96,7 +96,7 @@ namespace Clinic.UnitTests.ServiceTests
         }
 
         [Fact]
-        public async Task CreateModel_InvalidModel_ShouldNotResiveRequest()
+        public async Task CreateAsync_InvalidData_ShouldNotResiveRequest()
         {
             //Arrange
             var officeEntity = TestOfficeModels.Office;
