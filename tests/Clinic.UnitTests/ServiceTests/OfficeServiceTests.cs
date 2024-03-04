@@ -51,6 +51,7 @@ namespace Clinic.UnitTests.ServiceTests
         {
             //Arrange
             var office = _mapper.Map<IEnumerable<OfficeEntity>>(TestOfficeModels.SortOffices(null, null, OfficeStatus.Active, default));
+
             _officeRepository.GetAllAsync(null, null, OfficeStatus.Active, Arg.Any<CancellationToken>()).Returns(office);
 
             //Act

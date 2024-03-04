@@ -1,8 +1,6 @@
 ﻿using Clinic.BLL.Models;
 using Clinic.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
-using NSubstitute;
-using System.Threading;
 
 namespace Clinic.UnitTests.TestData.Offices
 {
