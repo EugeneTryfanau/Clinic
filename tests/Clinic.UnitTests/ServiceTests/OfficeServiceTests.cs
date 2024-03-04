@@ -8,8 +8,6 @@ using Clinic.UnitTests.TestData.Offices;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using Shouldly;
-using System;
-using System.Net.Sockets;
 
 namespace Clinic.UnitTests.ServiceTests
 {
@@ -107,7 +105,7 @@ namespace Clinic.UnitTests.ServiceTests
             _officeRepository.AddAsync(Arg.Any<OfficeEntity>(), default).ReturnsNull();
 
             //Act
-            var action = async () => await _officeService.CreateAsync(officeModel, default);
+            await _officeService.CreateAsync(officeModel, default);
 
             //Assert
             await _officeRepository.DidNotReceive().AddAsync(Arg.Any<OfficeEntity>(), default);
@@ -143,7 +141,7 @@ namespace Clinic.UnitTests.ServiceTests
             _officeRepository.UpdateAsync(Arg.Any<OfficeEntity>(), default).ReturnsNull();
 
             //Act
-            var action = async () => await _officeService.UpdateAsync(changedOffice, default);
+            await _officeService.UpdateAsync(changedOffice, default);
 
             //Assert
             await _officeRepository.DidNotReceive().UpdateAsync(Arg.Any<OfficeEntity>(), default);
