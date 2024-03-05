@@ -5,6 +5,6 @@ namespace Clinic.BLL.Interfaces
 {
     public interface IOfficeService : IGenericService<OfficeEntity, Office>
     {
-        Task<IEnumerable<Office>> GetAllAsync(string? address, string? phoneNumber, OfficeStatus? isActive, CancellationToken cancellationToken);
+        Task<IEnumerable<Office>> GetAllAsync(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken);
     }
 }

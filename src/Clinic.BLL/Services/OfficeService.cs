@@ -15,7 +15,7 @@ namespace Clinic.BLL.Services
             _officeRepository = officeRepository;
         }
 
-        public async Task<IEnumerable<Office>> GetAllAsync(string? address, string? phoneNumber, OfficeStatus? isActive, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Office>> GetAllAsync(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken)
         {
             var offices = await _officeRepository.GetAllAsync(address, phoneNumber, isActive, cancellationToken);
 

@@ -21,7 +21,7 @@ namespace Clinic.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<OfficeViewModel>> GetAll(string? address, string? phoneNumber, OfficeStatus? isActive, CancellationToken cancellationToken)
+        public async Task<IEnumerable<OfficeViewModel>> GetAll(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken)
         {
             var offices = await _officeService.GetAllAsync(address, phoneNumber, isActive, cancellationToken);
 
