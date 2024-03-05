@@ -1,6 +1,5 @@
 ﻿using Clinic.DAL;
 using Clinic.DAL.Entities;
-using MassTransit;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
@@ -20,12 +19,6 @@ namespace Clinic.IntegrationTests.Infrastructure.Extensions
                 services.Remove(dbContextService!);
 
                 services.AddDbContext<ClinicDbContext>(options => options.UseInMemoryDatabase("TestDb"));
-
-                services.AddMassTransitTestHarness(x =>
-                {
-                    x.UsingInMemory();
-                });
-
             }));
             Server = Factory.Server;
             Client = Factory.CreateClient();
@@ -35,7 +28,7 @@ namespace Clinic.IntegrationTests.Infrastructure.Extensions
         protected TestServer Server { get; }
         protected HttpClient Client { get; }
         protected ClinicDbContext Context { get; }
-        protected WebApplicationFactory<Program> Factory { get; }
+        private WebApplicationFactory<Program> Factory { get; }
 
         public async Task<Guid> AddToContext<T>(T entity) where T : Entity
         {
