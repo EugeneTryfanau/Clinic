@@ -9,5 +9,7 @@
         public Guid PhotoId { get; set; }
 
         public virtual PhotoEntity? Photo { get; set; }
+
+        public virtual ICollection<DoctorEntity>? Doctors { get; set; }
     }
 }
