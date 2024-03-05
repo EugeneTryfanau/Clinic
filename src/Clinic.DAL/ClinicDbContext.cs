@@ -1,8 +1,6 @@
 ﻿using Clinic.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
-using System.Numerics;
 
 namespace Clinic.DAL
 {
@@ -132,8 +130,6 @@ namespace Clinic.DAL
                 .HasOne(srv => srv.Category)
                 .WithMany()
                 .HasPrincipalKey(srvcat => srvcat.Id);
-
-
         }
     }
 }
