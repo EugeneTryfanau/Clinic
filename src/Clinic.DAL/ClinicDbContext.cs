@@ -120,29 +120,20 @@ namespace Clinic.DAL
                 .HasForeignKey<AppointmentEntity>(app => app.Id)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            //one-to-many (Service - Appointment)
+            modelBuilder.Entity<ServiceEntity>()
+                .HasMany(srv => srv.Appointments)
+                .WithOne(app => app.Service)
+                .HasForeignKey(app => app.ServiceId)
+                .HasPrincipalKey(srv => srv.Id);
+
+            //one-to-many (Service - ServiceCategory)
+            modelBuilder.Entity<ServiceEntity>()
+                .HasOne(srv => srv.Category)
+                .WithMany()
+                .HasPrincipalKey(srvcat => srvcat.Id);
 
 
-
-
-
-
-            //все что ниже на завтра
-
-
-
-
-            ////one-to-many (Service - ServiceCategory)
-            //modelBuilder.Entity<ServiceEntity>()
-            //    .HasOne(srv => srv.Category)
-            //    .WithMany()
-            //    .HasPrincipalKey(srvcat => srvcat.Id);
-
-            ////one-to-many (Doctor - Appointment)
-            //modelBuilder.Entity<ServiceEntity>()
-            //    .HasMany(doc => doc.Appointments)
-            //    .WithOne(app => app.Doctor)
-            //    .HasForeignKey(app => app.DoctorId)
-            //    .HasPrincipalKey(doc => doc.Id);
         }
     }
 }

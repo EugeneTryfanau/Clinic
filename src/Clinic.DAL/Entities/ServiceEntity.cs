@@ -9,5 +9,7 @@
         public Guid CategoryId { get; set; }
 
         public virtual ServiceCategoryEntity? Category { get; set; }
+
+        public virtual ICollection<AppointmentEntity>? Appointments { get; set; }
     }
 }
