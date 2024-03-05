@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Clinic.DAL.Entities
+﻿namespace Clinic.DAL.Entities
 {
     public class AccountEntity : Entity
     {
@@ -13,9 +11,9 @@ namespace Clinic.DAL.Entities
         public DateTime CreatedAt { get; set; }
         public string? UpdatedBy { get; set; }
         public DateTime UpdatedAt { get; set; }
+
         public Guid PhotoId { get; set; }
 
-        [ForeignKey("PhotoId")]
         public virtual PhotoEntity? Photo { get; set; }
     }
 }

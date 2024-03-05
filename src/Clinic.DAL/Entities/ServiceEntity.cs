@@ -8,6 +8,6 @@
 
         public Guid CategoryId { get; set; }
 
-        public virtual ServiceCategoryEntity? ServiceCategory { get; set; }
+        public virtual ServiceCategoryEntity? Category { get; set; }
     }
 }
