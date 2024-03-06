@@ -4,5 +4,7 @@
     {
         public required string SpecializationName { get; set; }
         public StandartStatus IsActive { get; set; }
+
+        public virtual ICollection<DoctorSpecializationEntity>? Doctors { get; set; }
     }
 }

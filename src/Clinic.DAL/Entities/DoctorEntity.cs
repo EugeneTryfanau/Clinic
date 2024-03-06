@@ -16,6 +16,6 @@
         public virtual OfficeEntity? Office { get; set; }
 
         public virtual ICollection<AppointmentEntity>? Appointments { get; set; }
-        public virtual ICollection<SpecializationEntity>? Specializations { get; set; }
+        public virtual ICollection<DoctorSpecializationEntity>? Specializations { get; set; }
     }
 }
