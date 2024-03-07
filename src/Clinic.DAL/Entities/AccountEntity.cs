@@ -12,7 +12,7 @@
         public string? UpdatedBy { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        public Guid PhotoId { get; set; }
+        public Guid? PhotoId { get; set; }
 
         public virtual PhotoEntity? Photo { get; set; }
     }

@@ -10,6 +10,7 @@ namespace Clinic.DAL
 
         public ClinicDbContext(DbContextOptions<ClinicDbContext> options, IConfiguration configuration) : base(options)
         {
+            Database.EnsureDeleted();
             if (Database.IsRelational())
             {
                 Database.Migrate();

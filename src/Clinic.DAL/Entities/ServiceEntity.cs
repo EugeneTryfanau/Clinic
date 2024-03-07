@@ -6,7 +6,7 @@
         public decimal Price { get; set; }
         public StandartStatus IsActive { get; set; }
 
-        public Guid CategoryId { get; set; }
+        public Guid? CategoryId { get; set; }
 
         public virtual ServiceCategoryEntity? Category { get; set; }
 

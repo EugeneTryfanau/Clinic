@@ -6,7 +6,7 @@
         public required string Conclusion { get; set; }
         public string? Recomendations { get; set; }
 
-        public Guid AppointmentId { get; set; }
+        public Guid? AppointmentId { get; set; }
 
         public virtual AppointmentEntity? Appointment { get; set; }
     }

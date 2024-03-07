@@ -10,7 +10,7 @@ namespace Clinic.DAL.Entities
         public bool IsLinkedToAccount { get; set; }
         public DateTime DateOfBirth { get; set; }
 
-        public Guid AccountId { get; set; }
+        public Guid? AccountId { get; set; }
 
         public virtual AccountEntity? Account { get; set; }
 

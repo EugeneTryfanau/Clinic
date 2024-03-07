@@ -4,7 +4,7 @@
     {
         public required string Url { get; set; }
 
-        public Guid ResultId { get; set; }
+        public Guid? ResultId { get; set; }
 
         public virtual ResultEntity? Result { get; set; }
     }
