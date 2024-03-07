@@ -31,11 +31,7 @@ namespace Clinic.DAL
         public DbSet<ServiceCategoryEntity> ServiceCategories { get; set; }
         public DbSet<SpecializationEntity> Specializations { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-            System.Diagnostics.Debug.WriteLine(_configuration);
-        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
