@@ -105,10 +105,11 @@ namespace Clinic.UnitTests.ServiceTests
             _officeRepository.AddAsync(Arg.Any<OfficeEntity>(), default).ReturnsNull();
 
             //Act
-            await _officeService.CreateAsync(officeModel, default);
+            var result = await _officeService.CreateAsync(officeModel, default);
 
             //Assert
-            await _officeRepository.DidNotReceive().AddAsync(Arg.Any<OfficeEntity>(), default);
+            await _officeRepository.Received(1).AddAsync(Arg.Any<OfficeEntity>(), default);
+            result.ShouldBeNull();
         }
 
         [Fact]
@@ -135,16 +136,17 @@ namespace Clinic.UnitTests.ServiceTests
             //Arrange
             var office = TestOfficeModels.Office;
             var changedOffice = _mapper.Map<Office>(office);
-            changedOffice.Address = "New address";
+            changedOffice.Id = Guid.NewGuid();
             var resultOffice = _mapper.Map<OfficeEntity>(changedOffice);
 
-            _officeRepository.UpdateAsync(Arg.Any<OfficeEntity>(), default).ReturnsNull();
+            _officeRepository.UpdateAsync(resultOffice, default).ReturnsNull();
 
             //Act
-            await _officeService.UpdateAsync(changedOffice, default);
+            var result = await _officeService.UpdateAsync(changedOffice, default);
 
             //Assert
-            await _officeRepository.DidNotReceive().UpdateAsync(Arg.Any<OfficeEntity>(), default);
+            await _officeRepository.Received(1).UpdateAsync(Arg.Any<OfficeEntity>(), default);
+            result.ShouldBeNull();
         }
 
         [Fact]
