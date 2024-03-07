@@ -4,6 +4,7 @@ using Clinic.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinic.DAL.Migrations
 {
     [DbContext(typeof(ClinicDbContext))]
-    partial class ClinicDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240306110621_FullDbStructure")]
+    partial class FullDbStructure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,7 +54,7 @@ namespace Clinic.DAL.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("PhotoId")
+                    b.Property<Guid>("PhotoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -108,7 +111,7 @@ namespace Clinic.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AccountId")
+                    b.Property<Guid>("AccountId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CareerStartYear")
@@ -128,7 +131,7 @@ namespace Clinic.DAL.Migrations
                     b.Property<string>("MiddleName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("OfficeId")
+                    b.Property<Guid>("OfficeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
@@ -164,7 +167,7 @@ namespace Clinic.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ResultId")
+                    b.Property<Guid>("ResultId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Url")
@@ -191,7 +194,7 @@ namespace Clinic.DAL.Migrations
                     b.Property<int>("IsActive")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("PhotoId")
+                    b.Property<Guid>("PhotoId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("RegistryPhoneNumber")
@@ -211,7 +214,7 @@ namespace Clinic.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AccountId")
+                    b.Property<Guid>("AccountId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateOfBirth")
@@ -260,7 +263,7 @@ namespace Clinic.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AccountId")
+                    b.Property<Guid>("AccountId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("FirstName")
@@ -274,7 +277,7 @@ namespace Clinic.DAL.Migrations
                     b.Property<string>("MiddleName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("OfficeId")
+                    b.Property<Guid>("OfficeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -292,7 +295,7 @@ namespace Clinic.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AppointmentId")
+                    b.Property<Guid>("AppointmentId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Complaints")
@@ -337,7 +340,7 @@ namespace Clinic.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CategoryId")
+                    b.Property<Guid>("CategoryId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("IsActive")
@@ -379,7 +382,9 @@ namespace Clinic.DAL.Migrations
                 {
                     b.HasOne("Clinic.DAL.Entities.PhotoEntity", "Photo")
                         .WithMany()
-                        .HasForeignKey("PhotoId");
+                        .HasForeignKey("PhotoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Photo");
                 });
@@ -409,11 +414,15 @@ namespace Clinic.DAL.Migrations
                 {
                     b.HasOne("Clinic.DAL.Entities.AccountEntity", "Account")
                         .WithMany()
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Clinic.DAL.Entities.OfficeEntity", "Office")
                         .WithMany("Doctors")
-                        .HasForeignKey("OfficeId");
+                        .HasForeignKey("OfficeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Account");
 
@@ -443,7 +452,9 @@ namespace Clinic.DAL.Migrations
                 {
                     b.HasOne("Clinic.DAL.Entities.ResultEntity", "Result")
                         .WithMany()
-                        .HasForeignKey("ResultId");
+                        .HasForeignKey("ResultId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Result");
                 });
@@ -452,7 +463,9 @@ namespace Clinic.DAL.Migrations
                 {
                     b.HasOne("Clinic.DAL.Entities.PhotoEntity", "Photo")
                         .WithMany()
-                        .HasForeignKey("PhotoId");
+                        .HasForeignKey("PhotoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Photo");
                 });
@@ -461,7 +474,9 @@ namespace Clinic.DAL.Migrations
                 {
                     b.HasOne("Clinic.DAL.Entities.AccountEntity", "Account")
                         .WithMany()
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Account");
                 });
@@ -470,11 +485,15 @@ namespace Clinic.DAL.Migrations
                 {
                     b.HasOne("Clinic.DAL.Entities.AccountEntity", "Account")
                         .WithMany()
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Clinic.DAL.Entities.OfficeEntity", "Office")
                         .WithMany()
-                        .HasForeignKey("OfficeId");
+                        .HasForeignKey("OfficeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Account");
 
@@ -485,7 +504,9 @@ namespace Clinic.DAL.Migrations
                 {
                     b.HasOne("Clinic.DAL.Entities.AppointmentEntity", "Appointment")
                         .WithMany()
-                        .HasForeignKey("AppointmentId");
+                        .HasForeignKey("AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Appointment");
                 });
@@ -494,7 +515,9 @@ namespace Clinic.DAL.Migrations
                 {
                     b.HasOne("Clinic.DAL.Entities.ServiceCategoryEntity", "Category")
                         .WithMany()
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Category");
                 });

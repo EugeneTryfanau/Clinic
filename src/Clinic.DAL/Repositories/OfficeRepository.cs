@@ -8,7 +8,7 @@ namespace Clinic.DAL.Repositories
     {
         public OfficeRepository(ClinicDbContext dbContext) : base(dbContext) { }
 
-        public async Task<IEnumerable<OfficeEntity>> GetAllAsync(string? address, string? phoneNumber, OfficeStatus? isActive, CancellationToken cancellationToken)
+        public async Task<IEnumerable<OfficeEntity>> GetAllAsync(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken)
         {
             IQueryable<OfficeEntity> query = _dbContext.Offices.AsQueryable();
 

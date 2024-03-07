@@ -4,6 +4,12 @@
     {
         public required string Address { get; set; }
         public required string RegistryPhoneNumber { get; set; }
-        public OfficeStatus IsActive { get; set; }
+        public StandartStatus IsActive { get; set; }
+
+        public Guid? PhotoId { get; set; }
+
+        public virtual PhotoEntity? Photo { get; set; }
+
+        public virtual ICollection<DoctorEntity>? Doctors { get; set; }
     }
 }

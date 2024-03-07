@@ -11,7 +11,7 @@ namespace Clinic.UnitTests.TestData.Offices
             Id = Guid.NewGuid(),
             Address = "Lenina",
             RegistryPhoneNumber = "375296666666",
-            IsActive = OfficeStatus.Active
+            IsActive = StandartStatus.Active
         };
 
         public static OfficeEntity UpdateOffice => new()
@@ -19,7 +19,7 @@ namespace Clinic.UnitTests.TestData.Offices
             Id = Office.Id,
             Address = "Terehina",
             RegistryPhoneNumber = "375295555555",
-            IsActive = OfficeStatus.Active
+            IsActive = StandartStatus.Active
         };
 
         public static List<Office> Offices => new()
@@ -32,10 +32,10 @@ namespace Clinic.UnitTests.TestData.Offices
             Id = id is null ? Guid.NewGuid() : id.Value,
             Address = "Lenina",
             RegistryPhoneNumber = "375296666666",
-            IsActive = status == 1 ? OfficeStatus.Active : status == 2 ? OfficeStatus.Inactive : OfficeStatus.None
+            IsActive = status == 1 ? StandartStatus.Active : status == 2 ? StandartStatus.Inactive : StandartStatus.None
         };
 
-        public static List<Office> SortOffices(string? address, string? phoneNumber, OfficeStatus? isActive, CancellationToken token)
+        public static List<Office> SortOffices(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken token)
         {
             var sortedOffices = Offices;
 

@@ -66,15 +66,15 @@ namespace Clinic.UnitTests.ServiceTests
         public async Task GetAllAsync_ByIsActive_ReturnCollectionOfOffices()
         {
             //Arrange
-            var office = _mapper.Map<IEnumerable<OfficeEntity>>(TestOfficeModels.SortOffices(null, null, OfficeStatus.Active, default));
+            var office = _mapper.Map<IEnumerable<OfficeEntity>>(TestOfficeModels.SortOffices(null, null, StandartStatus.Active, default));
 
-            _officeRepository.GetAllAsync(null, null, OfficeStatus.Active, Arg.Any<CancellationToken>()).Returns(office);
+            _officeRepository.GetAllAsync(null, null, StandartStatus.Active, Arg.Any<CancellationToken>()).Returns(office);
 
             //Act
-            var result = await _officeService.GetAllAsync(null, null, OfficeStatus.Active, new CancellationToken());
+            var result = await _officeService.GetAllAsync(null, null, StandartStatus.Active, new CancellationToken());
 
             //Assert
-            await _officeRepository.Received(1).GetAllAsync(null, null, OfficeStatus.Active, Arg.Any<CancellationToken>());
+            await _officeRepository.Received(1).GetAllAsync(null, null, StandartStatus.Active, Arg.Any<CancellationToken>());
             result.Count().ShouldBeEquivalentTo(1);
         }
 
