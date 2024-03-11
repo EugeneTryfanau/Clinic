@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: 17
           distribution: 'zulu'
@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
   
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
 
@@ -31,7 +31,7 @@ jobs:
         run: dotnet restore
   
       - name: Cache SonarCloud packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/sonar/cache
           key: ${{ runner.os }}-sonar
@@ -39,7 +39,7 @@ jobs:
 
       - name: Cache SonarCloud scanner
         id: cache-sonar-scanner
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ./.sonar/scanner
           key: ${{ runner.os }}-sonar-scanner
@@ -55,7 +55,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          EXCLUDE_FROM_COVERAGE: "/home/runner/work/Clinic/Clinic/src/Clinic.DAL/Migrations/* , **/program.cs"
+          EXCLUDE_FROM_COVERAGE: "**/Migrations/* , **/program.cs"
         run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"EugeneTryfanau_Clinic" /o:"eugenetryfanau" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build --configuration Release
