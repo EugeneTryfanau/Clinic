@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.BLL", "src\Clinic.BL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.DAL", "src\Clinic.DAL\Clinic.DAL.csproj", "{89B45817-7D31-40C1-9355-E5809D57E24F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.UnitTests", "tests\Clinic.UnitTests\Clinic.UnitTests.csproj", "{88D242F1-A305-46DD-8442-5A2F4A7B8E8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.UnitTests", "tests\Clinic.UnitTests\Clinic.UnitTests.csproj", "{88D242F1-A305-46DD-8442-5A2F4A7B8E8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.IntegrationTests", "tests\Clinic.IntegrationTests\Clinic.IntegrationTests.csproj", "{DCA9970F-21EC-4074-944D-20DDF908AE59}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.IntegrationTests", "tests\Clinic.IntegrationTests\Clinic.IntegrationTests.csproj", "{DCA9970F-21EC-4074-944D-20DDF908AE59}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "clinic-react-client", "client\clinic-react-client\clinic-react-client.esproj", "{B6AF5178-88E4-418E-AA7B-EA3531BA161A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,12 @@ Global
 		{DCA9970F-21EC-4074-944D-20DDF908AE59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCA9970F-21EC-4074-944D-20DDF908AE59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCA9970F-21EC-4074-944D-20DDF908AE59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6AF5178-88E4-418E-AA7B-EA3531BA161A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6AF5178-88E4-418E-AA7B-EA3531BA161A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6AF5178-88E4-418E-AA7B-EA3531BA161A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{B6AF5178-88E4-418E-AA7B-EA3531BA161A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6AF5178-88E4-418E-AA7B-EA3531BA161A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B6AF5178-88E4-418E-AA7B-EA3531BA161A}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
