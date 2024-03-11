@@ -1,14 +1,14 @@
-name: Build
+name: SonarBuild
 on:
   push:
     branches:
       - main
-      - feature/add-cicd-sonar
   pull_request:
     types: [opened, synchronize, reopened]
+
 jobs:
   build:
-    name: Build
+    name: SonarBuild
     runs-on: ubuntu-latest
 
     steps:
