@@ -18,7 +18,7 @@ namespace Clinic.DAL.Repositories
             return await _dbContext.Set<T>().ToListAsync(cancellationToken);
         }
 
-        public async virtual Task<T> GetByIdAsync(Guid id, CancellationToken cancellationToken)
+        public async virtual Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
             return await _dbContext.Set<T>().FindAsync([id, cancellationToken], cancellationToken: cancellationToken);
         }
