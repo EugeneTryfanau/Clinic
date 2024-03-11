@@ -18,11 +18,9 @@ jobs:
           java-version: 17
           distribution: 'zulu'
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - uses: actions/checkout@v3
   
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
@@ -57,7 +55,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          EXCLUDE_FROM_COVERAGE: "**/Migrations/**/*, **/program.cs"
+          EXCLUDE_FROM_COVERAGE: "**/**/Migrations/**/* , **/program.cs"
         run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"EugeneTryfanau_Clinic" /o:"eugenetryfanau" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build --configuration Release
