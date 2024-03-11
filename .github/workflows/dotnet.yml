@@ -56,9 +56,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           EXCLUDE_FROM_COVERAGE: "**/Migrations/**/*, **/ClinicDbContext.cs, **/Program.cs"
-          EXCLUDE_FROM_ANALYS: "**/Migrations/**/*"
         run: |
-          ./.sonar/scanner/dotnet-sonarscanner begin /k:"EugeneTryfanau_Clinic" /o:"eugenetryfanau" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          ./.sonar/scanner/dotnet-sonarscanner begin /k:"EugeneTryfanau_Clinic" /o:"eugenetryfanau" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io /d:sonar.coverage.exclusions="$EXCLUDE_FROM_COVERAGE" "
           dotnet build --configuration Release
           dotnet test --no-restore --no-build --configuration Release --verbosity normal
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
