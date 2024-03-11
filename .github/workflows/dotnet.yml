@@ -55,7 +55,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          EXCLUDE_FROM_COVERAGE: "src/Client.DAL/Migrations/**/* , **/program.cs"
+          EXCLUDE_FROM_COVERAGE: "/home/runner/work/Clinic/Clinic/src/Clinic.DAL/Migrations/* , **/program.cs"
         run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"EugeneTryfanau_Clinic" /o:"eugenetryfanau" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build --configuration Release
