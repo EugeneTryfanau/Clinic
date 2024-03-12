@@ -1,20 +1,16 @@
 ﻿using Clinic.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 namespace Clinic.DAL
 {
     public class ClinicDbContext : DbContext
     {
-        private readonly IConfiguration _configuration;
-
-        public ClinicDbContext(DbContextOptions<ClinicDbContext> options, IConfiguration configuration) : base(options)
+        public ClinicDbContext(DbContextOptions<ClinicDbContext> options) : base(options)
         {
             if (Database.IsRelational())
             {
                 Database.Migrate();
             }
-            _configuration = configuration;
             Database.EnsureCreated();
         }
 
