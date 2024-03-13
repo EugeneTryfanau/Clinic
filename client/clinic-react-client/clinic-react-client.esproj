@@ -13,7 +13,8 @@
     <Folder Include="src\components\UI\input\" />
     <Folder Include="src\components\UI\select\" />
     <Folder Include="src\models\" />
+    <Folder Include="src\hooks\" />
+    <Folder Include="src\configs\" />
     <Folder Include="src\services\" />
-    <Folder Include="src\pages\" />
   </ItemGroup>
 </Project>

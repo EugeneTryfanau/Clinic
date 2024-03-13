@@ -1,10 +1,9 @@
-import OfficeList from "../offices/OfficeList";
+import OfficeTable from "../offices/OfficeTable";
 
 const OfficesPage = () => {
     return (
         <div>
-            <h1>Offices</h1>
-            <OfficeList/>
+            <OfficeTable/>
         </div>
     );
 }
