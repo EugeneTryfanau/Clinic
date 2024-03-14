@@ -20,3 +20,8 @@
 .navbar__link{
     margin-right: 15px;
 }
+
+.bongo{
+    display: flex;
+    margin: auto;
+}

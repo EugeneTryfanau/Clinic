@@ -1,7 +1,9 @@
+import bongo from "../../assets/bongo-cat-typing.gif";
+
 const HomePage = () => {
     return (
         <div>
-            Home Page
+            <img className="bongo" src={bongo} alt="bongo_cat" />
         </div>
     );
 }

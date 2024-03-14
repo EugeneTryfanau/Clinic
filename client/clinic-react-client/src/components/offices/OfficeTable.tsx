@@ -1,19 +1,22 @@
 import { useEffect } from 'react';
 import { CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { fetchOffices } from '../../store/reducers/offices/ActionCreators';
+import { useOfficeStore } from '../../store/officeStore';
 
 const OfficeTable = () => {
 
-    const { offices, isLoading, error } = useAppSelector(state => state.officeReducer)
-    const dispatch = useAppDispatch()
+    const { offices, error, isLoading, fetchOffices } = useOfficeStore(state => ({
+        offices: state.offices,
+        error: state.errors,
+        isLoading: state.isLoading,
+        fetchOffices: state.fetchOffices
+    }))
 
     useEffect(() => {
-        dispatch(fetchOffices())
-        console.log(dispatch, offices, isLoading, error)
-    }, []);
-
-    
+        const fetch = async () => {
+            await fetchOffices();
+        }
+        fetch()
+    }, [fetchOffices])
 
     return (
         <TableContainer component={Paper} >
@@ -31,10 +34,9 @@ const OfficeTable = () => {
 
             <hr />
             <Table sx={{ minWidth: 650 }} aria-label="simple table" size='small'>
-                <TableHead>
+                <TableHead sx={{backgroundColor: '#81d4fa'}}>
                     <TableRow>
-                        <TableCell>Id</TableCell>
-                        <TableCell align="right">Address</TableCell>
+                        <TableCell>Address</TableCell>
                         <TableCell align="right">RegistryPhoneNumber</TableCell>
                         <TableCell align="right">IsActive</TableCell>
                     </TableRow>
@@ -45,12 +47,9 @@ const OfficeTable = () => {
                             key={row.id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
-                            <TableCell component="th" scope="row">
-                                {row.id}
-                            </TableCell>
-                            <TableCell align="right">{row.address}</TableCell>
+                            <TableCell component="th" scope="row">{row.address}</TableCell>
                             <TableCell align="right">{row.registryPhoneNumber}</TableCell>
-                            <TableCell align="right">{row.isActive}</TableCell>
+                            <TableCell align="right">{row.isActive == 0 ? 'Active' : row.isActive == 1 ? 'Inactive' : 'None'}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

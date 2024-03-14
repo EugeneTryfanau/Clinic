@@ -1,10 +1,7 @@
 import { IOffice } from "../models/IOffice";
+import { requestHandler } from "./requestHandler";
 import axiosInstance from "./AxiosInstance";
 
-export default class OfficesService {
-
-    static async getAll() {
-        const response = await axiosInstance.get<Array<IOffice>>(`/Offices`)
-        return response.data;
-    }
-}
+export const getOffices = requestHandler<StandartParams, IOffice[]>((params => 
+    axiosInstance.get(`/Offices`, { params })
+));

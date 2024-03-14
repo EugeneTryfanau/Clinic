@@ -3,7 +3,6 @@ import './App.css';
 import Navbar from './components/navbar/Navbar';
 import AppRouter from './routers/AppRouter';
 
-
 function App() {
 
     return (
