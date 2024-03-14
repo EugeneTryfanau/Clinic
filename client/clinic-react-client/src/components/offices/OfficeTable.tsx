@@ -25,6 +25,7 @@ const OfficeTable = () => {
                 padding="10px"
                 variant="h6"
                 component="div"
+                textAlign='center'
             >
                 Offices
             </Typography>
