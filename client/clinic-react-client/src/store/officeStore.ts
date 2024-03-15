@@ -1,23 +1,23 @@
-import { create } from 'zustand'
-import { persist } from 'zustand/middleware';
-import { immer } from 'zustand/middleware/immer';
-import { devtools } from 'zustand/middleware';
+import { StateCreator } from 'zustand'
 import { IOffice } from '../models/IOffice';
 import { getOffices } from '../services/OffisesService';
 
-export interface OfficeState{
+export interface OfficeSlice {
     offices: IOffice[]
     isLoading: boolean
     errors: string[]
     fetchOffices: () => Promise<void>
 }
 
-export const useOfficeStore = create<OfficeState>()(persist(devtools(immer((set) => ({
+export const getOfficeSlice: StateCreator<OfficeSlice> = (set) => ({
     offices: [],
     isLoading: false,
     errors: [],
     fetchOffices: async () => {
         const response = await getOffices();
-        response.code === "error" ? { errors: [response.error] } : set({offices: response.data});    
+        response.code === "error" ? 
+            set({ errors: [response.code, response.error.message] }) 
+            : 
+            set({ offices: response.data });
     }
-}))), {name: 'global-store'}))
+})

@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
 import { CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
-import { useOfficeStore } from '../../store/officeStore';
+import { useGlobalStore } from '../../store/globalStore';
 
 const OfficeTable = () => {
 
-    const { offices, error, isLoading, fetchOffices } = useOfficeStore(state => ({
+    const { offices, isLoading, errors, fetchOffices } = useGlobalStore((state) => ({
         offices: state.offices,
-        error: state.errors,
         isLoading: state.isLoading,
+        errors: state.errors,
         fetchOffices: state.fetchOffices
-    }))
+      }));
 
     useEffect(() => {
         const fetch = async () => {
@@ -31,7 +31,7 @@ const OfficeTable = () => {
             </Typography>
 
             {isLoading && <CircularProgress />}
-            {error && <h1>{error}</h1>}
+            {errors && <h1>{errors}</h1>}
 
             <hr />
             <Table sx={{ minWidth: 650 }} aria-label="simple table" size='small'>
