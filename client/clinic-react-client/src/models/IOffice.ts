@@ -1,5 +1,5 @@
 export interface IOffice {
-    id: string,
+    id?: string,
     address: string,
     registryPhoneNumber: string,
     isActive: number
