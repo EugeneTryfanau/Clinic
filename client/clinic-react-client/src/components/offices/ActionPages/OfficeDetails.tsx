@@ -118,7 +118,7 @@ const OfficeDetails = () => {
                     <h2>Address: {office.address}</h2>
                     <h2>Registry phone number: {office.registryPhoneNumber}</h2>
                     <h2>Is active: {office.isActive == 0 ? 'None' : office.isActive == 1 ? 'Active' : 'Inactive'}</h2>
-                    <button onClick={handleEdit}>Change</button>
+                    <Button onClick={handleEdit}>Change</Button>
                 </Typography>
             )}
         </div>

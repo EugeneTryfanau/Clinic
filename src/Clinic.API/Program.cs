@@ -11,7 +11,7 @@ var configuration = new ConfigurationBuilder()
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", builder =>
-        builder.AllowAnyOrigin()
+        builder.WithOrigins("https://localhost:5173")
         .AllowAnyMethod()
         .AllowAnyHeader());
 });

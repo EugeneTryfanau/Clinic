@@ -45,17 +45,14 @@ const OfficeTable = () => {
             registryPhoneNumber: phone,
             isActive: Number(active)
         } as IOffice;
-        console.log(office);
         createOffice(office);
     }
 
     const deleteOfficeById = (id: string) => {
-        console.log(id);
         deleteOffice(id)
     }
 
     const openOfficeDetails = (id: string) => {
-        console.log(id);
         navigator(`/offices/${id}`);
     }
 
