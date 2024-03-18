@@ -23,44 +23,44 @@ export const getOfficeSlice: StateCreator<OfficeSlice> = (set, get) => ({
         set({ isLoading: true });
         const response = await getOffices();
         response.code === "error" ? 
-            set({ errors: [response.code, response.error.message], isLoading: false }) 
+            set({ office: {} as IOffice, errors: [response.code, response.error.message], isLoading: false }) 
             : 
-            set({ offices: response.data, isLoading: false });
+            set({ offices: response.data, errors: [], isLoading: false });
     },
     getOfficeById: async (id: string) => {
         set({ isLoading: true });
         const response = await getByIdOffice({id});
         if (response.code === "error") {
-            set({ errors: [response.code, response.error.message], isLoading: false });
+            set({ office: {} as IOffice, errors: [response.code, response.error.message], isLoading: false });
         } else {
-            set({ office: response.data, isLoading: false });
+            set({ office: response.data, errors: [], isLoading: false });
         }
     },
     createOffice: async (office: IOffice) => {
         set({ isLoading: true });
         const response = await createOffice({entity: office});
         if (response.code === "error") {
-            set({ errors: [response.code, response.error.message], isLoading: false });
+            set({ office: {} as IOffice, errors: [response.code, response.error.message], isLoading: false });
         } else {
-            set({ offices: [...get().offices, response.data], office: response.data, isLoading: false });
+            set({ offices: [...get().offices, response.data], office: response.data, errors: [], isLoading: false });
         }
     },
     updateOffice: async (id: string, office: IOffice) => {
         set({ isLoading: true });
         const response = await updateOffice({id: id, entity: office});
         if (response.code === "error") {
-            set({ errors: [response.code, response.error.message], isLoading: false });
+            set({ office: {} as IOffice, errors: [response.code, response.error.message], isLoading: false });
         } else {
-            set({ offices: get().offices.map(o => o.id === id ? response.data : o), office: response.data, isLoading: false });
+            set({ offices: get().offices.map(o => o.id === id ? response.data : o), errors: [], office: response.data, isLoading: false });
         }
     },
     deleteOffice: async (id: string) => {
         set({ isLoading: true });
         const response = await deleteOffice({id: id});
         if (response.code === "error") {
-            set({ errors: [response.code, response.error.message], isLoading: false });
+            set({ office: {} as IOffice, errors: [response.code, response.error.message], isLoading: false });
         } else {
-            set({ offices: get().offices.filter(o => o.id !== id), office: {} as IOffice, isLoading: false });
+            set({ offices: get().offices.filter(o => o.id !== id), office: {} as IOffice, errors: [], isLoading: false });
         }
     }
 })
