@@ -8,6 +8,14 @@ var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("CorsPolicy", builder =>
+        builder.WithOrigins("https://localhost:5173")
+        .AllowAnyMethod()
+        .AllowAnyHeader());
+});
+
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDALDependencies(configuration);
 builder.Services.AddBLLDependencies();
@@ -27,6 +35,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 
