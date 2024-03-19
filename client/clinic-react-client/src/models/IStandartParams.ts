@@ -21,8 +21,8 @@ interface StandartParamsWithEntityAndFunctions<T> extends StandartParamsWithEnti
 }
 
 interface VisibilityParams {
-    visible: boolean,
-    setVisibility: Function
+    onClose: () => void
+    open: boolean
 }
 
 interface CreateParams extends VisibilityParams {

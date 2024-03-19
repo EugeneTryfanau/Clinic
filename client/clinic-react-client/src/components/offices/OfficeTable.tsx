@@ -3,8 +3,8 @@ import { Button, CircularProgress, Paper, Table, TableBody, TableCell, TableCont
 import { useGlobalStore } from '../../store/globalStore';
 import OfficeTableRow from './OfficeTableRow';
 import { IOffice } from '../../models/IOffice';
-import CreateWindow from './ActionPages/CreateWindow';
 import { useNavigate } from 'react-router-dom';
+import CreateModal from './ActionPages/CreateModal';
 
 const OfficeTable = () => {
 
@@ -25,7 +25,10 @@ const OfficeTable = () => {
     }));
 
     const navigator = useNavigate();
-    const [createVisibility, setCreateVisibility] = useState(false);
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     useEffect(() => {
         const fetch = async () => {
@@ -58,12 +61,13 @@ const OfficeTable = () => {
 
     return (
         <div>
-            <Button onClick={() => setCreateVisibility(!createVisibility)}>Create office</Button>
-            <CreateWindow
-                visible={createVisibility}
-                setVisibility={setCreateVisibility}
+            <Button onClick={handleOpen}>Create office</Button>
+            <CreateModal
+                open={open}
+                onClose={handleClose}
                 create={addOffice}
             />
+            <Button onClick={handleOpen}>Open modal</Button>
             <TableContainer component={Paper} >
                 <Typography
                     sx={{ flex: '1 1 100%' }}
