@@ -1,5 +1,7 @@
 using Clinic.DAL;
 using Clinic.BLL;
+using Clinic.BLL.Interfaces;
+using Clinic.BLL.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +13,7 @@ var configuration = new ConfigurationBuilder()
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", builder =>
-        builder.WithOrigins("https://localhost:5173")
+        builder.WithOrigins(configuration["ClientSide:ClientBase"]!)
         .AllowAnyMethod()
         .AllowAnyHeader());
 });
@@ -19,6 +21,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDALDependencies(configuration);
 builder.Services.AddBLLDependencies();
+builder.Services.AddScoped<IRabbitMqService, RabbitMqService>();
 
 builder.Services.AddControllers();
 

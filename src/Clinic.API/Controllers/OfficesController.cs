@@ -12,11 +12,13 @@ namespace Clinic.API.Controllers
     public class OfficesController : ControllerBase
     {
         private readonly IOfficeService _officeService;
+        private readonly IRabbitMqService _mqService;
         private readonly IMapper _mapper;
 
-        public OfficesController(IOfficeService officeService, IMapper mapper)
+        public OfficesController(IRabbitMqService mqService, IOfficeService officeService, IMapper mapper)
         {
             _officeService = officeService;
+            _mqService = mqService;
             _mapper = mapper;
         }
 
@@ -59,6 +61,7 @@ namespace Clinic.API.Controllers
         public async Task Delete(Guid id, CancellationToken cancellationToken)
         {
             await _officeService.DeleteAsync(id, cancellationToken);
+            _mqService.SendMessage(new DeleteMessageModel(id, "Office"));
         }
     }
 }
