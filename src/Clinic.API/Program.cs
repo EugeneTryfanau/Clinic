@@ -1,7 +1,5 @@
-using Clinic.DAL;
 using Clinic.BLL;
-using Clinic.BLL.Interfaces;
-using Clinic.BLL.Services;
+using Clinic.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +19,6 @@ builder.Services.AddCors(options =>
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDALDependencies(configuration);
 builder.Services.AddBLLDependencies();
-builder.Services.AddScoped<IRabbitMqService, RabbitMqService>();
 
 builder.Services.AddControllers();
 

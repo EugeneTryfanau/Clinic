@@ -12,10 +12,10 @@ namespace Clinic.API.Controllers
     public class OfficesController : ControllerBase
     {
         private readonly IOfficeService _officeService;
-        private readonly IRabbitMqService _mqService;
+        private readonly IRabbitMqProducerService _mqService;
         private readonly IMapper _mapper;
 
-        public OfficesController(IRabbitMqService mqService, IOfficeService officeService, IMapper mapper)
+        public OfficesController(IRabbitMqProducerService mqService, IOfficeService officeService, IMapper mapper)
         {
             _officeService = officeService;
             _mqService = mqService;

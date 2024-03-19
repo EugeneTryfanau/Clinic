@@ -6,12 +6,12 @@ using System.Text.Json;
 
 namespace Clinic.BLL.Services
 {
-    public class RabbitMqService : IRabbitMqService
+    public class RabbitMqProducerService : IRabbitMqProducerService
     {
         private readonly string _host;
         private readonly string _queue;
 
-        public RabbitMqService(IConfiguration configuration)
+        public RabbitMqProducerService(IConfiguration configuration)
         {
             _host = configuration["RabbitMq:RabbitMqHost"]!;
             _queue = configuration["RabbitMq:RabbitMqQueue"]!;
