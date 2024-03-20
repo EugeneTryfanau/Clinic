@@ -128,4 +128,10 @@ public class OfficeControllerTests : IntegrationTestsBase
         var responseResult = await response.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<IEnumerable<OfficeViewModel>>(responseResult);
     }
+
+    private async Task<bool> OfficeExists(Guid officeId)
+    {
+        var offices = await GetAll();
+        return offices.Any(o => o.Id == officeId);
+    }
 }

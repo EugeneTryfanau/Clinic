@@ -1,9 +1,12 @@
-﻿using Clinic.DAL;
+﻿using Clinic.BLL.Interfaces;
+using Clinic.DAL;
 using Clinic.DAL.Entities;
+using Clinic.IntegrationTests.TestData.Services;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Clinic.IntegrationTests.Infrastructure.Extensions
 {
@@ -19,6 +22,8 @@ namespace Clinic.IntegrationTests.Infrastructure.Extensions
                 services.Remove(dbContextService!);
 
                 services.AddDbContext<ClinicDbContext>(options => options.UseInMemoryDatabase("TestDb"));
+                services.RemoveAll<IRabbitMqProducerService>();
+                services.AddScoped(_ => MockedServices.MoqRabbitMqService());
             }));
             Server = Factory.Server;
             Client = Factory.CreateClient();
