@@ -3,6 +3,9 @@ using Microsoft.Extensions.Options;
 using MimeKit;
 using Notifications.BLL.Interfaces;
 using Notifications.BLL.Models;
+using Notifications.BLL.Templates;
+using System.Reflection;
+using RazorLight;
 
 namespace Notifications.BLL.Services
 {
@@ -21,18 +24,7 @@ namespace Notifications.BLL.Services
             {
                 using (MimeMessage emailMessage = new MimeMessage())
                 {
-                    MailboxAddress emailFrom = new MailboxAddress(_emailSettings.SenderName, _emailSettings.SenderEmail);
-                    emailMessage.From.Add(emailFrom);
-
-                    foreach (var recipient in recipients)
-                        emailMessage.To.Add(new MailboxAddress("", recipient));
-
-                    emailMessage.Subject = mailModel.EmailSubject;
-
-                    BodyBuilder emailBodyBuilder = new BodyBuilder();
-                    emailBodyBuilder.TextBody = mailModel.EmailBody;
-
-                    emailMessage.Body = emailBodyBuilder.ToMessageBody();
+                    await PrepareMailMessage(emailMessage, mailModel, recipients);
 
                     using (SmtpClient mailClient = new SmtpClient())
                     {
@@ -50,6 +42,42 @@ namespace Notifications.BLL.Services
                 Console.WriteLine(ex.Message);
                 return false;
             }
+        }
+
+        private async Task<MimeMessage> PrepareMailMessage(MimeMessage message, EmailModel emailModel, ICollection<string> recipients)
+        {
+            MailboxAddress emailFrom = new MailboxAddress(_emailSettings.SenderName, _emailSettings.SenderEmail);
+            message.From.Add(emailFrom);
+
+            foreach (var recipient in recipients)
+                message.To.Add(new MailboxAddress("", recipient));
+
+            message.Subject = emailModel.EmailSubject;
+
+            BodyBuilder emailBodyBuilder = new BodyBuilder();
+            emailBodyBuilder.TextBody = emailModel.EmailBody;
+            emailBodyBuilder.HtmlBody = await GetFilledTemplate(emailBodyBuilder.TextBody!);
+
+            message.Body = emailBodyBuilder.ToMessageBody();
+
+            return message;
+        }
+
+        private static async Task<string> GetFilledTemplate(string message)
+        {
+            string template = EmailTemplates.DefaultEmailTemplate;
+
+            RazorLightEngine engine = new RazorLightEngineBuilder()
+                .UseEmbeddedResourcesProject(Assembly.GetEntryAssembly())
+                .Build();
+
+            string result = await engine.CompileRenderStringAsync(
+                "cacheKey",
+                template,
+                message
+                );
+
+            return result;
         }
     }
 }

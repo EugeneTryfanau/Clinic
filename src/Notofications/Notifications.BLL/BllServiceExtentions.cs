@@ -23,7 +23,7 @@ namespace Notifications.BLL
 
             });
 
-            services.AddTransient<IEmailService, EmailService>();
+            services.AddSingleton<IEmailService, EmailService>();
         }
     }
 }

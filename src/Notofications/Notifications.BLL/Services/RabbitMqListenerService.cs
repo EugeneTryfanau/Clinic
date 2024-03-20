@@ -40,9 +40,7 @@ namespace Notifications.BLL.Services
             {
                 var content = Encoding.UTF8.GetString(ea.Body.ToArray());
 
-                _emailService.SendMail(new EmailModel() { EmailBody=content, EmailSubject="Произошло удаление" }, new List<string>() { "eugenetryfanau@gmail.com" });
-                // Каким-то образом обрабатываем полученное сообщение
-                //Console.WriteLine($"Получено сообщение: {content}");
+                _emailService.SendMail(new EmailModel() { EmailBody=content, EmailSubject="Произошло удаление again" }, new List<string>() { "eugenetryfanau@gmail.com", "nomand144@gmail.com" });
 
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
