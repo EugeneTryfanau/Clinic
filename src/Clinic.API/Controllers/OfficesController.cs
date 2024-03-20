@@ -60,8 +60,9 @@ namespace Clinic.API.Controllers
         [HttpDelete("{id}")]
         public async Task Delete(Guid id, CancellationToken cancellationToken)
         {
+            var modelToDelete = await _officeService.GetByIdAsync(id, cancellationToken);
             await _officeService.DeleteAsync(id, cancellationToken);
-            _mqService.SendMessage(new DeleteMessageModel(id, "Office"));
+            _mqService.SendMessage(modelToDelete);
         }
     }
 }

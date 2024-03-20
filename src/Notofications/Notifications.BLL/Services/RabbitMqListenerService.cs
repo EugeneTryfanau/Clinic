@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using Notifications.BLL.Interfaces;
 using Notifications.BLL.Models;
 using RabbitMQ.Client;
@@ -40,7 +41,10 @@ namespace Notifications.BLL.Services
             {
                 var content = Encoding.UTF8.GetString(ea.Body.ToArray());
 
-                _emailService.SendMail(new EmailModel() { EmailBody=content, EmailSubject="Произошло удаление again" }, new List<string>() { "eugenetryfanau@gmail.com", "nomand144@gmail.com" });
+                var entity = DeserializeMessage(content);
+
+                _emailService.SendMail(new EmailModel() { EmailBody= content, EmailSubject=$"Произошло удаление офиса (id:{entity.Id})" }, 
+                    ["eugenetryfanau@gmail.com", "nomand144@gmail.com"]);
 
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
@@ -55,6 +59,11 @@ namespace Notifications.BLL.Services
             _channel.Close();
             _connection.Close();
             base.Dispose();
+        }
+
+        private static NotificationOfficeModel DeserializeMessage(string message)
+        {
+            return JsonConvert.DeserializeObject<NotificationOfficeModel>(message)!;
         }
     }
 }
