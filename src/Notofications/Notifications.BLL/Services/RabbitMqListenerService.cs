@@ -43,7 +43,7 @@ namespace Notifications.BLL.Services
 
                 var entity = DeserializeMessage(content);
 
-                _emailService.SendMail(new EmailModel() { EmailBody= content, EmailSubject=$"Произошло удаление офиса (id:{entity.Id})" }, 
+                _emailService.SendMail(new EmailModel() { EmailBody= content, EmailSubject=$"Office was deleted (id:{entity.Id})" }, 
                     ["eugenetryfanau@gmail.com", "nomand144@gmail.com"]);
 
                 _channel.BasicAck(ea.DeliveryTag, false);
