@@ -13,8 +13,8 @@ namespace Notifications.BLL.Services
     {
         private readonly IEmailService _emailService;
 
-        private IConnection _connection;
-        private IModel _channel;
+        private readonly IConnection _connection;
+        private readonly IModel _channel;
 
         private readonly string _host;
         private readonly string _queue;
