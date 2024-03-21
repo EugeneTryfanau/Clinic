@@ -1,7 +1,9 @@
-import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { AuthButton } from "../authorization/AuthButton";
+import { ProfileButton } from '../authorization/buttons/ProfileButton';
+import { NavBarTab } from './NavBarTab';
 
 function Navbar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
@@ -49,12 +51,12 @@ function Navbar() {
                         >
                             <MenuItem key={0} onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">
-                                    <Link to="/">Home</Link>
+                                    <NavBarTab path="/" label="Home" />
                                 </Typography>
                             </MenuItem>
                             <MenuItem key={1} onClick={handleCloseNavMenu}>
                                 <Typography textAlign="center">
-                                    <Link to="/offices">Offices</Link>
+                                    <NavBarTab path="/offices" label="Offices" />
                                 </Typography>
                             </MenuItem>
                         </Menu>
@@ -73,24 +75,28 @@ function Navbar() {
                             textDecoration: 'none',
                         }}
                     >
-                        <Link to="/">Home</Link>
+                        <NavBarTab path="/" label="Home" />
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            <Button
-                                key={0}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                <Link to="/">Home</Link>
-                            </Button>
-                            <Button
-                                key={1}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                                
-                            >
-                                <Link to="/offices">Offices</Link>
-                            </Button>
+                        <Button
+                            key={0}
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                            <NavBarTab path="/" label="Home" />
+                        </Button>
+                        <Button
+                            key={1}
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+
+                        >
+                            <NavBarTab path="/offices" label="Offices" />
+                        </Button>
+                    </Box>
+                    <Box sx={{ flexGrow: 0 }}>
+                        <AuthButton />
+                        <ProfileButton />
                     </Box>
                 </Toolbar>
             </Container>
