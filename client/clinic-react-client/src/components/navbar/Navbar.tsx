@@ -4,9 +4,11 @@ import React from "react";
 import { AuthButton } from "../authorization/AuthButton";
 import { ProfileButton } from '../authorization/buttons/ProfileButton';
 import { NavBarTab } from './NavBarTab';
+import { AccountCircle } from '@mui/icons-material';
 
 function Navbar() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    const [authElNav, setAuthElNav] = React.useState<null | HTMLElement>(null);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -14,6 +16,14 @@ function Navbar() {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+    };
+
+    const handleOpenAuthNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+        setAuthElNav(event.currentTarget);
+    };
+
+    const handleCloseAuthNavMenu = () => {
+        setAuthElNav(null);
     };
 
     return (
@@ -94,10 +104,37 @@ function Navbar() {
                             <NavBarTab path="/offices" label="Offices" />
                         </Button>
                     </Box>
-                    <Box sx={{ flexGrow: 0 }}>
-                        <AuthButton />
+                    <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleOpenAuthNavMenu}
+                        color="inherit"
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                    <Menu
+                        id="menu-appbar"
+                        anchorEl={authElNav}
+                        anchorOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'right',
+                        }}
+                        open={Boolean(authElNav)}
+                        onClose={handleCloseAuthNavMenu}
+                        sx={{
+                            display: { xs: 'block', md: 'none' },
+                        }}
+                    >
                         <ProfileButton />
-                    </Box>
+                        <AuthButton />
+                    </Menu>
                 </Toolbar>
             </Container>
         </AppBar>

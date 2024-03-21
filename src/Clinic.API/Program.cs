@@ -1,3 +1,4 @@
+using Auth0.AspNetCore.Authentication;
 using Clinic.BLL;
 using Clinic.DAL;
 
@@ -20,6 +21,12 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDALDependencies(configuration);
 builder.Services.AddBLLDependencies();
 
+builder.Services.AddAuth0WebAppAuthentication(options =>
+{
+    options.Domain = configuration["Auth0:Domain"]!;
+    options.ClientId = configuration["Auth0:ClientId"]!;
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -38,6 +45,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
 
+app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapControllers();
