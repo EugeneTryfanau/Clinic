@@ -9,14 +9,7 @@ namespace Clinic.API.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        public async Task Login(string returnUrl = "/")
-        {
-            var authenticationProperties = new LoginAuthenticationPropertiesBuilder()
-                .WithRedirectUri(returnUrl)
-                .Build();
-
-            await HttpContext.ChallengeAsync(Auth0Constants.AuthenticationScheme, authenticationProperties);
-        }
+        
 
 
     }

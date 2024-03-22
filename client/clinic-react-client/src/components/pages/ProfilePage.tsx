@@ -3,8 +3,10 @@ import { CircularProgress } from '@mui/material'
 
 export const ProfilePage = withAuthenticationRequired(
     () => {
-        const { user } = useAuth0();
-        console.log(user);
+        const { user, getAccessTokenSilently, getIdTokenClaims } = useAuth0();
+        const token = getAccessTokenSilently();
+        const tokenClaims = getIdTokenClaims();
+        console.log(user, token, tokenClaims)
 
         return (
             <>

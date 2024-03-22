@@ -1,6 +1,8 @@
-using Auth0.AspNetCore.Authentication;
+using Clinic.API.Middlewares;
 using Clinic.BLL;
 using Clinic.DAL;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,11 +23,22 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDALDependencies(configuration);
 builder.Services.AddBLLDependencies();
 
-builder.Services.AddAuth0WebAppAuthentication(options =>
+var domain = $"https://{builder.Configuration["Auth0:Domain"]}/";
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
 {
-    options.Domain = configuration["Auth0:Domain"]!;
-    options.ClientId = configuration["Auth0:ClientId"]!;
+    options.Authority = domain;
+    options.Audience = builder.Configuration["Auth0:Audience"];
 });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("receptionist", policy => policy.Requirements.Add(new HasScopeRequirement("receptionist", domain)));
+    options.AddPolicy("doctor", policy => policy.Requirements.Add(new HasScopeRequirement("doctor", domain)));
+    options.AddPolicy("patient", policy => policy.Requirements.Add(new HasScopeRequirement("patient", domain)));
+});
+
+builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
 builder.Services.AddControllers();
 

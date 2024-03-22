@@ -3,11 +3,13 @@ using Clinic.API.ViewModels.Office;
 using Clinic.BLL.Interfaces;
 using Clinic.BLL.Models;
 using Clinic.DAL.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Clinic.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class OfficesController : ControllerBase
     {
@@ -22,6 +24,7 @@ namespace Clinic.API.Controllers
             _mapper = mapper;
         }
 
+        [Authorize("receptionist")]
         [HttpGet]
         public async Task<IEnumerable<OfficeViewModel>> GetAll(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken)
         {
