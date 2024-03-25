@@ -11,6 +11,7 @@ export const LoginButton = () => {
       },
       authorizationParams: {
         prompt: "login",
+        scope: "roles"
       },
     });
   };

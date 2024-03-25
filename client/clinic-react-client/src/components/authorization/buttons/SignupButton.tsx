@@ -12,6 +12,7 @@ export const SignupButton = () => {
         authorizationParams: {
           prompt: "login",
           screen_hint: "signup",
+          scope: "roles"
         },
       });
     };
