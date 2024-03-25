@@ -9,6 +9,7 @@ namespace Clinic.BLL
         public static void AddBLLDependencies(this IServiceCollection services)
         {
             services.AddScoped<IOfficeService, OfficeService>();
+            services.AddScoped<IRabbitMqProducerService, RabbitMqProducerService>();
         }
     }
 }

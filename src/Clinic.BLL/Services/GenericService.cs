@@ -48,7 +48,7 @@ namespace Clinic.BLL.Services
         public async virtual Task DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
             var entity = await _repository.GetByIdAsync(id, cancellationToken);
-            await _repository.DeleteAsync(entity, cancellationToken);
+            await _repository.DeleteAsync(entity!, cancellationToken);
         }
     }
 }

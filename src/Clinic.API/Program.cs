@@ -1,5 +1,5 @@
-using Clinic.DAL;
 using Clinic.BLL;
+using Clinic.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +11,7 @@ var configuration = new ConfigurationBuilder()
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CorsPolicy", builder =>
-        builder.WithOrigins("https://localhost:5173")
+        builder.WithOrigins(configuration["ClientSide:ClientBase"]!)
         .AllowAnyMethod()
         .AllowAnyHeader());
 });
