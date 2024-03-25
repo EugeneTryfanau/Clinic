@@ -24,7 +24,7 @@ namespace Clinic.API.Controllers
             _mapper = mapper;
         }
 
-        [Authorize(Roles = "receptionist")]
+        [Authorize(Policy = "receptionist")]
         [HttpGet]
         public async Task<IEnumerable<OfficeViewModel>> GetAll(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken)
         {

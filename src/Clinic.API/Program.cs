@@ -33,9 +33,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("receptionist", policy => policy.Requirements.Add(new HasScopeRequirement("receptionist", domain)));
-    options.AddPolicy("doctor", policy => policy.Requirements.Add(new HasScopeRequirement("doctor", domain)));
-    options.AddPolicy("patient", policy => policy.Requirements.Add(new HasScopeRequirement("patient", domain)));
+    options.AddPolicy("receptionist", policy => policy.RequireClaim("dev-jtm7f3iys0ltpeff.eu.auth0.com/roles", "receptionist"));
+    options.AddPolicy("doctor", policy => policy.RequireClaim("dev-jtm7f3iys0ltpeff.eu.auth0.com/roles", "doctor"));
+    options.AddPolicy("patient", policy => policy.RequireClaim("dev-jtm7f3iys0ltpeff.eu.auth0.com/roles", "patient"));
 });
 
 builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();

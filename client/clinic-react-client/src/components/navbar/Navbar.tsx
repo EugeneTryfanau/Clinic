@@ -129,7 +129,7 @@ function Navbar() {
                         open={Boolean(authElNav)}
                         onClose={handleCloseAuthNavMenu}
                         sx={{
-                            display: { xs: 'block', md: 'none' },
+                            display: { xs: 'block' },
                         }}
                     >
                         <ProfileButton />
