@@ -2,6 +2,7 @@
 using Clinic.DAL;
 using Clinic.DAL.Entities;
 using Clinic.IntegrationTests.TestData.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,9 @@ namespace Clinic.IntegrationTests.Infrastructure.Extensions
                 var dbContextService = services.SingleOrDefault(x =>
                     x.ServiceType == typeof(DbContextOptions<ClinicDbContext>));
                 services.Remove(dbContextService!);
+
+                services.AddAuthentication("Test")
+                    .AddScheme<AuthenticationSchemeOptions, MockedAuth>("Test", options => { });
 
                 services.AddDbContext<ClinicDbContext>(options => options.UseInMemoryDatabase("TestDb"));
                 services.RemoveAll<IRabbitMqProducerService>();
