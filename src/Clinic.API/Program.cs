@@ -1,5 +1,8 @@
+using Clinic.API.Middlewares;
 using Clinic.BLL;
 using Clinic.DAL;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +23,23 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDALDependencies(configuration);
 builder.Services.AddBLLDependencies();
 
+var domain = $"https://{builder.Configuration["Auth0:Domain"]}/";
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
+{
+    options.Authority = domain;
+    options.Audience = builder.Configuration["Auth0:Audience"];
+});
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("receptionist", policy => policy.RequireClaim("dev-jtm7f3iys0ltpeff.eu.auth0.com/roles", "receptionist"));
+    options.AddPolicy("doctor", policy => policy.RequireClaim("dev-jtm7f3iys0ltpeff.eu.auth0.com/roles", "doctor"));
+    options.AddPolicy("patient", policy => policy.RequireClaim("dev-jtm7f3iys0ltpeff.eu.auth0.com/roles", "patient"));
+});
+
+builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -38,6 +58,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
 
+app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapControllers();

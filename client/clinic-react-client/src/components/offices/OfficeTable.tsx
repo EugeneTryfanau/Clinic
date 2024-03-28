@@ -61,6 +61,10 @@ const OfficeTable = () => {
 
     return (
         <div>
+            {isLoading && <CircularProgress />}
+            {offices.length == 0 && isLoading == false && <h1 style={{ margin: "auto" }}>Offices were not found!</h1>}
+            {errors.length > 0 ? <h1>Error: {errors}</h1> : 
+            <>
             <Button onClick={handleOpen}>Create office</Button>
             <CreateModal
                 open={open}
@@ -78,10 +82,6 @@ const OfficeTable = () => {
                 >
                     Offices
                 </Typography>
-
-                {isLoading && <CircularProgress />}
-                {offices.length == 0 && isLoading == false && <h1 style={{ margin: "auto" }}>Offices were not found!</h1>}
-                {errors.length > 0 && <h1>Error: {errors}</h1>}
 
                 <hr />
                 <Table sx={{ minWidth: 650 }} aria-label="simple table" size='small'>
@@ -105,6 +105,7 @@ const OfficeTable = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
+            </>}
         </div>
 
     );
