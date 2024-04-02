@@ -6,14 +6,11 @@ using Profiles.DAL.Interfaces;
 
 namespace Profiles.BLL.Services
 {
-    public class DoctorService : GenericService<DoctorEntity, Doctor>, IDoctorService
+    public class DoctorService(IDoctorRepository doctorRepository, IMapper mapper) : 
+        GenericService<DoctorEntity, Doctor>(doctorRepository, mapper), 
+        IDoctorService
     {
-        private readonly IDoctorRepository _doctorRepository;
-
-        public DoctorService(IDoctorRepository doctorRepository, IMapper mapper) : base(doctorRepository, mapper)
-        {
-            _doctorRepository = doctorRepository;
-        }
+        private readonly IDoctorRepository _doctorRepository = doctorRepository;
 
         public async Task<IEnumerable<Doctor>> GetAllAsync(string? name, DoctorStatus? status, CancellationToken cancellationToken)
         {

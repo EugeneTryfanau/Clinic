@@ -4,14 +4,9 @@ using System.Linq.Expressions;
 
 namespace Clinic.DAL.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T>(ClinicDbContext dbContext) : IRepository<T> where T : class
     {
-        protected readonly ClinicDbContext _dbContext;
-
-        public Repository(ClinicDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+        protected readonly ClinicDbContext _dbContext = dbContext;
 
         public async virtual Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
         {

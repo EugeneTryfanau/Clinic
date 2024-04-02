@@ -6,14 +6,11 @@ using Profiles.DAL.Interfaces;
 
 namespace Profiles.BLL.Services
 {
-    public class SpecializationService : GenericService<SpecializationEntity, Specialization>, ISpecializationService
+    public class SpecializationService(ISpecializationRepository specializationRepository, IMapper mapper) : 
+        GenericService<SpecializationEntity, Specialization>(specializationRepository, mapper), 
+        ISpecializationService
     {
-        private readonly ISpecializationRepository _specializationRepository;
-
-        public SpecializationService(ISpecializationRepository specializationRepository, IMapper mapper) : base(specializationRepository, mapper)
-        {
-            _specializationRepository = specializationRepository;
-        }
+        private readonly ISpecializationRepository _specializationRepository = specializationRepository;
 
         public async Task<IEnumerable<Specialization>> GetAllAsync(string? specName, CancellationToken cancellationToken)
         {

@@ -4,14 +4,9 @@ using System.Linq.Expressions;
 
 namespace Profiles.DAL.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T>(ProfilesDbContext dbContext) : IRepository<T> where T : class
     {
-        protected readonly ProfilesDbContext _dbContext;
-
-        public Repository(ProfilesDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+        protected readonly ProfilesDbContext _dbContext = dbContext;
 
         public async virtual Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
         {

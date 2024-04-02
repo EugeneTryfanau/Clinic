@@ -6,14 +6,11 @@ using Profiles.DAL.Interfaces;
 
 namespace Profiles.BLL.Services
 {
-    public class AccountService : GenericService<AccountEntity, Account>, IAccountService
+    public class AccountService(IAccountRepository accountRepository, IMapper mapper) : 
+        GenericService<AccountEntity, Account>(accountRepository, mapper), 
+        IAccountService
     {
-        private readonly IAccountRepository _accountRepository;
-
-        public AccountService(IAccountRepository accountRepository, IMapper mapper) : base(accountRepository, mapper)
-        {
-            _accountRepository = accountRepository;
-        }
+        private readonly IAccountRepository _accountRepository = accountRepository;
 
         public async Task<IEnumerable<Account>> GetAllAsync(string? email, string? phoneNumber, bool? isActive, CancellationToken cancellationToken)
         {

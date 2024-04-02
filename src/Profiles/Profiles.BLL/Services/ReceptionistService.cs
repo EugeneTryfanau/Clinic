@@ -6,14 +6,11 @@ using Profiles.DAL.Interfaces;
 
 namespace Profiles.BLL.Services
 {
-    public class ReceptionistService : GenericService<ReceptionistEntity, Receptionist>, IReceptionistService
+    public class ReceptionistService(IReceptionistRepository receptionistRepository, IMapper mapper) : 
+        GenericService<ReceptionistEntity, Receptionist>(receptionistRepository, mapper), 
+        IReceptionistService
     {
-        private readonly IReceptionistRepository _receptionistRepository;
-
-        public ReceptionistService(IReceptionistRepository receptionistRepository, IMapper mapper) : base(receptionistRepository, mapper)
-        {
-            _receptionistRepository = receptionistRepository;
-        }
+        private readonly IReceptionistRepository _receptionistRepository = receptionistRepository;
 
         public async Task<IEnumerable<Receptionist>> GetAllAsync(string? name, CancellationToken cancellationToken)
         {

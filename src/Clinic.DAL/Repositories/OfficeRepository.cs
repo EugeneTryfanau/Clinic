@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.DAL.Repositories
 {
-    public class OfficeRepository : Repository<OfficeEntity>, IOfficeRepository
+    public class OfficeRepository(ClinicDbContext dbContext) : 
+        Repository<OfficeEntity>(dbContext), 
+        IOfficeRepository
     {
-        public OfficeRepository(ClinicDbContext dbContext) : base(dbContext) { }
-
         public async Task<IEnumerable<OfficeEntity>> GetAllAsync(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken)
         {
             IQueryable<OfficeEntity> query = _dbContext.Offices.AsQueryable();

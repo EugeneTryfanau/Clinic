@@ -4,10 +4,10 @@ using Profiles.DAL.Interfaces;
 
 namespace Profiles.DAL.Repositories
 {
-    public class DoctorRepository : Repository<DoctorEntity>, IDoctorRepository
+    public class DoctorRepository(ProfilesDbContext dbContext) : 
+        Repository<DoctorEntity>(dbContext), 
+        IDoctorRepository
     {
-        public DoctorRepository(ProfilesDbContext dbContext) : base(dbContext) { }
-
         public async Task<IEnumerable<DoctorEntity>> GetAllAsync(string? name, DoctorStatus? status, CancellationToken cancellationToken)
         {
             IQueryable<DoctorEntity> query = _dbContext.Doctors.AsQueryable();

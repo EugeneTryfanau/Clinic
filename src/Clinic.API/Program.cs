@@ -31,12 +31,10 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     options.Audience = builder.Configuration["Auth0:Audience"];
 });
 
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("receptionist", policy => policy.RequireClaim("dev-jtm7f3iys0ltpeff.eu.auth0.com/roles", "receptionist"));
-    options.AddPolicy("doctor", policy => policy.RequireClaim("dev-jtm7f3iys0ltpeff.eu.auth0.com/roles", "doctor"));
-    options.AddPolicy("patient", policy => policy.RequireClaim("dev-jtm7f3iys0ltpeff.eu.auth0.com/roles", "patient"));
-});
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("receptionist", policy => policy.RequireClaim("dev-jtm7f3iys0ltpeff.eu.auth0.com/roles", "receptionist"))
+    .AddPolicy("doctor", policy => policy.RequireClaim("dev-jtm7f3iys0ltpeff.eu.auth0.com/roles", "doctor"))
+    .AddPolicy("patient", policy => policy.RequireClaim("dev-jtm7f3iys0ltpeff.eu.auth0.com/roles", "patient"));
 
 builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 

@@ -4,10 +4,10 @@ using Profiles.DAL.Interfaces;
 
 namespace Profiles.DAL.Repositories
 {
-    public class AccountRepository : Repository<AccountEntity>, IAccountRepository
+    public class AccountRepository(ProfilesDbContext dbContext) : 
+        Repository<AccountEntity>(dbContext), 
+        IAccountRepository
     {
-        public AccountRepository(ProfilesDbContext dbContext) : base(dbContext) { }
-
         public async Task<IEnumerable<AccountEntity>> GetAllAsync(string? email, string? phoneNumber, bool? isActive, CancellationToken cancellationToken)
         {
             IQueryable<AccountEntity> query = _dbContext.Accounts.AsQueryable();

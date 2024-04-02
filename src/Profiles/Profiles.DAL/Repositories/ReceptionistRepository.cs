@@ -4,10 +4,10 @@ using Profiles.DAL.Interfaces;
 
 namespace Profiles.DAL.Repositories
 {
-    public class ReceptionistRepository : Repository<ReceptionistEntity>, IReceptionistRepository
+    public class ReceptionistRepository(ProfilesDbContext dbContext) : 
+        Repository<ReceptionistEntity>(dbContext), 
+        IReceptionistRepository
     {
-        public ReceptionistRepository(ProfilesDbContext dbContext) : base(dbContext) { }
-
         public async Task<IEnumerable<ReceptionistEntity>> GetAllAsync(string? name, CancellationToken cancellationToken)
         {
             IQueryable<ReceptionistEntity> query = _dbContext.Receptionists.AsQueryable();
