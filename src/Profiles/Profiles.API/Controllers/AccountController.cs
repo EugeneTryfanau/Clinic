@@ -11,6 +11,8 @@ namespace Profiles.API.Controllers
     {
         private readonly IAccountService _accountService = accountService;
         private readonly IMapper _mapper = mapper;
+
+        [HttpGet]
         public async Task<IEnumerable<AccountViewModel>> GetAll(string? email, string? phoneNumber, bool? isActive, CancellationToken cancellationToken)
         {
             var offices = await _accountService.GetAllAsync(email, phoneNumber, isActive, cancellationToken);
