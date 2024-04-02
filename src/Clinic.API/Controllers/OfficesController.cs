@@ -11,18 +11,11 @@ namespace Clinic.API.Controllers
     [Route("api/[controller]")]
     [Authorize]
     [ApiController]
-    public class OfficesController : ControllerBase
+    public class OfficesController(IRabbitMqProducerService mqService, IOfficeService officeService, IMapper mapper) : ControllerBase
     {
-        private readonly IOfficeService _officeService;
-        private readonly IRabbitMqProducerService _mqService;
-        private readonly IMapper _mapper;
-
-        public OfficesController(IRabbitMqProducerService mqService, IOfficeService officeService, IMapper mapper)
-        {
-            _officeService = officeService;
-            _mqService = mqService;
-            _mapper = mapper;
-        }
+        private readonly IOfficeService _officeService = officeService;
+        private readonly IRabbitMqProducerService _mqService = mqService;
+        private readonly IMapper _mapper = mapper;
 
         [Authorize(Policy = "receptionist")]
         [HttpGet]
