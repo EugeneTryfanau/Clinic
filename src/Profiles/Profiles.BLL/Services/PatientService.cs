@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Profiles.BLL.Interrfaces;
+using Profiles.BLL.Interfaces;
 using Profiles.BLL.Models;
 using Profiles.DAL.Entities;
 using Profiles.DAL.Interfaces;
@@ -7,8 +7,8 @@ using StandartCRUD.StandartBLL;
 
 namespace Profiles.BLL.Services
 {
-    public class PatientService(IPatientRepository patientRepository, IMapper mapper) : 
-        GenericService<PatientEntity, Patient>(patientRepository, mapper), 
+    public class PatientService(IPatientRepository patientRepository, IMapper mapper) :
+        GenericService<PatientEntity, Patient>(patientRepository, mapper),
         IPatientService
     {
         private readonly IPatientRepository _patientRepository = patientRepository;

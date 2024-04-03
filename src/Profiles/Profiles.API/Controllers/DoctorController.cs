@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Profiles.API.ViewModels;
 using Profiles.API.ViewModels.Doctor;
-using Profiles.BLL.Interrfaces;
+using Profiles.BLL.Interfaces;
 using Profiles.BLL.Models;
 using Profiles.DAL.Entities;
 

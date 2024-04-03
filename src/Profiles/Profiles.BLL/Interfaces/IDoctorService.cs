@@ -2,7 +2,7 @@
 using Profiles.DAL.Entities;
 using StandartCRUD.StandartBLL;
 
-namespace Profiles.BLL.Interrfaces
+namespace Profiles.BLL.Interfaces
 {
     public interface IDoctorService : IGenericService<Doctor>
     {

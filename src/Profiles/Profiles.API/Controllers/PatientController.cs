@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Profiles.API.ViewModels;
 using Profiles.API.ViewModels.Patient;
-using Profiles.BLL.Interrfaces;
+using Profiles.BLL.Interfaces;
 using Profiles.BLL.Models;
 
 namespace Profiles.API.Controllers

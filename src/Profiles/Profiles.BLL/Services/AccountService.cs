@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Profiles.BLL.Interrfaces;
+using Profiles.BLL.Interfaces;
 using Profiles.BLL.Models;
 using Profiles.DAL.Entities;
 using Profiles.DAL.Interfaces;
