@@ -9,7 +9,7 @@ namespace StandartCRUD.StandartDAL
     {
         protected readonly TContext _dbContext = dbContext;
 
-        public async virtual Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
+        public async virtual Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await _dbContext.Set<T>().ToListAsync(cancellationToken);
         }

@@ -3,7 +3,7 @@ using NSubstitute;
 
 namespace Clinic.IntegrationTests.TestData.Services
 {
-    public class MockedServices
+    public static class MockedServices
     {
         public static IRabbitMqProducerService MoqRabbitMqService()
         {

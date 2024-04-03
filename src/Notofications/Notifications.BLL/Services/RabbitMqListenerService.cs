@@ -16,14 +16,13 @@ namespace Notifications.BLL.Services
         private readonly IConnection _connection;
         private readonly IModel _channel;
 
-        private readonly string _host;
         private readonly string _queue;
 
         public RabbitMqListenerService(IConfiguration configuration, IEmailService emailService)
         {
             _emailService = emailService;
 
-            _host = configuration["RabbitMq:RabbitMqHost"]!;
+            var _host = configuration["RabbitMq:RabbitMqHost"]!;
             _queue = configuration["RabbitMq:RabbitMqQueue"]!;
 
             var factory = new ConnectionFactory { HostName = _host };

@@ -16,7 +16,7 @@ namespace Profiles.DAL.Repositories
             if (!string.IsNullOrWhiteSpace(name))
             {
                 var nameLower = name.ToLower();
-                query = query.Where(x => EF.Functions.Like((x.MiddleName + x.LastName + x.FirstName).ToLower(), $"%{name}%"));
+                query = query.Where(x => EF.Functions.Like((x.MiddleName + x.LastName + x.FirstName).ToLower(), $"%{nameLower}%"));
             }
 
             return await query.ToListAsync(cancellationToken);

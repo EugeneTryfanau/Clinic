@@ -20,8 +20,6 @@ namespace Profiles.DAL
         public DbSet<ReceptionistEntity> Receptionists { get; set; }
         public DbSet<SpecializationEntity> Specializations { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DoctorSpecializationEntity>()

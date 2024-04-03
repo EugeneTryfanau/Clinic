@@ -96,7 +96,6 @@ public class OfficeControllerTests : IntegrationTestsBase
         using var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/offices/{expectedModel!.Id}");
 
         var actualResult = await Client.SendAsync(request);
-        var responseResult = actualResult.Content.ReadAsStringAsync();
 
         actualResult.StatusCode.ShouldBe(HttpStatusCode.OK);
 
