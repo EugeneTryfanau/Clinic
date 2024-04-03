@@ -1,6 +1,6 @@
 ﻿namespace Services.API.ViewModels.Service
 {
-    public class ServiceViewModel : BaseServiceViewModel
+    public class CreateServiceViewModel : BaseServiceViewModel
     {
         public Guid Id { get; set; }
     }
