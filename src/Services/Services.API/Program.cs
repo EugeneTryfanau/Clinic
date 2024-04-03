@@ -1,4 +1,4 @@
-//using Services.BLL;
+using Services.BLL;
 using Services.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +10,7 @@ var configuration = new ConfigurationBuilder()
 
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDALDependencies(configuration);
-//builder.Services.AddBLLDependencies();
+builder.Services.AddBLLDependencies();
 
 builder.Services.AddControllers();
 

@@ -1,4 +1,4 @@
-﻿namespace Profiles.BLL.Models
+﻿namespace StandartCRUD.StandartBLL.Models
 {
     public class BaseModel : IBaseModel
     {

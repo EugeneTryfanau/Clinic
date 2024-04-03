@@ -1,4 +1,4 @@
-﻿using StandartCRUD;
+﻿using StandartCRUD.StandartDAL.Entities;
 
 namespace Services.DAL.Entities
 {

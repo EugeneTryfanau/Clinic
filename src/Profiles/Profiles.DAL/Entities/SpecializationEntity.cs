@@ -1,4 +1,5 @@
 ﻿using StandartCRUD;
+using StandartCRUD.StandartDAL.Entities;
 
 namespace Profiles.DAL.Entities
 {

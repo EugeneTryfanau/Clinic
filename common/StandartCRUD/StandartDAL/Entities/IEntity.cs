@@ -1,4 +1,4 @@
-﻿namespace StandartCRUD
+﻿namespace StandartCRUD.StandartDAL.Entities
 {
     public interface IEntity
     {

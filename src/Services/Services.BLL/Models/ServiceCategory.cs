@@ -1,8 +1,8 @@
-﻿using StandartCRUD.StandartDAL.Entities;
+﻿using StandartCRUD.StandartBLL.Models;
 
-namespace Clinic.DAL.Entities
+namespace Services.BLL.Models
 {
-    public class ServiceCategoryEntity : Entity
+    public class ServiceCategory : BaseModel
     {
         public required string CategoryName { get; set; }
         public DateTime TimeSlotSize { get; set; }
