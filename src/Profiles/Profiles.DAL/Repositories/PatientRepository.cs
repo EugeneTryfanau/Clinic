@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Profiles.DAL.Entities;
 using Profiles.DAL.Interfaces;
+using StandartCRUD.StandartDAL;
 
 namespace Profiles.DAL.Repositories
 {
     public class PatientRepository(ProfilesDbContext dbContext) : 
-        Repository<PatientEntity>(dbContext), 
+        Repository<PatientEntity, ProfilesDbContext>(dbContext), 
         IPatientRepository
     {
         public async Task<IEnumerable<PatientEntity>> GetAllAsync(string? name, CancellationToken cancellationToken)

@@ -1,4 +1,4 @@
-﻿namespace Clinic.DAL.Interfaces
+﻿namespace StandartCRUD.StandartDAL
 {
     public interface IRepository<T> where T : class
     {

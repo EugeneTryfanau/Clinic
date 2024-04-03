@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using Clinic.BLL.Interfaces;
-using Clinic.DAL.Interfaces;
+using StandartCRUD.StandartDAL;
 
-namespace Clinic.BLL.Services
+namespace StandartCRUD.StandartBLL
 {
-    public class GenericService<TEntity, TModel>(IRepository<TEntity> repository, IMapper mapper) : IGenericService<TEntity, TModel> where TEntity : class
+    public class GenericService<TEntity, TModel>(IRepository<TEntity> repository, IMapper mapper) :
+        IGenericService<TEntity, TModel> where TEntity : class
     {
         protected readonly IRepository<TEntity> _repository = repository;
         protected readonly IMapper _mapper = mapper;

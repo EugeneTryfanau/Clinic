@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Profiles.DAL.Entities;
 using Profiles.DAL.Interfaces;
+using StandartCRUD.StandartDAL;
 
 namespace Profiles.DAL.Repositories
 {
     public class SpecializationRepository(ProfilesDbContext dbContext) : 
-        Repository<SpecializationEntity>(dbContext), 
+        Repository<SpecializationEntity, ProfilesDbContext>(dbContext), 
         ISpecializationRepository
     {
         public async Task<IEnumerable<SpecializationEntity>> GetAllAsync(string? specName, CancellationToken cancellationToken)

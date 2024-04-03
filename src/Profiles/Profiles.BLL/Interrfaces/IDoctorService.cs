@@ -1,5 +1,6 @@
 ﻿using Profiles.BLL.Models;
 using Profiles.DAL.Entities;
+using StandartCRUD.StandartBLL;
 
 namespace Profiles.BLL.Interrfaces
 {

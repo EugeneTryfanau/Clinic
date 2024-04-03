@@ -1,11 +1,12 @@
 ﻿using Clinic.DAL.Entities;
 using Clinic.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using StandartCRUD.StandartDAL;
 
 namespace Clinic.DAL.Repositories
 {
     public class OfficeRepository(ClinicDbContext dbContext) : 
-        Repository<OfficeEntity>(dbContext), 
+        Repository<OfficeEntity, ClinicDbContext>(dbContext), 
         IOfficeRepository
     {
         public async Task<IEnumerable<OfficeEntity>> GetAllAsync(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken)

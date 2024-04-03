@@ -1,4 +1,5 @@
 ﻿using Clinic.DAL.Entities;
+using StandartCRUD.StandartDAL;
 
 namespace Clinic.DAL.Interfaces
 {

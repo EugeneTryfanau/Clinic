@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Profiles.DAL.Entities;
 using Profiles.DAL.Interfaces;
+using StandartCRUD.StandartDAL;
 
 namespace Profiles.DAL.Repositories
 {
     public class ReceptionistRepository(ProfilesDbContext dbContext) : 
-        Repository<ReceptionistEntity>(dbContext), 
+        Repository<ReceptionistEntity, ProfilesDbContext>(dbContext), 
         IReceptionistRepository
     {
         public async Task<IEnumerable<ReceptionistEntity>> GetAllAsync(string? name, CancellationToken cancellationToken)

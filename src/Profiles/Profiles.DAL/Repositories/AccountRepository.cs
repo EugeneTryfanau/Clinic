@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Profiles.DAL.Entities;
 using Profiles.DAL.Interfaces;
+using StandartCRUD.StandartDAL;
 
 namespace Profiles.DAL.Repositories
 {
     public class AccountRepository(ProfilesDbContext dbContext) : 
-        Repository<AccountEntity>(dbContext), 
+        Repository<AccountEntity, ProfilesDbContext>(dbContext), 
         IAccountRepository
     {
         public async Task<IEnumerable<AccountEntity>> GetAllAsync(string? email, string? phoneNumber, bool? isActive, CancellationToken cancellationToken)

@@ -1,4 +1,4 @@
-﻿namespace Profiles.BLL.Interrfaces
+﻿namespace StandartCRUD.StandartBLL
 {
     public interface IGenericService<TEntity, TModel>
     {
