@@ -4,7 +4,6 @@ using Profiles.API.ViewModels;
 using Profiles.API.ViewModels.Doctor;
 using Profiles.BLL.Interfaces;
 using Profiles.BLL.Models;
-using Profiles.DAL.Entities;
 
 namespace Profiles.API.Controllers
 {
