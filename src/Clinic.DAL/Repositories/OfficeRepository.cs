@@ -15,8 +15,8 @@ namespace Clinic.DAL.Repositories
 
             if (!string.IsNullOrWhiteSpace(address))
             {
-                var firstNameLower = address.ToLower();
-                query = query.Where(x => EF.Functions.Like(x.Address.ToLower(), $"%{address}%"));
+                var addressLower = address.ToLower();
+                query = query.Where(x => EF.Functions.Like(x.Address.ToLower(), $"%{addressLower}%"));
             }
 
             if (!string.IsNullOrWhiteSpace(phoneNumber))

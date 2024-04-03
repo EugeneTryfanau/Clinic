@@ -41,8 +41,8 @@ namespace Clinic.UnitTests.TestData.Offices
 
             if (!string.IsNullOrWhiteSpace(address))
             {
-                var firstNameLower = address.ToLower();
-                sortedOffices = sortedOffices.Where(x => EF.Functions.Like(x.Address.ToLower(), $"%{address}%")).ToList();
+                var addressLower = address.ToLower();
+                sortedOffices = sortedOffices.Where(x => EF.Functions.Like(x.Address.ToLower(), $"%{addressLower}%")).ToList();
             }
 
             if (!string.IsNullOrWhiteSpace(phoneNumber))

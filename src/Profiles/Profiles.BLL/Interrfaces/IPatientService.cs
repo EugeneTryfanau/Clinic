@@ -1,10 +1,9 @@
 ﻿using Profiles.BLL.Models;
-using Profiles.DAL.Entities;
 using StandartCRUD.StandartBLL;
 
 namespace Profiles.BLL.Interrfaces
 {
-    public interface IPatientService : IGenericService<PatientEntity, Patient>
+    public interface IPatientService : IGenericService<Patient>
     {
         Task<IEnumerable<Patient>> GetAllAsync(string? name, CancellationToken cancellationToken);
     }

@@ -4,7 +4,7 @@ using StandartCRUD.StandartDAL;
 namespace StandartCRUD.StandartBLL
 {
     public class GenericService<TEntity, TModel>(IRepository<TEntity> repository, IMapper mapper) :
-        IGenericService<TEntity, TModel> where TEntity : class
+        IGenericService<TModel> where TEntity : class
     {
         protected readonly IRepository<TEntity> _repository = repository;
         protected readonly IMapper _mapper = mapper;
