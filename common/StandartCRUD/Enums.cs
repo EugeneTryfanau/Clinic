@@ -1,4 +1,4 @@
-﻿namespace Profiles.DAL.Entities
+﻿namespace StandartCRUD
 {
     public enum StandartStatus
     {

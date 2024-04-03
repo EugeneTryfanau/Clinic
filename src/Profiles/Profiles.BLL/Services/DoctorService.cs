@@ -3,6 +3,7 @@ using Profiles.BLL.Interfaces;
 using Profiles.BLL.Models;
 using Profiles.DAL.Entities;
 using Profiles.DAL.Interfaces;
+using StandartCRUD;
 using StandartCRUD.StandartBLL;
 
 namespace Profiles.BLL.Services

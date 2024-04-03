@@ -1,4 +1,4 @@
-﻿using Clinic.DAL.Entities;
+﻿using StandartCRUD;
 
 namespace Clinic.BLL.Models
 {

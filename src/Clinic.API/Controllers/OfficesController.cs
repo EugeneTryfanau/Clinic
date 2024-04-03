@@ -2,9 +2,9 @@
 using Clinic.API.ViewModels.Office;
 using Clinic.BLL.Interfaces;
 using Clinic.BLL.Models;
-using Clinic.DAL.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using StandartCRUD;
 
 namespace Clinic.API.Controllers
 {

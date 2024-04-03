@@ -8,6 +8,7 @@ using Clinic.UnitTests.TestData.Offices;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using Shouldly;
+using StandartCRUD;
 
 namespace Clinic.UnitTests.ServiceTests
 {

@@ -1,4 +1,5 @@
 ﻿using Profiles.DAL.Entities;
+using StandartCRUD;
 using StandartCRUD.StandartDAL;
 
 namespace Profiles.DAL.Interfaces

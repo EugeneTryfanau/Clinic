@@ -1,4 +1,4 @@
-﻿using Profiles.DAL.Entities;
+﻿using StandartCRUD;
 
 namespace Profiles.BLL.Models
 {

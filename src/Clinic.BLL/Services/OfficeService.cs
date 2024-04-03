@@ -3,6 +3,7 @@ using Clinic.BLL.Interfaces;
 using Clinic.BLL.Models;
 using Clinic.DAL.Entities;
 using Clinic.DAL.Interfaces;
+using StandartCRUD;
 using StandartCRUD.StandartBLL;
 
 namespace Clinic.BLL.Services
