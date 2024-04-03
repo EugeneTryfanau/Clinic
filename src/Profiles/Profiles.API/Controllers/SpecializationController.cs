@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Profiles.API.ViewModels;
 using Profiles.API.ViewModels.Specialization;
 using Profiles.BLL.Interrfaces;
 using Profiles.BLL.Models;
@@ -14,9 +15,9 @@ namespace Profiles.API.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet]
-        public async Task<IEnumerable<SpecializationViewModel>> GetAll(string? specName, CancellationToken cancellationToken)
+        public async Task<IEnumerable<SpecializationViewModel>> GetAll(ProfileSearchRequestData requestData, CancellationToken cancellationToken)
         {
-            var specs = await _specializationService.GetAllAsync(specName, cancellationToken);
+            var specs = await _specializationService.GetAllAsync(requestData.Name, cancellationToken);
 
             return _mapper.Map<IEnumerable<SpecializationViewModel>>(specs);
         }

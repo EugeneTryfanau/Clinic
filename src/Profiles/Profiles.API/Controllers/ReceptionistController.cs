@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Profiles.API.ViewModels;
 using Profiles.API.ViewModels.Receptionist;
 using Profiles.BLL.Interrfaces;
 using Profiles.BLL.Models;
@@ -14,9 +15,9 @@ namespace Profiles.API.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet]
-        public async Task<IEnumerable<ReceptionistViewModel>> GetAll(string? name, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ReceptionistViewModel>> GetAll(ProfileSearchRequestData requestData, CancellationToken cancellationToken)
         {
-            var receptionists = await _receptionistService.GetAllAsync(name, cancellationToken);
+            var receptionists = await _receptionistService.GetAllAsync(requestData.Name, cancellationToken);
 
             return _mapper.Map<IEnumerable<ReceptionistViewModel>>(receptionists);
         }
