@@ -1,4 +1,4 @@
-﻿namespace Clinic.DAL.Entities
+﻿namespace StandartCRUD
 {
     public interface IEntity
     {

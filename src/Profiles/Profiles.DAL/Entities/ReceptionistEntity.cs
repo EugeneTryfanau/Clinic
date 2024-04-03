@@ -1,4 +1,6 @@
-﻿namespace Profiles.DAL.Entities
+﻿using StandartCRUD;
+
+namespace Profiles.DAL.Entities
 {
     public class ReceptionistEntity : Entity
     {

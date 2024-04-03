@@ -1,4 +1,6 @@
-﻿namespace Clinic.DAL.Entities
+﻿using StandartCRUD;
+
+namespace Clinic.DAL.Entities
 {
     public class DocumentEntity : Entity
     {
