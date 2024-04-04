@@ -15,7 +15,7 @@ namespace Services.API.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet]
-        public async Task<IEnumerable<ServiceCategoryViewModel>> GetAll(ServiceSearchRequestData requestData, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ServiceCategoryViewModel>> GetAll([FromQuery]ServiceSearchRequestData requestData, CancellationToken cancellationToken)
         {
             var serviceCategories = await _serviceCategoryService.GetAllAsync(requestData.Name, cancellationToken);
 

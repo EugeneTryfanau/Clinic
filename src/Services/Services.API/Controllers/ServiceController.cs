@@ -15,7 +15,7 @@ namespace Services.API.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet]
-        public async Task<IEnumerable<ServiceViewModel>> GetAll(ServiceSearchRequestData requestData, CancellationToken cancellationToken)
+        public async Task<IEnumerable<ServiceViewModel>> GetAll([FromQuery]ServiceSearchRequestData requestData, CancellationToken cancellationToken)
         {
             var services = await _serviceService.GetAllAsync(requestData.Name, requestData.IsActive, cancellationToken);
 
