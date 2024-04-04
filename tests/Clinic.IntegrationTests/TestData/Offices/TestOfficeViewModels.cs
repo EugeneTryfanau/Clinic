@@ -4,7 +4,7 @@ using Clinic.DAL.Entities;
 
 namespace Clinic.IntegrationTests.TestData.Offices;
 
-public class TestOfficeViewModels
+public static class TestOfficeViewModels
 {
     public static OfficeViewModel Office => new()
     {

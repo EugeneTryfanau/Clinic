@@ -3,17 +3,15 @@ using Clinic.BLL.Interfaces;
 using Clinic.BLL.Models;
 using Clinic.DAL.Entities;
 using Clinic.DAL.Interfaces;
+using StandartCRUD.StandartBLL;
 
 namespace Clinic.BLL.Services
 {
-    public class OfficeService : GenericService<OfficeEntity, Office>, IOfficeService
+    public class OfficeService(IOfficeRepository officeRepository, IMapper mapper) : 
+        GenericService<OfficeEntity, Office>(officeRepository, mapper), 
+        IOfficeService
     {
-        private readonly IOfficeRepository _officeRepository;
-
-        public OfficeService(IOfficeRepository officeRepository, IMapper mapper) : base(officeRepository, mapper)
-        {
-            _officeRepository = officeRepository;
-        }
+        private readonly IOfficeRepository _officeRepository = officeRepository;
 
         public async Task<IEnumerable<Office>> GetAllAsync(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken)
         {

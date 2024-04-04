@@ -1,6 +1,6 @@
-﻿namespace Clinic.BLL.Interfaces
+﻿namespace StandartCRUD.StandartBLL
 {
-    public interface IGenericService<TEntity, TModel>
+    public interface IGenericService<TModel>
     {
         Task<TModel> GetByIdAsync(Guid id, CancellationToken cancellationToken);
         Task<TModel> CreateAsync(TModel model, CancellationToken cancellationToken);

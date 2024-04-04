@@ -9,6 +9,10 @@
   <ItemGroup>
       <PackageReference Include="Auth0.AspNetCore.Authentication" Version="1.4.1" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.3" />
+      <PackageReference Include="SonarAnalyzer.CSharp" Version="9.23.1.88495">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
       <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
   </ItemGroup>
 

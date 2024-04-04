@@ -24,15 +24,15 @@ namespace Clinic.UnitTests.TestData.Offices
 
         public static List<Office> Offices => new()
         {
-            CreateOffice(null, 1), CreateOffice(null, 0), CreateOffice(null, 2)
+            CreateOffice(null, StandartStatus.Active), CreateOffice(null, StandartStatus.None), CreateOffice(null, StandartStatus.Inactive)
         };
 
-        public static Office CreateOffice(Guid? id = null, int status = 1) => new()
+        public static Office CreateOffice(Guid? id = null, StandartStatus status = StandartStatus.Active) => new()
         {
             Id = id is null ? Guid.NewGuid() : id.Value,
             Address = "Lenina",
             RegistryPhoneNumber = "375296666666",
-            IsActive = status == 1 ? StandartStatus.Active : status == 2 ? StandartStatus.Inactive : StandartStatus.None
+            IsActive = status 
         };
 
         public static List<Office> SortOffices(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken token)
@@ -41,8 +41,8 @@ namespace Clinic.UnitTests.TestData.Offices
 
             if (!string.IsNullOrWhiteSpace(address))
             {
-                var firstNameLower = address.ToLower();
-                sortedOffices = sortedOffices.Where(x => EF.Functions.Like(x.Address.ToLower(), $"%{address}%")).ToList();
+                var addressLower = address.ToLower();
+                sortedOffices = sortedOffices.Where(x => EF.Functions.Like(x.Address.ToLower(), $"%{addressLower}%")).ToList();
             }
 
             if (!string.IsNullOrWhiteSpace(phoneNumber))

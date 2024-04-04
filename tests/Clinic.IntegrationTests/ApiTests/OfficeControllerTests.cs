@@ -96,7 +96,6 @@ public class OfficeControllerTests : IntegrationTestsBase
         using var request = new HttpRequestMessage(HttpMethod.Delete, $"/api/offices/{expectedModel!.Id}");
 
         var actualResult = await Client.SendAsync(request);
-        var responseResult = actualResult.Content.ReadAsStringAsync();
 
         actualResult.StatusCode.ShouldBe(HttpStatusCode.OK);
 
@@ -127,11 +126,5 @@ public class OfficeControllerTests : IntegrationTestsBase
         response.EnsureSuccessStatusCode();
         var responseResult = await response.Content.ReadAsStringAsync();
         return JsonConvert.DeserializeObject<IEnumerable<OfficeViewModel>>(responseResult);
-    }
-
-    private async Task<bool> OfficeExists(Guid officeId)
-    {
-        var offices = await GetAll();
-        return offices.Any(o => o.Id == officeId);
     }
 }

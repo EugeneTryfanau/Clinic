@@ -27,8 +27,6 @@ namespace Clinic.DAL
         public DbSet<ServiceCategoryEntity> ServiceCategories { get; set; }
         public DbSet<SpecializationEntity> Specializations { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<DoctorSpecializationEntity>()

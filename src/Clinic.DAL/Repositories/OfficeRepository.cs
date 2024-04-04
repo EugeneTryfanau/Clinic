@@ -1,21 +1,22 @@
 ﻿using Clinic.DAL.Entities;
 using Clinic.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using StandartCRUD.StandartDAL;
 
 namespace Clinic.DAL.Repositories
 {
-    public class OfficeRepository : Repository<OfficeEntity>, IOfficeRepository
+    public class OfficeRepository(ClinicDbContext dbContext) : 
+        Repository<OfficeEntity, ClinicDbContext>(dbContext), 
+        IOfficeRepository
     {
-        public OfficeRepository(ClinicDbContext dbContext) : base(dbContext) { }
-
         public async Task<IEnumerable<OfficeEntity>> GetAllAsync(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken)
         {
             IQueryable<OfficeEntity> query = _dbContext.Offices.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(address))
             {
-                var firstNameLower = address.ToLower();
-                query = query.Where(x => EF.Functions.Like(x.Address.ToLower(), $"%{address}%"));
+                var addressLower = address.ToLower();
+                query = query.Where(x => EF.Functions.Like(x.Address.ToLower(), $"%{addressLower}%"));
             }
 
             if (!string.IsNullOrWhiteSpace(phoneNumber))

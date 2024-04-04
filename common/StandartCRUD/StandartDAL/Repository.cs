@@ -1,19 +1,15 @@
-﻿using Clinic.DAL.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Clinic.DAL.Repositories
+namespace StandartCRUD.StandartDAL
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T, TContext>(TContext dbContext) : 
+        IRepository<T> where T : class
+        where TContext : DbContext
     {
-        protected readonly ClinicDbContext _dbContext;
+        protected readonly TContext _dbContext = dbContext;
 
-        public Repository(ClinicDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
-
-        public async virtual Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
+        public async virtual Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken)
         {
             return await _dbContext.Set<T>().ToListAsync(cancellationToken);
         }

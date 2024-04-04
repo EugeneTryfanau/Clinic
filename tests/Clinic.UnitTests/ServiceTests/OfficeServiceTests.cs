@@ -34,7 +34,7 @@ namespace Clinic.UnitTests.ServiceTests
         public async Task GetByIdAsync_ValidId_ReturnOffice()
         {
             //Arrange
-            var id = new Guid();
+            var id = Guid.Empty;
             var office = TestOfficeModels.Office;
 
             _officeRepository.GetByIdAsync(id, default).Returns(office);
@@ -51,7 +51,7 @@ namespace Clinic.UnitTests.ServiceTests
         public async Task GetByIdAsync_InvalidId_ReturnNull()
         {
             //Arrange
-            var id = new Guid();
+            var id = Guid.Empty;
             _officeRepository.GetByIdAsync(id, default).ReturnsNull();
 
             //Act
@@ -153,7 +153,7 @@ namespace Clinic.UnitTests.ServiceTests
         public async Task DeleteAsync_ValidId_ShouldReceiveOneRequest()
         {
             //Arrange
-            var id = new Guid();
+            var id = Guid.Empty;
             var office = TestOfficeModels.Office;
 
             _officeRepository.GetByIdAsync(id, default).Returns(office);
@@ -169,7 +169,7 @@ namespace Clinic.UnitTests.ServiceTests
         public async Task DeleteAsync_InvalidId_ShouldResiveRequestWithNull()
         {
             //Arrange
-            var id = new Guid();
+            var id = Guid.Empty;
 
             _officeRepository.GetByIdAsync(id, default).ReturnsNull();
 

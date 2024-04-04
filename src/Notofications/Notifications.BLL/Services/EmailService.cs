@@ -9,14 +9,9 @@ using RazorLight;
 
 namespace Notifications.BLL.Services
 {
-    public class EmailService : IEmailService
+    public class EmailService(IOptions<EmailSettings> emailSettingsOptions) : IEmailService
     {
-        private readonly EmailSettings _emailSettings;
-
-        public EmailService(IOptions<EmailSettings> emailSettingsOptions)
-        {
-            _emailSettings = emailSettingsOptions.Value;
-        }
+        private readonly EmailSettings _emailSettings = emailSettingsOptions.Value;
 
         public async Task<bool> SendMail(EmailModel mailModel, ICollection<string> recipients)
         {
