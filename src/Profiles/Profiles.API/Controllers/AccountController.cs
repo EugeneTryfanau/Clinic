@@ -15,7 +15,7 @@ namespace Profiles.API.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet]
-        public async Task<IEnumerable<AccountViewModel>> GetAll(ProfileSearchRequestData requestData, CancellationToken cancellationToken)
+        public async Task<IEnumerable<AccountViewModel>> GetAll([FromQuery]ProfileSearchRequestData requestData, CancellationToken cancellationToken)
         {
             var accounts = await _accountService.GetAllAsync(requestData.Email, requestData.PhoneNumber, requestData.IsActiveAccount, cancellationToken);
 

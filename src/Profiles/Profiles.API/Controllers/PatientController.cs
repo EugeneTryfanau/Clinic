@@ -15,7 +15,7 @@ namespace Profiles.API.Controllers
         private readonly IMapper _mapper = mapper;
 
         [HttpGet]
-        public async Task<IEnumerable<PatientViewModel>> GetAll(ProfileSearchRequestData requestData, CancellationToken cancellationToken)
+        public async Task<IEnumerable<PatientViewModel>> GetAll([FromQuery]ProfileSearchRequestData requestData, CancellationToken cancellationToken)
         {
             var patients = await _patientService.GetAllAsync(requestData.Name, cancellationToken);
 
