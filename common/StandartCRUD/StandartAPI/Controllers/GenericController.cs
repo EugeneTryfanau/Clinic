@@ -7,7 +7,7 @@ namespace StandartCRUD.StandartAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BaseController<TModel, TViewModel, CreateViewModel, UpdateViewModel>
+    public class GenericController<TModel, TViewModel, CreateViewModel, UpdateViewModel>
         (IGenericService<TModel> genericService, IMapper mapper) : ControllerBase
         where TModel : BaseModel
         where TViewModel : class

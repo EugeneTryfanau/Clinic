@@ -11,7 +11,7 @@ namespace Appointments.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class ResultController(IResultService resultService, IMapper mapper) :
-        BaseController<Result, ResultViewModel, CreateResultViewModel, UpdateResultViewModel>(resultService, mapper)
+        GenericController<Result, ResultViewModel, CreateResultViewModel, UpdateResultViewModel>(resultService, mapper)
     {
         private readonly IResultService _resultService = resultService;
 

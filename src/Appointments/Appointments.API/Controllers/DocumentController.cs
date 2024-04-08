@@ -11,7 +11,7 @@ namespace Appointments.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class DocumentController(IDocumentService documentService, IMapper mapper) :
-        BaseController<Document, DocumentViewModel, CreateDocumentViewModel, UpdateDocumentViewModel>(documentService, mapper)
+        GenericController<Document, DocumentViewModel, CreateDocumentViewModel, UpdateDocumentViewModel>(documentService, mapper)
     {
         private readonly IDocumentService _documentService = documentService;
 
