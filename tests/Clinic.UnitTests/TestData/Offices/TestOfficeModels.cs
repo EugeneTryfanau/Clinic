@@ -1,6 +1,7 @@
 ﻿using Clinic.BLL.Models;
 using Clinic.DAL.Entities;
 using Microsoft.EntityFrameworkCore;
+using StandartCRUD;
 
 namespace Clinic.UnitTests.TestData.Offices
 {
@@ -32,7 +33,7 @@ namespace Clinic.UnitTests.TestData.Offices
             Id = id is null ? Guid.NewGuid() : id.Value,
             Address = "Lenina",
             RegistryPhoneNumber = "375296666666",
-            IsActive = status 
+            IsActive = status
         };
 
         public static List<Office> SortOffices(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken token)

@@ -1,4 +1,5 @@
-﻿using Profiles.DAL.Entities;
+﻿using StandartCRUD;
+using StandartCRUD.StandartBLL.Models;
 
 namespace Profiles.BLL.Models
 {

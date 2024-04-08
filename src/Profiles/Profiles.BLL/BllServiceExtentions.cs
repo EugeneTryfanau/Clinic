@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Profiles.BLL.Interrfaces;
+using Profiles.BLL.Interfaces;
 using Profiles.BLL.Services;
 
 namespace Profiles.BLL

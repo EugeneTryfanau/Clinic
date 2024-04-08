@@ -1,5 +1,5 @@
 ﻿using Clinic.BLL.Models;
-using Clinic.DAL.Entities;
+using StandartCRUD;
 using StandartCRUD.StandartBLL;
 
 namespace Clinic.BLL.Interfaces

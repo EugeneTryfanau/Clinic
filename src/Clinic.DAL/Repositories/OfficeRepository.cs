@@ -1,6 +1,7 @@
 ﻿using Clinic.DAL.Entities;
 using Clinic.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using StandartCRUD;
 using StandartCRUD.StandartDAL;
 
 namespace Clinic.DAL.Repositories

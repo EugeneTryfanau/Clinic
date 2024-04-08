@@ -1,4 +1,7 @@
-﻿namespace Clinic.DAL.Entities
+﻿using StandartCRUD;
+using StandartCRUD.StandartDAL.Entities;
+
+namespace Clinic.DAL.Entities
 {
     public class DoctorEntity : Entity
     {

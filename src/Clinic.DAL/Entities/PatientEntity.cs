@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using StandartCRUD.StandartDAL.Entities;
 
 namespace Clinic.DAL.Entities
 {

@@ -1,4 +1,6 @@
-﻿namespace Profiles.BLL.Models
+﻿using StandartCRUD.StandartBLL.Models;
+
+namespace Profiles.BLL.Models
 {
     public class Account : BaseModel
     {

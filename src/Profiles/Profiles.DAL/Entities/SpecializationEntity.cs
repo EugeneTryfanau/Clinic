@@ -1,4 +1,7 @@
-﻿namespace Profiles.DAL.Entities
+﻿using StandartCRUD;
+using StandartCRUD.StandartDAL.Entities;
+
+namespace Profiles.DAL.Entities
 {
     public class SpecializationEntity : Entity
     {

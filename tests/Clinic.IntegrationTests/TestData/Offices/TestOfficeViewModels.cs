@@ -1,6 +1,6 @@
 ﻿using Clinic.API.ViewModels.Office;
 using Clinic.BLL.Models;
-using Clinic.DAL.Entities;
+using StandartCRUD;
 
 namespace Clinic.IntegrationTests.TestData.Offices;
 

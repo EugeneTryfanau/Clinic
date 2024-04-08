@@ -14,7 +14,7 @@ namespace Profiles.DAL
             Database.EnsureCreated();
         }
 
-        public virtual DbSet<AccountEntity> Accounts { get; set; }
+        public DbSet<AccountEntity> Accounts { get; set; }
         public DbSet<PatientEntity> Patients { get; set; }
         public DbSet<DoctorEntity> Doctors { get; set; }
         public DbSet<ReceptionistEntity> Receptionists { get; set; }

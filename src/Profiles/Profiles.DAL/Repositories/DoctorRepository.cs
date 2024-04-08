@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Profiles.DAL.Entities;
 using Profiles.DAL.Interfaces;
+using StandartCRUD;
 using StandartCRUD.StandartDAL;
 
 namespace Profiles.DAL.Repositories
