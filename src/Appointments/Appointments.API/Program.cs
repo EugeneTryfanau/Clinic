@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
+                .AddJsonFile("secrets.json")
                 .Build();
 
 builder.Services.AddAutoMapper(typeof(Program));

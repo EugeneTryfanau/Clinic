@@ -12,7 +12,7 @@ namespace Appointments.DAL
         {
             services.AddDbContext<AppointmentDbContext>((serviceProvider, options) =>
             {
-                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Appointments.DAL"));
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection") + configuration["Secrets:PostgreSQLPass"], b => b.MigrationsAssembly("Appointments.DAL"));
             });
 
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
