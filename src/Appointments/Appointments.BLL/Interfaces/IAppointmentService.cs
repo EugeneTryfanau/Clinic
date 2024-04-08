@@ -5,7 +5,7 @@ namespace Appointments.BLL.Interfaces
 {
     public interface IAppointmentService : IGenericService<Appointment>
     {
-        Task<IEnumerable<Appointment>> GetAll(Guid? patientId, Guid? doctorId, Guid? serviceId,
+        Task<IEnumerable<Appointment>> GetAllAsync(Guid? patientId, Guid? doctorId, Guid? serviceId,
             bool? isApproved, CancellationToken cancellationToken);
     }
 }

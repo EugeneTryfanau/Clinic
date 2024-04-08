@@ -9,7 +9,7 @@ namespace Appointments.DAL.Repositories
         Repository<DocumentEntity, AppointmentDbContext>(appointmentDb),
         IDocumentRepository
     {
-        public async Task<IEnumerable<DocumentEntity>> GetAll(Guid? resultId, CancellationToken cancellationToken)
+        public async Task<IEnumerable<DocumentEntity>> GetAllAsync(Guid? resultId, CancellationToken cancellationToken)
         {
             IQueryable<DocumentEntity> query = _dbContext.Documents.AsQueryable();
 

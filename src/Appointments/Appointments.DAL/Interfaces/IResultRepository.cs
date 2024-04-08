@@ -5,6 +5,6 @@ namespace Appointments.DAL.Interfaces
 {
     public interface IResultRepository : IRepository<ResultEntity>
     {
-        Task<IEnumerable<ResultEntity>> GetAll(Guid? appountmentId, CancellationToken cancellationToken);
+        Task<IEnumerable<ResultEntity>> GetAllAsync(Guid? appountmentId, CancellationToken cancellationToken);
     }
 }

@@ -13,9 +13,9 @@ namespace Appointments.BLL.Services
     {
         private readonly IAppointmentRepository _appointmentRepository = appointmentRepository;
 
-        public async Task<IEnumerable<Appointment>> GetAll(Guid? patientId, Guid? doctorId, Guid? serviceId, bool? isApproved, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Appointment>> GetAllAsync(Guid? patientId, Guid? doctorId, Guid? serviceId, bool? isApproved, CancellationToken cancellationToken)
         {
-            var appointments = await _appointmentRepository.GetAll(patientId, doctorId, serviceId, isApproved, cancellationToken);
+            var appointments = await _appointmentRepository.GetAllAsync(patientId, doctorId, serviceId, isApproved, cancellationToken);
 
             return _mapper.Map<IEnumerable<Appointment>>(appointments);
         }

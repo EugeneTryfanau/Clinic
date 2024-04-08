@@ -13,9 +13,9 @@ namespace Appointments.BLL.Services
     {
         private readonly IDocumentRepository _documentRepository = documentRepository;
 
-        public async Task<IEnumerable<Document>> GetAll(Guid? resultId, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Document>> GetAllAsync(Guid? resultId, CancellationToken cancellationToken)
         {
-            var documents = await _documentRepository.GetAll(resultId, cancellationToken);
+            var documents = await _documentRepository.GetAllAsync(resultId, cancellationToken);
 
             return _mapper.Map<IEnumerable<Document>>(documents);
         }

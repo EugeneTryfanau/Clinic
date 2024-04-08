@@ -13,9 +13,9 @@ namespace Appointments.BLL.Services
     {
         private readonly IResultRepository _resultRepository = resultRepository;
 
-        public async Task<IEnumerable<Result>> GetAll(Guid? appountmentId, CancellationToken cancellationToken)
+        public async Task<IEnumerable<Result>> GetAllAsync(Guid? appountmentId, CancellationToken cancellationToken)
         {
-            var results = await _resultRepository.GetAll(appountmentId, cancellationToken);
+            var results = await _resultRepository.GetAllAsync(appountmentId, cancellationToken);
 
             return _mapper.Map<IEnumerable<Result>>(results);
         }
