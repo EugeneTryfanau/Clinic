@@ -5,14 +5,14 @@ namespace Clinic.IntegrationTests.TestData.Services
 {
     public static class MockedServices
     {
-        public static IRabbitMqProducerService MoqRabbitMqService()
-        {
-            var service = Substitute.For<IRabbitMqProducerService>();
+        //public static IRabbitMqProducerService MoqRabbitMqService()
+        //{
+        //    var service = Substitute.For<IRabbitMqProducerService>();
 
-            service.SendMessage(Arg.Any<object>());
-            service.SendMessage(Arg.Any<string>());
+        //    service.SendMessage(Arg.Any<object>());
+        //    service.SendMessage(Arg.Any<string>());
 
-            return service;
-        }
+        //    return service;
+        //}
     }
 }

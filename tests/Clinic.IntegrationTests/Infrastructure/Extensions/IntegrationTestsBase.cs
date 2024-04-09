@@ -27,8 +27,8 @@ namespace Clinic.IntegrationTests.Infrastructure.Extensions
                     .AddScheme<AuthenticationSchemeOptions, MockedAuth>("Test", options => { });
 
                 services.AddDbContext<ClinicDbContext>(options => options.UseInMemoryDatabase("TestDb"));
-                services.RemoveAll<IRabbitMqProducerService>();
-                services.AddScoped(_ => MockedServices.MoqRabbitMqService());
+                //services.RemoveAll<IRabbitMqProducerService>();
+                //services.AddScoped(_ => MockedServices.MoqRabbitMqService());
             }));
             Server = Factory.Server;
             Client = Factory.CreateClient();
