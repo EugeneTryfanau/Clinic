@@ -11,10 +11,9 @@ namespace Clinic.API.Controllers
     [Route("api/[controller]")]
     [Authorize]
     [ApiController]
-    public class OfficesController(IRabbitMqProducerService mqService, IOfficeService officeService, IMapper mapper) : ControllerBase
+    public class OfficesController(IOfficeService officeService, IMapper mapper) : ControllerBase
     {
         private readonly IOfficeService _officeService = officeService;
-        private readonly IRabbitMqProducerService _mqService = mqService;
         private readonly IMapper _mapper = mapper;
 
         [Authorize(Policy = "receptionist")]
@@ -56,9 +55,7 @@ namespace Clinic.API.Controllers
         [HttpDelete("{id}")]
         public async Task Delete(Guid id, CancellationToken cancellationToken)
         {
-            var modelToDelete = await _officeService.GetByIdAsync(id, cancellationToken);
             await _officeService.DeleteAsync(id, cancellationToken);
-            _mqService.SendMessage(modelToDelete);
         }
     }
 }

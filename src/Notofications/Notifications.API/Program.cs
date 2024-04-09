@@ -2,7 +2,13 @@ using Notifications.BLL;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddBLLDependencies(builder.Configuration);
+var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile("secrets.json")
+                .Build();
+
+builder.Services.AddBLLDependencies(configuration);
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();

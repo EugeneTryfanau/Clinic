@@ -1,4 +1,4 @@
-﻿namespace Clinic.BLL.Interfaces
+﻿namespace Appointments.BLL.Interfaces
 {
     public interface IRabbitMqProducerService
     {
