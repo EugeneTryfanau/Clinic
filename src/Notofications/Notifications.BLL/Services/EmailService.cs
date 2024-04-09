@@ -13,13 +13,13 @@ namespace Notifications.BLL.Services
     {
         private readonly EmailSettings _emailSettings = emailSettingsOptions.Value;
 
-        public async Task<bool> SendMail(EmailModel mailModel, ICollection<string> recipients)
+        public async Task<bool> SendMail(EmailModel mailModel, NotificationModel notificationModel, ICollection<string> recipients)
         {
             try
             {
                 using (MimeMessage emailMessage = new MimeMessage())
                 {
-                    await PrepareMailMessage(emailMessage, mailModel, recipients);
+                    await PrepareMailMessage(emailMessage, mailModel, notificationModel, recipients);
 
                     using (SmtpClient mailClient = new SmtpClient())
                     {
@@ -39,7 +39,7 @@ namespace Notifications.BLL.Services
             }
         }
 
-        private async Task<MimeMessage> PrepareMailMessage(MimeMessage message, EmailModel emailModel, ICollection<string> recipients)
+        private async Task<MimeMessage> PrepareMailMessage(MimeMessage message, EmailModel emailModel, NotificationModel notificationModel, ICollection<string> recipients)
         {
             MailboxAddress emailFrom = new MailboxAddress(_emailSettings.SenderName, _emailSettings.SenderEmail);
             message.From.Add(emailFrom);
@@ -51,16 +51,16 @@ namespace Notifications.BLL.Services
 
             BodyBuilder emailBodyBuilder = new BodyBuilder();
             emailBodyBuilder.TextBody = emailModel.EmailBody;
-            emailBodyBuilder.HtmlBody = await GetFilledTemplate(emailBodyBuilder.TextBody!);
+            emailBodyBuilder.HtmlBody = await GetFilledTemplate(emailBodyBuilder.TextBody!, notificationModel);
 
             message.Body = emailBodyBuilder.ToMessageBody();
 
             return message;
         }
 
-        private static async Task<string> GetFilledTemplate(string message)
+        private static async Task<string> GetFilledTemplate(string message, NotificationModel notificationModel)
         {
-            string template = EmailTemplates.DefaultEmailTemplate;
+            string template = notificationModel.Type == "Appointment" ? EmailTemplates.AppointmentEmailTemplate : EmailTemplates.ResultEmailTemplate;
 
             RazorLightEngine engine = new RazorLightEngineBuilder()
                 .UseEmbeddedResourcesProject(Assembly.GetEntryAssembly())

@@ -12,6 +12,8 @@ namespace Appointments.BLL
             services.AddScoped<IResultService, ResultService>();
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IRabbitMqProducerService, RabbitMqProducerService>();
+            services.AddSingleton<INotificationQueueService, NotificationQueueService>();
+            services.AddHostedService<NotificationQueueBackgroundService>();
         }
     }
 }
