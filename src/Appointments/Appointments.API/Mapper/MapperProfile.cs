@@ -12,16 +12,10 @@ namespace Appointments.API.Mapper
         public MapperProfile()
         {
             CreateMap<AppointmentViewModel, Appointment>().ReverseMap();
-            CreateMap<CreateAppointmentViewModel, Appointment>().ReverseMap();
-            CreateMap<UpdateAppointmentViewModel, Appointment>().ReverseMap();
 
             CreateMap<ResultViewModel, Result>().ReverseMap();
-            CreateMap<CreateResultViewModel, Result>().ReverseMap();
-            CreateMap<UpdateResultViewModel, Result>().ReverseMap();
 
             CreateMap<DocumentViewModel, Document>().ReverseMap();
-            CreateMap<CreateDocumentViewModel, Document>().ReverseMap();
-            CreateMap<UpdateDocumentViewModel, Document>().ReverseMap();
 
             CreateMap<AppointmentEntity, Appointment>().ReverseMap();
             CreateMap<ResultEntity, Result>().ReverseMap();

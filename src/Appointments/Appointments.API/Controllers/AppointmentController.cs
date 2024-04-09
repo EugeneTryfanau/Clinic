@@ -11,7 +11,7 @@ namespace Appointments.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class AppointmentController(IAppointmentService appointmentService, IMapper mapper) : 
-        GenericController<Appointment,AppointmentViewModel, CreateAppointmentViewModel, UpdateAppointmentViewModel>(appointmentService, mapper)
+        GenericController<Appointment, AppointmentViewModel>(appointmentService, mapper)
     {
         private readonly IAppointmentService _appointmentService = appointmentService;
 

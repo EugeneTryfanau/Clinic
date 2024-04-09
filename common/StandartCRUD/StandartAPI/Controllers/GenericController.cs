@@ -7,12 +7,10 @@ namespace StandartCRUD.StandartAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GenericController<TModel, TViewModel, CreateViewModel, UpdateViewModel>
+    public class GenericController<TModel, TViewModel>
         (IGenericService<TModel> genericService, IMapper mapper) : ControllerBase
         where TModel : BaseModel
         where TViewModel : class
-        where CreateViewModel : class
-        where UpdateViewModel : class
     {
         protected readonly IGenericService<TModel> _genericService = genericService;
         protected readonly IMapper _mapper = mapper;
@@ -26,16 +24,17 @@ namespace StandartCRUD.StandartAPI.Controllers
         }
 
         [HttpPost]
-        public async virtual Task<TViewModel> Create(CreateViewModel viewModel, CancellationToken cancellationToken)
+        public async virtual Task<TViewModel> Create(TViewModel viewModel, CancellationToken cancellationToken)
         {
             var model = _mapper.Map<TModel>(viewModel);
+            model.Id = Guid.Empty;
             var result = await _genericService.CreateAsync(model, cancellationToken);
 
             return _mapper.Map<TViewModel>(result);
         }
 
         [HttpPut("{id}")]
-        public async virtual Task<TViewModel> Update(Guid id, UpdateViewModel viewModel, CancellationToken cancellationToken)
+        public async virtual Task<TViewModel> Update(Guid id, TViewModel viewModel, CancellationToken cancellationToken)
         {
             var modelToUpdate = _mapper.Map<TModel>(viewModel);
             modelToUpdate.Id = id;
