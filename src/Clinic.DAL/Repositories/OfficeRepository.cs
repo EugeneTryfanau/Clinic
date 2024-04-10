@@ -1,31 +1,18 @@
 ﻿using Clinic.DAL.Entities;
 using Clinic.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using StandartCRUD;
 
 namespace Clinic.DAL.Repositories
 {
-    public class OfficeRepository : IOfficeRepository
+    public class OfficeRepository(MongoDbContext dbContext) : IOfficeRepository
     {
-        private readonly IMongoCollection<OfficeEntity> _officeCollection;
-
-        public OfficeRepository(IOptions<MongoDbSettings> databaseSettings)
-        {
-            var mongoClient = new MongoClient(
-                databaseSettings.Value.ConnectionURI);
-
-            var mongoDatabase = mongoClient.GetDatabase(
-                databaseSettings.Value.DatabaseName);
-
-            _officeCollection = mongoDatabase.GetCollection<OfficeEntity>(
-                databaseSettings.Value.CollectionName);
-        }
+        private readonly MongoDbContext _dbContext = dbContext;
 
         public async Task<IEnumerable<OfficeEntity>> GetAllAsync(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken)
         {
-            IEnumerable<OfficeEntity> officeEntities = await _officeCollection.Find(_ => true).ToListAsync(cancellationToken);
+            IEnumerable<OfficeEntity> officeEntities = await _dbContext.Offices.ToListAsync(cancellationToken);
 
             if (!string.IsNullOrWhiteSpace(address))
             {
@@ -48,29 +35,54 @@ namespace Clinic.DAL.Repositories
 
         public async Task<IEnumerable<OfficeEntity>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await _officeCollection.Find(_ => true).ToListAsync(cancellationToken);
+            return await _dbContext.Offices.ToListAsync(cancellationToken);
         }
 
         public async Task<OfficeEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            return await _officeCollection.Find(x => x.Id == id).FirstOrDefaultAsync(cancellationToken);
+            return await _dbContext.Offices.Where(of => of.Id == id).FirstOrDefaultAsync(cancellationToken);
         }
 
         public async Task<OfficeEntity> AddAsync(OfficeEntity entity, CancellationToken cancellationToken)
         {
-            await _officeCollection.InsertOneAsync(entity, null, cancellationToken);
+            await _dbContext.Offices.AddAsync(entity, cancellationToken);
             return entity;
         }
 
         public async Task<OfficeEntity> UpdateAsync(OfficeEntity entity, CancellationToken cancellationToken)
         {
-            await _officeCollection.ReplaceOneAsync(x => x.Id == entity.Id, entity);
-            return entity;
+            var office = await _dbContext.Offices.FirstOrDefaultAsync(of => of.Id == entity.Id, cancellationToken);
+
+            if (office != null)
+            {
+                office.Address = entity.Address;
+                office.IsActive = entity.IsActive;
+                office.RegistryPhoneNumber = entity.RegistryPhoneNumber;
+                office.PhotoId = entity.PhotoId;
+
+                _dbContext.Offices.Update(office);
+
+                _dbContext.ChangeTracker.DetectChanges();
+                _dbContext.SaveChanges();
+                return office.As<OfficeEntity>();
+            }
+            else
+            {
+                throw new ArgumentException("Wrong ID");
+            }
         }
 
         public async Task DeleteAsync(OfficeEntity entity, CancellationToken cancellationToken)
         {
-            await _officeCollection.DeleteOneAsync(x => x.Id == entity.Id);
+            var office = await _dbContext.Offices.FirstOrDefaultAsync(of => of.Id == entity.Id, cancellationToken);
+            if (office != null)
+            {
+                _dbContext.Offices.RemoveRange(office);
+            }
+            else
+            {
+                throw new ArgumentException("Etity not found");
+            }
         }
     }
 }
