@@ -3,6 +3,7 @@ using Clinic.BLL;
 using Clinic.DAL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,9 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddDALDependencies(configuration);
+//Mongo
+builder.Services.Configure<MongoDbSettings>(configuration.GetSection("MongoDB"));
+builder.Services.AddDALDependencies();
 builder.Services.AddBLLDependencies();
 
 var domain = $"https://{builder.Configuration["Auth0:Domain"]}/";

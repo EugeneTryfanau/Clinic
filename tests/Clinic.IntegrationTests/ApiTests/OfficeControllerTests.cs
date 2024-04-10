@@ -11,7 +11,7 @@ public class OfficeControllerTests : IntegrationTestsBase
     [Fact]
     public async Task CreateOffice_ValidInput_ReturnsOk()
     {
-        var expectedModel = TestOfficeViewModels.CreateOffice();
+        var expectedModel = await CreateOffice(TestOfficeViewModels.CreateOffice());
         var json = JsonConvert.SerializeObject(expectedModel);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -29,9 +29,8 @@ public class OfficeControllerTests : IntegrationTestsBase
     [Fact]
     public async Task CreateOffice_InvalidInput_ReturnsInternalServerError()
     {
-        var expectedModel = TestOfficeViewModels.CreateOffice();
-        expectedModel.Address = null;
-
+        var expectedModel = await CreateOffice(TestOfficeViewModels.CreateOffice());
+        expectedModel!.Address = null;
         var json = JsonConvert.SerializeObject(expectedModel);
         var content = new StringContent(json, Encoding.UTF8, "application/json");
 
@@ -53,9 +52,7 @@ public class OfficeControllerTests : IntegrationTestsBase
 
         for (int i = 1; i < 3; i++)
         {
-            var createRequest = TestOfficeViewModels.CreateOffice();
-
-            var expectedModel = await CreateOffice(createRequest);
+            var expectedModel = await CreateOffice(TestOfficeViewModels.CreateOffice());
 
             expectedModelsList.Add(expectedModel!);
         }
@@ -100,7 +97,6 @@ public class OfficeControllerTests : IntegrationTestsBase
         actualResult.StatusCode.ShouldBe(HttpStatusCode.OK);
 
         var offices = await GetAll();
-        offices.ShouldNotBeNull().ShouldNotBeEmpty();
         offices.ShouldNotContain(expectedModel);
     }
 

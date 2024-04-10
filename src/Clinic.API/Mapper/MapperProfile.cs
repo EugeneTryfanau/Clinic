@@ -10,8 +10,6 @@ namespace Clinic.API.Mapper
         public MapperProfile()
         {
             CreateMap<OfficeViewModel, Office>().ReverseMap();
-            CreateMap<CreateOfficeViewModel, Office>().ReverseMap();
-            CreateMap<UpdateOfficeViewModel, Office>().ReverseMap();
 
             CreateMap<OfficeEntity, Office>().ReverseMap();
         }
