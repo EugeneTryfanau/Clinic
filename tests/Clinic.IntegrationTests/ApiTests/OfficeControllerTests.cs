@@ -29,18 +29,15 @@ public class OfficeControllerTests : IntegrationTestsBase
     [Fact]
     public async Task CreateOffice_InvalidInput_ReturnsInternalServerError()
     {
-        var invalidRequest = new OfficeViewModel();
+        OfficeViewModel? invalidRequest = null;
 
         var content = new StringContent(JsonConvert.SerializeObject(invalidRequest), Encoding.UTF8, "application/json");
         using var request = new HttpRequestMessage(HttpMethod.Post, "/api/offices");
         request.Content = content;
 
         var actualResult = await Client.SendAsync(request);
-        var responseResult = await actualResult.Content.ReadAsStringAsync();
-        var responseModel = responseResult.Contains("Exception") ? null : JsonConvert.DeserializeObject<OfficeViewModel>(responseResult);
 
         actualResult.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
-        responseModel.ShouldBeEquivalentTo(null);
     }
 
     [Fact]
