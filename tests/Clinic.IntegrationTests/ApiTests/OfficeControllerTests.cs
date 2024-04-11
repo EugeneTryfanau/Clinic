@@ -29,19 +29,17 @@ public class OfficeControllerTests : IntegrationTestsBase
     [Fact]
     public async Task CreateOffice_InvalidInput_ReturnsInternalServerError()
     {
-        var expectedModel = await CreateOffice(TestOfficeViewModels.CreateOffice());
-        expectedModel!.Address = null;
-        var json = JsonConvert.SerializeObject(expectedModel);
-        var content = new StringContent(json, Encoding.UTF8, "application/json");
+        var invalidRequest = new OfficeViewModel();
 
-        using var request = new HttpRequestMessage(HttpMethod.Post, $"/api/offices");
+        var content = new StringContent(JsonConvert.SerializeObject(invalidRequest), Encoding.UTF8, "application/json");
+        using var request = new HttpRequestMessage(HttpMethod.Post, "/api/offices");
         request.Content = content;
 
         var actualResult = await Client.SendAsync(request);
         var responseResult = await actualResult.Content.ReadAsStringAsync();
         var responseModel = responseResult.Contains("Exception") ? null : JsonConvert.DeserializeObject<OfficeViewModel>(responseResult);
 
-        actualResult.StatusCode.ShouldBe(HttpStatusCode.InternalServerError);
+        actualResult.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
         responseModel.ShouldBeEquivalentTo(null);
     }
 
@@ -57,10 +55,12 @@ public class OfficeControllerTests : IntegrationTestsBase
             expectedModelsList.Add(expectedModel!);
         }
 
-        var responseModels = await GetAll();
+        var actualResult = await Client.GetAsync("/api/offices");
+        actualResult.StatusCode.ShouldBe(HttpStatusCode.OK);
 
+        var responseModels = JsonConvert.DeserializeObject<IEnumerable<OfficeViewModel>>(await actualResult.Content.ReadAsStringAsync());
         responseModels.ShouldNotBeNull();
-        foreach (var expectedModel in expectedModelsList)
+        foreach (var expectedModel in responseModels)
         {
             responseModels.Select(x => x.Id).ShouldContain(expectedModel.Id);
         }

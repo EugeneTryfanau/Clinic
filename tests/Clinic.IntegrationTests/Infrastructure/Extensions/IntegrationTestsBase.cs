@@ -19,13 +19,6 @@ namespace Clinic.IntegrationTests.Infrastructure.Extensions
                 var descriptorMongo = services.SingleOrDefault(d => d.ServiceType == typeof(IMongoCollection<OfficeEntity>));
                 var descriptorRepo = services.SingleOrDefault(d => d.ServiceType == typeof(IOfficeRepository));
 
-                if (descriptorMongo != null)
-                    services.Remove(descriptorMongo);
-                if (descriptorRepo != null)
-                    services.Remove(descriptorRepo);
-
-                services.AddScoped<IOfficeRepository, MockOfficeRepository>();
-
                 services.AddSingleton(provider =>
                 {
                     var settings = MongoClientSettings.FromUrl(new MongoUrl("mongodb://localhost:27017"));
@@ -33,6 +26,13 @@ namespace Clinic.IntegrationTests.Infrastructure.Extensions
                     var database = client.GetDatabase("TestDb");
                     return database.GetCollection<OfficeEntity>("TestCollection");
                 });
+
+                if (descriptorMongo != null)
+                    services.Remove(descriptorMongo);
+                if (descriptorRepo != null)
+                    services.Remove(descriptorRepo);
+
+                services.AddScoped<IOfficeRepository, MockOfficeRepository>();
 
                 services.AddAuthentication("Test")
                     .AddScheme<AuthenticationSchemeOptions, MockedAuth>("Test", options => { });
