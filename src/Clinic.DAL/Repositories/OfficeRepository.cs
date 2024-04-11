@@ -12,77 +12,74 @@ namespace Clinic.DAL.Repositories
 
         public async Task<IEnumerable<OfficeEntity>> GetAllAsync(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken)
         {
-            IEnumerable<OfficeEntity> officeEntities = await _dbContext.Offices.ToListAsync(cancellationToken);
+            IEnumerable<OfficeEntity> offices = await GetAllAsync(cancellationToken);
 
             if (!string.IsNullOrWhiteSpace(address))
             {
                 var addressLower = address.ToLower();
-                officeEntities = officeEntities.Where(x => EF.Functions.Like(x.Address.ToLower(), $"%{addressLower}%"));
+                offices = offices.Where(x => EF.Functions.Like(x.Address.ToLower(), $"%{addressLower}%"));
             }
 
             if (!string.IsNullOrWhiteSpace(phoneNumber))
             {
-                officeEntities = officeEntities.Where(x => EF.Functions.Like(x.RegistryPhoneNumber, $"%{phoneNumber}%"));
+                offices = offices.Where(x => EF.Functions.Like(x.RegistryPhoneNumber, $"%{phoneNumber}%"));
             }
 
             if (isActive != null)
             {
-                officeEntities = officeEntities.Where(x => x.IsActive == isActive);
+                offices = offices.Where(x => x.IsActive == isActive);
             }
 
-            return officeEntities;
+            return offices;
         }
 
         public async Task<IEnumerable<OfficeEntity>> GetAllAsync(CancellationToken cancellationToken)
         {
-            return await _dbContext.Offices.ToListAsync(cancellationToken);
+            var filterBuilder = new FilterDefinitionBuilder<OfficeEntity>();
+            var filter = filterBuilder.Where(x =>  x.Id != Guid.Empty );
+
+            return (await _dbContext.Offices. FindAsync(filter, null, cancellationToken)).ToEnumerable(cancellationToken);
+
         }
 
         public async Task<OfficeEntity?> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            return await _dbContext.Offices.Where(of => of.Id == id).FirstOrDefaultAsync(cancellationToken);
+            var filterBuilder = new FilterDefinitionBuilder<OfficeEntity>();
+            var filter = filterBuilder.Where(x => x.Id == id);
+
+            return await (await _dbContext.Offices.FindAsync(filter, null, cancellationToken)).FirstOrDefaultAsync(cancellationToken);
         }
 
         public async Task<OfficeEntity> AddAsync(OfficeEntity entity, CancellationToken cancellationToken)
         {
-            await _dbContext.Offices.AddAsync(entity, cancellationToken);
+            await _dbContext.Offices.InsertOneAsync(entity, cancellationToken);
             return entity;
         }
 
         public async Task<OfficeEntity> UpdateAsync(OfficeEntity entity, CancellationToken cancellationToken)
         {
-            var office = await _dbContext.Offices.FirstOrDefaultAsync(of => of.Id == entity.Id, cancellationToken);
+            var filterBuilder = new FilterDefinitionBuilder<OfficeEntity>();
+            var filter = filterBuilder.Where(x => x.Id == entity.Id);
 
-            if (office != null)
-            {
-                office.Address = entity.Address;
-                office.IsActive = entity.IsActive;
-                office.RegistryPhoneNumber = entity.RegistryPhoneNumber;
-                office.PhotoId = entity.PhotoId;
+            var updateBuilder = new UpdateDefinitionBuilder<OfficeEntity>();
 
-                _dbContext.Offices.Update(office);
+            var updateDefinition = updateBuilder
+                .Set(x => x.Id, entity.Id)
+                .Set(x => x.Address, entity.Address)
+                .Set(x => x.RegistryPhoneNumber, entity.RegistryPhoneNumber)
+                .Set(x => x.IsActive, entity.IsActive)
+                .Set(x => x.PhotoId, entity.PhotoId);
+            await _dbContext.Offices.UpdateOneAsync(filter, updateDefinition, null, cancellationToken);
 
-                _dbContext.ChangeTracker.DetectChanges();
-                _dbContext.SaveChanges();
-                return office.As<OfficeEntity>();
-            }
-            else
-            {
-                throw new ArgumentException("Wrong ID");
-            }
+            return entity;
         }
 
         public async Task DeleteAsync(OfficeEntity entity, CancellationToken cancellationToken)
         {
-            var office = await _dbContext.Offices.FirstOrDefaultAsync(of => of.Id == entity.Id, cancellationToken);
-            if (office != null)
-            {
-                _dbContext.Offices.RemoveRange(office);
-            }
-            else
-            {
-                throw new ArgumentException("Etity not found");
-            }
+            var filterBuilder = new FilterDefinitionBuilder<OfficeEntity>();
+            var filter = filterBuilder.Where(x => x.Id == entity.Id);
+
+            await _dbContext.Offices.DeleteOneAsync(filter, null, cancellationToken);
         }
     }
 }

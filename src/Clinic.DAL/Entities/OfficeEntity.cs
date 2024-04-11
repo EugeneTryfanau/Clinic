@@ -1,11 +1,9 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.EntityFrameworkCore;
 using StandartCRUD;
 using StandartCRUD.StandartDAL.Entities;
 
 namespace Clinic.DAL.Entities
 {
-    [Collection("offices")]
     public class OfficeEntity : Entity
     {
         [BsonElement("address")]
