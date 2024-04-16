@@ -10,6 +10,7 @@ namespace Documents.BLL
         {
             services.AddScoped<IDocumentService, DocumentService>();
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<IPdfGeneratorService, PdfGeneratorService>();
         }
     }
 }
