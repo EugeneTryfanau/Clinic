@@ -4,6 +4,6 @@ namespace Notifications.BLL.Interfaces
 {
     public interface IEmailService
     {
-        Task<bool> SendMail(EmailModel mailModel, ICollection<string> recipients);
+        Task<bool> SendMail(EmailModel mailModel, NotificationModel notificationModel, ICollection<string> recipients);
     }
 }

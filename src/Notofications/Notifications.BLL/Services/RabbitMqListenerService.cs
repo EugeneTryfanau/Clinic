@@ -39,11 +39,23 @@ namespace Notifications.BLL.Services
             consumer.Received += (ch, ea) =>
             {
                 var content = Encoding.UTF8.GetString(ea.Body.ToArray());
+                var messageType = ea.BasicProperties.Headers["MessageType"].ToString();
 
-                var entity = DeserializeMessage(content);
-
-                _emailService.SendMail(new EmailModel() { EmailBody= content, EmailSubject=$"Office was deleted (id:{entity.Id})" }, 
-                    ["eugenetryfanau@gmail.com", "nomand144@gmail.com"]);
+                switch (messageType)
+                {
+                    case "Appointment":
+                        var appointment = JsonConvert.DeserializeObject<NotificationAppointmentModel>(content)!;
+                        appointment.Type = "Appointment";
+                        _emailService.SendMail(new EmailModel() { EmailBody = content, EmailSubject = $"Hello, you have appointnemt tomorrow {appointment.Date.Date} " +
+                                $"at {appointment.Time.TimeOfDay}" }, appointment, ["eugenetryfanau@gmail.com", "nomand144@gmail.com"]);
+                        break;
+                    case "Result":
+                        var result = JsonConvert.DeserializeObject<NotificationResultModel>(content)!;
+                        result.Type = "Result";
+                        _emailService.SendMail(new EmailModel() { EmailBody = content, EmailSubject = $"Hello, your appointment results" }, result,
+                            ["eugenetryfanau@gmail.com", "nomand144@gmail.com"]);
+                        break;
+                }
 
                 _channel.BasicAck(ea.DeliveryTag, false);
             };
@@ -58,11 +70,6 @@ namespace Notifications.BLL.Services
             _channel.Close();
             _connection.Close();
             base.Dispose();
-        }
-
-        private static NotificationOfficeModel DeserializeMessage(string message)
-        {
-            return JsonConvert.DeserializeObject<NotificationOfficeModel>(message)!;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Clinic.API.Middlewares
 
             var scopes = context.User.FindFirst(c => c.Type == "scope" && c.Issuer == requirement.Issuer)!.Value.Split(' ');
 
-            if (scopes.Any(s => s == requirement.Scope))
+            if (Array.Exists(scopes, s => s == requirement.Scope))
                 context.Succeed(requirement);
 
             return Task.CompletedTask;
