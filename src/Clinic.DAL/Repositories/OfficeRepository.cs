@@ -8,7 +8,6 @@ namespace Clinic.DAL.Repositories
 {
     public class OfficeRepository(MongoDbContext dbContext) : IOfficeRepository
     {
-        private readonly MongoDbContext _dbContext = dbContext;
 
         public async Task<IEnumerable<OfficeEntity>> GetAllAsync(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken)
         {
@@ -38,7 +37,7 @@ namespace Clinic.DAL.Repositories
             var filterBuilder = new FilterDefinitionBuilder<OfficeEntity>();
             var filter = filterBuilder.Where(x =>  x.Id != Guid.Empty );
 
-            return (await _dbContext.Offices. FindAsync(filter, null, cancellationToken)).ToEnumerable(cancellationToken);
+            return (await dbContext.Offices. FindAsync(filter, null, cancellationToken)).ToEnumerable(cancellationToken);
 
         }
 
@@ -47,12 +46,12 @@ namespace Clinic.DAL.Repositories
             var filterBuilder = new FilterDefinitionBuilder<OfficeEntity>();
             var filter = filterBuilder.Where(x => x.Id == id);
 
-            return await (await _dbContext.Offices.FindAsync(filter, null, cancellationToken)).FirstOrDefaultAsync(cancellationToken);
+            return await (await dbContext.Offices.FindAsync(filter, null, cancellationToken)).FirstOrDefaultAsync(cancellationToken);
         }
 
         public async Task<OfficeEntity> AddAsync(OfficeEntity entity, CancellationToken cancellationToken)
         {
-            await _dbContext.Offices.InsertOneAsync(entity, cancellationToken);
+            await dbContext.Offices.InsertOneAsync(entity, cancellationToken);
             return entity;
         }
 
@@ -69,7 +68,7 @@ namespace Clinic.DAL.Repositories
                 .Set(x => x.RegistryPhoneNumber, entity.RegistryPhoneNumber)
                 .Set(x => x.IsActive, entity.IsActive)
                 .Set(x => x.PhotoId, entity.PhotoId);
-            await _dbContext.Offices.UpdateOneAsync(filter, updateDefinition, null, cancellationToken);
+            await dbContext.Offices.UpdateOneAsync(filter, updateDefinition, null, cancellationToken);
 
             return entity;
         }
@@ -79,7 +78,7 @@ namespace Clinic.DAL.Repositories
             var filterBuilder = new FilterDefinitionBuilder<OfficeEntity>();
             var filter = filterBuilder.Where(x => x.Id == entity.Id);
 
-            await _dbContext.Offices.DeleteOneAsync(filter, null, cancellationToken);
+            await dbContext.Offices.DeleteOneAsync(filter, null, cancellationToken);
         }
     }
 }

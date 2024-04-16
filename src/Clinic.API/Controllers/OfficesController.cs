@@ -15,13 +15,11 @@ namespace Clinic.API.Controllers
     public class OfficesController(IOfficeService officeService, IMapper mapper) :
         GenericController<Office, OfficeViewModel>(officeService, mapper)
     {
-        private readonly IOfficeService _officeService = officeService;
-
         [Authorize(Policy = "receptionist")]
         [HttpGet]
         public async Task<IEnumerable<OfficeViewModel>> GetAll(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken)
         {
-            var offices = await _officeService.GetAllAsync(address, phoneNumber, isActive, cancellationToken);
+            var offices = await officeService.GetAllAsync(address, phoneNumber, isActive, cancellationToken);
 
             return _mapper.Map<IEnumerable<OfficeViewModel>>(offices);
         }
