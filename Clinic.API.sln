@@ -33,11 +33,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.BLL", "src\Service
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.DAL", "src\Services\Services.DAL\Services.DAL.csproj", "{EFCA602C-EC27-474F-A731-3481E80DB010}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointments.API", "src\Appointments\Appointments.API\Appointments.API.csproj", "{A7BB1265-4980-47B4-A88E-45B278CBEE91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Appointments.API", "src\Appointments\Appointments.API\Appointments.API.csproj", "{A7BB1265-4980-47B4-A88E-45B278CBEE91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointments.BLL", "src\Appointments\Appointments.BLL\Appointments.BLL.csproj", "{F310B2B3-7B57-4DFC-A6F5-59192F01155A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Appointments.BLL", "src\Appointments\Appointments.BLL\Appointments.BLL.csproj", "{F310B2B3-7B57-4DFC-A6F5-59192F01155A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Appointments.DAL", "src\Appointments\Appointments.DAL\Appointments.DAL.csproj", "{A7D18869-FBFA-44A6-92BA-BAEB9A3789B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Appointments.DAL", "src\Appointments\Appointments.DAL\Appointments.DAL.csproj", "{A7D18869-FBFA-44A6-92BA-BAEB9A3789B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documents.API", "src\Documents\Documents.API\Documents.API.csproj", "{8AD0D350-459E-4A16-894B-BFA407A1B298}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documents.BLL", "src\Documents\Documents.BLL\Documents.BLL.csproj", "{0D6497F7-535F-4FD8-B7E2-E1A35087B593}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documents.DAL", "Documents.DAL\Documents.DAL.csproj", "{072FB213-C491-41BB-A990-A601CB461879}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -119,6 +125,18 @@ Global
 		{A7D18869-FBFA-44A6-92BA-BAEB9A3789B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7D18869-FBFA-44A6-92BA-BAEB9A3789B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7D18869-FBFA-44A6-92BA-BAEB9A3789B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AD0D350-459E-4A16-894B-BFA407A1B298}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AD0D350-459E-4A16-894B-BFA407A1B298}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AD0D350-459E-4A16-894B-BFA407A1B298}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AD0D350-459E-4A16-894B-BFA407A1B298}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D6497F7-535F-4FD8-B7E2-E1A35087B593}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D6497F7-535F-4FD8-B7E2-E1A35087B593}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D6497F7-535F-4FD8-B7E2-E1A35087B593}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D6497F7-535F-4FD8-B7E2-E1A35087B593}.Release|Any CPU.Build.0 = Release|Any CPU
+		{072FB213-C491-41BB-A990-A601CB461879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{072FB213-C491-41BB-A990-A601CB461879}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{072FB213-C491-41BB-A990-A601CB461879}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{072FB213-C491-41BB-A990-A601CB461879}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
