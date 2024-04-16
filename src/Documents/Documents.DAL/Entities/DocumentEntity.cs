@@ -6,6 +6,6 @@ namespace Documents.DAL.Entities
     {
         public string? Url { get; set; }
 
-        public Guid ResultId { get; set; }
+        public Guid? ResultId { get; set; }
     }
 }

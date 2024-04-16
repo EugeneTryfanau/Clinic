@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\common\StandartCRUD\StandartCRUD.csproj" />
+    <ProjectReference Include="..\..\..\common\StandartCRUD\StandartCRUD.csproj" />
   </ItemGroup>
 
 </Project>

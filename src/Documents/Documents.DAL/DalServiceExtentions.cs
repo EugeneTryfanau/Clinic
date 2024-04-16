@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Documents.DAL.Interfaces;
+﻿using Documents.DAL.Interfaces;
 using Documents.DAL.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

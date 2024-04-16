@@ -6,8 +6,8 @@ using StandartCRUD.StandartDAL;
 namespace Documents.DAL.Repositories
 {
     public class DocumentRepository(DocumentsDbContext dbContext) :
-        Repository<DocumentEntity, DocumentsDbContext>(dbContext),
-        IDocumentRepository
+    Repository<DocumentEntity, DocumentsDbContext>(dbContext),
+    IDocumentRepository
     {
         public async Task<IEnumerable<DocumentEntity>> GetAllAsync(Guid resultId, CancellationToken cancellationToken)
         {
