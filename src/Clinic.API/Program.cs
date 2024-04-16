@@ -20,8 +20,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddAutoMapper(typeof(Program));
-builder.Services.AddDALDependencies(configuration);
-builder.Services.AddBLLDependencies();
+
 
 var domain = $"https://{builder.Configuration["Auth0:Domain"]}/";
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -39,6 +38,9 @@ builder.Services.AddAuthorizationBuilder()
 builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
 builder.Services.AddControllers();
+
+builder.Services.AddDALDependencies(configuration);
+builder.Services.AddBLLDependencies();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
