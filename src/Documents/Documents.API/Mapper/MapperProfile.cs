@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Documents.API.ViewModels;
 using Documents.BLL.Models;
-using Documents.DAL.Entities;
 
 namespace Documents.API.Mapper
 {
@@ -8,9 +8,7 @@ namespace Documents.API.Mapper
     {
         public MapperProfile()
         {
-
-            CreateMap<DocumentEntity, Document>().ReverseMap();
-            CreateMap<PhotoEntity, Photo>().ReverseMap();
+            CreateMap<BlobViewModel, BlobDto>().ReverseMap();
         }
     }
 }

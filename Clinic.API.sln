@@ -39,11 +39,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Appointments.BLL", "src\App
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Appointments.DAL", "src\Appointments\Appointments.DAL\Appointments.DAL.csproj", "{A7D18869-FBFA-44A6-92BA-BAEB9A3789B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documents.API", "src\Documents\Documents.API\Documents.API.csproj", "{8AD0D350-459E-4A16-894B-BFA407A1B298}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Documents.API", "src\Documents\Documents.API\Documents.API.csproj", "{8AD0D350-459E-4A16-894B-BFA407A1B298}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documents.BLL", "src\Documents\Documents.BLL\Documents.BLL.csproj", "{0D6497F7-535F-4FD8-B7E2-E1A35087B593}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Documents.DAL", "src\Documents\Documents.DAL\Documents.DAL.csproj", "{C242155A-3269-478F-8B6E-5550D82D7474}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Documents.BLL", "src\Documents\Documents.BLL\Documents.BLL.csproj", "{0D6497F7-535F-4FD8-B7E2-E1A35087B593}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -133,10 +131,6 @@ Global
 		{0D6497F7-535F-4FD8-B7E2-E1A35087B593}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D6497F7-535F-4FD8-B7E2-E1A35087B593}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D6497F7-535F-4FD8-B7E2-E1A35087B593}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C242155A-3269-478F-8B6E-5550D82D7474}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C242155A-3269-478F-8B6E-5550D82D7474}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C242155A-3269-478F-8B6E-5550D82D7474}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C242155A-3269-478F-8B6E-5550D82D7474}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
