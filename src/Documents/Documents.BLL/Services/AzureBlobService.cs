@@ -26,7 +26,7 @@ namespace Documents.BLL.Services
             _photoContainerClient.CreateIfNotExists();
         }
 
-        public async Task<string> UplaodBlobFile(string fileName, string jsonResult, /*Stream pictureStream*/ IFormFile? formFile)
+        public async Task<string> UplaodBlobFile(string fileName, string jsonResult, IFormFile? formFile)
         {
             if (formFile is not null)
             {
