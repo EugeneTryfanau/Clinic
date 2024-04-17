@@ -1,6 +1,7 @@
 ﻿using Azure.Storage.Blobs;
 using Documents.BLL.Interfaces;
 using Documents.BLL.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Documents.BLL.Services
 {
@@ -8,7 +9,7 @@ namespace Documents.BLL.Services
     {
         private readonly IPdfGeneratorService _pdfGeneratorService;
 
-        private const string DocumentContainerName = "appointment_results";
+        private const string DocumentContainerName = "appointmentresults";
         private const string PictureContainerName = "photos";
 
         private readonly BlobContainerClient _documentContainerClient;
@@ -25,12 +26,12 @@ namespace Documents.BLL.Services
             _photoContainerClient.CreateIfNotExists();
         }
 
-        public async Task<string> UplaodBlobFile(string fileName, string jsonResult, Stream pictureStream)
+        public async Task<string> UplaodBlobFile(string fileName, string jsonResult, /*Stream pictureStream*/ IFormFile? formFile)
         {
-            if (pictureStream is not null)
+            if (formFile is not null)
             {
                 var blobClient = _photoContainerClient.GetBlobClient(fileName);
-                await blobClient.UploadAsync(pictureStream);
+                await blobClient.UploadAsync(formFile.OpenReadStream());
 
                 return blobClient.Uri.AbsoluteUri + blobClient.Name;
             }

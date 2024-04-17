@@ -10,15 +10,16 @@ namespace Documents.API.Controllers
     public class DocumentsController(AzureBlobService azureBlobService, IMapper mapper) : ControllerBase
     {
         [HttpGet]
-        public async Task<BlobViewModel> Download(string fileName, bool isPhoto)
+        public async Task<IActionResult> Download(string fileName, bool isPhoto)
         {
-            return mapper.Map<BlobViewModel>(await azureBlobService.DownloadBlobFile(fileName, isPhoto));
+            var fileData = mapper.Map<BlobViewModel>(await azureBlobService.DownloadBlobFile(fileName, isPhoto));
+            return File(fileData.Content, fileData.TypeContent , fileData.Name);
         }
 
         [HttpPost]
-        public async Task<string> Upload(string fileName, string jsonResult, Stream pictureStream)
+        public async Task<string> Upload(string fileName, string jsonResult = "", IFormFile? formFile = null)
         {
-            return await azureBlobService.UplaodBlobFile(fileName, jsonResult, pictureStream);
+            return await azureBlobService.UplaodBlobFile(fileName, jsonResult, formFile);
         }
 
         [HttpDelete]
