@@ -13,7 +13,7 @@ namespace Documents.API.Controllers
         public async Task<IActionResult> Download(string fileName, bool isPhoto)
         {
             var fileData = mapper.Map<BlobViewModel>(await azureBlobService.DownloadBlobFile(fileName, isPhoto));
-            return File(fileData.Content, fileData.TypeContent , fileData.Name);
+            return File(fileData.Content!, fileData.TypeContent!, fileData.Name);
         }
 
         [HttpPost]

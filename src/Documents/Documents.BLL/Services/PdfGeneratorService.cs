@@ -24,52 +24,45 @@ namespace Documents.BLL.Services
 
         private static void AppendHTML(MemoryStream masterStream, string html, PageSize pageSize)
         {
-            using (MemoryStream componentStream = new MemoryStream())
+            using MemoryStream componentStream = new MemoryStream();
+            using (MemoryStream tempStream = new MemoryStream())
             {
-                using (MemoryStream tempStream = new MemoryStream())
+                using PdfWriter pdfWriter = new PdfWriter(tempStream);
+                pdfWriter.SetCloseStream(false);
+
+                using PdfDocument document = new PdfDocument(pdfWriter);
+                document.SetDefaultPageSize(pageSize);
+
+                HtmlConverter.ConvertToPdf(html, document, new ConverterProperties());
+
+                tempStream.WriteTo(componentStream);
+            }
+
+            if (masterStream.Length == 0)
+                componentStream.WriteTo(masterStream);
+            else
+            {
+                using MemoryStream tempStream = new MemoryStream();
+                masterStream.Position = 0;
+                componentStream.Position = 0;
+
+                using (PdfDocument combinedDocument = new PdfDocument(new PdfReader(masterStream), new PdfWriter(tempStream)))
                 {
-                    using (PdfWriter pdfWriter = new PdfWriter(tempStream))
+                    using (PdfDocument componentDocument = new PdfDocument(new PdfReader(componentStream)))
                     {
-                        pdfWriter.SetCloseStream(false);
+                        combinedDocument.SetCloseWriter(false);
 
-                        using (PdfDocument document = new PdfDocument(pdfWriter))
-                        {
-                            document.SetDefaultPageSize(pageSize);
-
-                            HtmlConverter.ConvertToPdf(html, document, new ConverterProperties());
-
-                            tempStream.WriteTo(componentStream);
-                        }
+                        componentDocument.CopyPagesTo(1, componentDocument.GetNumberOfPages(), combinedDocument);
                     }
+
+                    combinedDocument.Close();
                 }
 
-                if (masterStream.Length == 0)
-                    componentStream.WriteTo(masterStream);
-                else
-                {
-                    using (MemoryStream tempStream = new MemoryStream())
-                    {
-                        masterStream.Position = 0;
-                        componentStream.Position = 0;
-                        using (PdfDocument combinedDocument = new PdfDocument(new PdfReader(masterStream), new PdfWriter(tempStream)))
-                        {
-                            using (PdfDocument componentDocument = new PdfDocument(new PdfReader(componentStream)))
-                            {
-                                combinedDocument.SetCloseWriter(false);
-
-                                componentDocument.CopyPagesTo(1, componentDocument.GetNumberOfPages(), combinedDocument);
-                            }
-
-                            combinedDocument.Close();
-                        }
-
-                        byte[] temporaryBytes = tempStream.ToArray();
-                        masterStream.Position = 0;
-                        masterStream.SetLength(temporaryBytes.Length);
-                        masterStream.Capacity = temporaryBytes.Length;
-                        masterStream.Write(temporaryBytes, 0, temporaryBytes.Length);
-                    }
-                }
+                byte[] temporaryBytes = tempStream.ToArray();
+                masterStream.Position = 0;
+                masterStream.SetLength(temporaryBytes.Length);
+                masterStream.Capacity = temporaryBytes.Length;
+                masterStream.Write(temporaryBytes, 0, temporaryBytes.Length);
             }
         }
 

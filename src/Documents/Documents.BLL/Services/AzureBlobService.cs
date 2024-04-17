@@ -30,14 +30,14 @@ namespace Documents.BLL.Services
         {
             if (formFile is not null)
             {
-                var blobClient = _photoContainerClient.GetBlobClient(fileName);
+                var blobClient = _photoContainerClient.GetBlobClient(fileName + Path.GetExtension(formFile.FileName));
                 await blobClient.UploadAsync(formFile.OpenReadStream());
 
                 return blobClient.Uri.AbsoluteUri + blobClient.Name;
             }
             else
             {
-                var blobClient = _documentContainerClient.GetBlobClient(fileName);
+                var blobClient = _documentContainerClient.GetBlobClient(fileName + ".pdf");
                 await blobClient.UploadAsync(await CreatePdfDocumentStream(jsonResult), true);
 
                 return blobClient.Uri.AbsoluteUri + blobClient.Name;
