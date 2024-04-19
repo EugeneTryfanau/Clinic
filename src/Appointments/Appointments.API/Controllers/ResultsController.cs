@@ -10,7 +10,7 @@ namespace Appointments.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ResultController(IRabbitMqProducerService mqService, IResultService resultService, IMapper mapper) :
+    public class ResultsController(IRabbitMqProducerService mqService, IResultService resultService, IMapper mapper) :
         GenericController<Result, ResultViewModel>(resultService, mapper)
     {
         private readonly IResultService _resultService = resultService;

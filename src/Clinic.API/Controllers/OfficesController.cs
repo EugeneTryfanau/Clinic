@@ -10,12 +10,12 @@ using StandartCRUD.StandartAPI.Controllers;
 namespace Clinic.API.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
+    //[Authorize]
     [ApiController]
     public class OfficesController(IOfficeService officeService, IMapper mapper) :
         GenericController<Office, OfficeViewModel>(officeService, mapper)
     {
-        [Authorize(Policy = "receptionist")]
+        //[Authorize(Policy = "receptionist")]
         [HttpGet]
         public async Task<IEnumerable<OfficeViewModel>> GetAll(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken)
         {

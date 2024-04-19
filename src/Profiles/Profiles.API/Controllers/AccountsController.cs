@@ -9,7 +9,7 @@ namespace Profiles.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AccountController(IAccountService accountService, IMapper mapper) : ControllerBase
+    public class AccountsController(IAccountService accountService, IMapper mapper) : ControllerBase
     {
         private readonly IAccountService _accountService = accountService;
         private readonly IMapper _mapper = mapper;

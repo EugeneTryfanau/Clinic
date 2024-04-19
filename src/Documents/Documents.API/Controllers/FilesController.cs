@@ -7,7 +7,7 @@ namespace Documents.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DocumentsController(AzureBlobService azureBlobService, IMapper mapper) : ControllerBase
+    public class FilesController(AzureBlobService azureBlobService, IMapper mapper) : ControllerBase
     {
         [HttpGet]
         public async Task<IActionResult> Download(string fileName, bool isPhoto)

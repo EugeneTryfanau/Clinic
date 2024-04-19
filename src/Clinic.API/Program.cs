@@ -11,13 +11,13 @@ var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("CorsPolicy", builder =>
-        builder.WithOrigins(configuration["ClientSide:ClientBase"]!)
-        .AllowAnyMethod()
-        .AllowAnyHeader());
-});
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("CorsPolicy", builder =>
+//        builder.WithOrigins(configuration["ClientSide:ClientBase"]!)
+//        .AllowAnyMethod()
+//        .AllowAnyHeader());
+//});
 
 builder.Services.AddAutoMapper(typeof(Program));
 
@@ -56,7 +56,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseCors("CorsPolicy");
+//app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 app.UseAuthorization();

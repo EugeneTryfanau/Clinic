@@ -9,7 +9,7 @@ namespace Profiles.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DoctorController(IDoctorService doctorService, IMapper mapper) : ControllerBase
+    public class DoctorsController(IDoctorService doctorService, IMapper mapper) : ControllerBase
     {
         private readonly IDoctorService _doctorService = doctorService;
         private readonly IMapper _mapper = mapper;

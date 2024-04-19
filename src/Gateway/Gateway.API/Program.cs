@@ -18,14 +18,6 @@ builder.Configuration.AddOcelotWithSwaggerSupport(options =>
     options.Folder = routes;
 });
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("CorsPolicy", builder =>
-        builder.WithOrigins(configuration["ClientSide:ClientBase"]!)
-        .AllowAnyMethod()
-        .AllowAnyHeader());
-});
-
 builder.Services.AddOcelot(builder.Configuration).AddPolly();
 builder.Services.AddSwaggerForOcelot(builder.Configuration);
 
@@ -45,8 +37,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 

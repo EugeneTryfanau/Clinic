@@ -9,7 +9,7 @@ namespace Profiles.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReceptionistController(IReceptionistService receptionistService, IMapper mapper) : ControllerBase
+    public class ReceptionistsController(IReceptionistService receptionistService, IMapper mapper) : ControllerBase
     {
         private readonly IReceptionistService _receptionistService = receptionistService;
         private readonly IMapper _mapper = mapper;

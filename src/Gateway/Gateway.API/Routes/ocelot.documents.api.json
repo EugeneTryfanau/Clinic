@@ -1,9 +1,9 @@
 {
   "Routes": [
     {
-      "UpstreamPathTemplate": "/api/Documents/{everything}",
+      "UpstreamPathTemplate": "/api/Files/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
-      "DownstreamPathTemplate": "/api/Documents/{everything}",
+      "DownstreamPathTemplate": "/api/Files/{everything}",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
@@ -11,7 +11,7 @@
           "Port": 7052
         }
       ],
-      "SwaggerKey": "Documents"
+      "SwaggerKey": "Files"
     }
   ]
 }
