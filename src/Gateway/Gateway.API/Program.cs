@@ -38,7 +38,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddOcelot(builder.Configuration).AddPolly();
 builder.Services.AddSwaggerForOcelot(builder.Configuration);
 
-var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 builder.Configuration.SetBasePath(Directory.GetCurrentDirectory())
     .AddOcelot(routes, builder.Environment)
     .AddEnvironmentVariables();

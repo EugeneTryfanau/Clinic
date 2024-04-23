@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Gateway.API
 {
-    public class AlterUpstream
+    public static class AlterUpstream
     {
         public static string AlterUpstreamSwaggerJson(HttpContext context, string swaggerJson)
         {

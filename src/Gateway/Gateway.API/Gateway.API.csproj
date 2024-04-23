@@ -13,6 +13,10 @@
     <PackageReference Include="Ocelot" Version="23.2.2" />
     <PackageReference Include="Ocelot.Cache.CacheManager" Version="23.2.2" />
     <PackageReference Include="Ocelot.Provider.Polly" Version="23.2.2" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.23.1.88495">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
