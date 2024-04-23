@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "UpstreamPathTemplate": "/api/Files/{everything}",
+      "UpstreamPathTemplate": "/Files/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "DownstreamPathTemplate": "/api/Files/{everything}",
       "DownstreamScheme": "https",

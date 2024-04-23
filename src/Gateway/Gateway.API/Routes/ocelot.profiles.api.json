@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "UpstreamPathTemplate": "/api/Accounts/{everything}",
+      "UpstreamPathTemplate": "/Accounts/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "DownstreamPathTemplate": "/api/Accounts/{everything}",
       "DownstreamScheme": "https",
@@ -14,7 +14,7 @@
       "SwaggerKey": "Accounts"
     },
     {
-      "UpstreamPathTemplate": "/api/Doctors/{everything}",
+      "UpstreamPathTemplate": "/Doctors/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "DownstreamPathTemplate": "/api/Doctors/{everything}",
       "DownstreamScheme": "https",
@@ -27,7 +27,7 @@
       "SwaggerKey": "Doctors"
     },
     {
-      "UpstreamPathTemplate": "/api/Patients/{everything}",
+      "UpstreamPathTemplate": "/Patients/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "DownstreamPathTemplate": "/api/Patients/{everything}",
       "DownstreamScheme": "https",
@@ -40,7 +40,7 @@
       "SwaggerKey": "Patients"
     },
     {
-      "UpstreamPathTemplate": "/api/Receptionists/{everything}",
+      "UpstreamPathTemplate": "/Receptionists/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "DownstreamPathTemplate": "/api/Receprtionists/{everything}",
       "DownstreamScheme": "https",
@@ -53,7 +53,7 @@
       "SwaggerKey": "Receptionists"
     },
     {
-      "UpstreamPathTemplate": "/api/Specializations/{everything}",
+      "UpstreamPathTemplate": "/Specializations/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "DownstreamPathTemplate": "/api/Spetializations/{everything}",
       "DownstreamScheme": "https",

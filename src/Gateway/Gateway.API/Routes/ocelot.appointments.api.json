@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "UpstreamPathTemplate": "/api/Appointments/{everything}",
+      "UpstreamPathTemplate": "/Appointments/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "DownstreamPathTemplate": "/api/Appointments/{everything}",
       "DownstreamScheme": "https",
@@ -14,7 +14,7 @@
       "SwaggerKey": "Appointments"
     },
     {
-      "UpstreamPathTemplate": "/api/Documents/{everything}",
+      "UpstreamPathTemplate": "/Documents/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "DownstreamPathTemplate": "/api/Documents/{everything}",
       "DownstreamScheme": "https",
@@ -27,7 +27,7 @@
       "SwaggerKey": "Documents"
     },
     {
-      "UpstreamPathTemplate": "/api/Results/{everything}",
+      "UpstreamPathTemplate": "/Results/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "DownstreamPathTemplate": "/api/Results/{everything}",
       "DownstreamScheme": "https",

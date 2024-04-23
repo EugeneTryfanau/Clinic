@@ -74,7 +74,7 @@
         "PUT",
         "DELETE"
       ],
-      "UpstreamPathTemplate": "/api/Appointments/{everything}"
+      "UpstreamPathTemplate": "/Appointments/{everything}"
     },
     {
       "AddClaimsToRequest": {},
@@ -150,7 +150,7 @@
         "PUT",
         "DELETE"
       ],
-      "UpstreamPathTemplate": "/api/Documents/{everything}"
+      "UpstreamPathTemplate": "/Documents/{everything}"
     },
     {
       "AddClaimsToRequest": {},
@@ -226,7 +226,7 @@
         "PUT",
         "DELETE"
       ],
-      "UpstreamPathTemplate": "/api/Results/{everything}"
+      "UpstreamPathTemplate": "/Results/{everything}"
     },
     {
       "AddClaimsToRequest": {},
@@ -234,7 +234,7 @@
       "AddQueriesToRequest": {},
       "AuthenticationOptions": {
         "AllowedScopes": [],
-        "AuthenticationProviderKey": null,
+        "AuthenticationProviderKey": "Auth0",
         "AuthenticationProviderKeys": []
       },
       "ChangeDownstreamPathTemplate": {},
@@ -284,7 +284,9 @@
         "Limit": 0
       },
       "RequestIdKey": null,
-      "RouteClaimsRequirement": {},
+      "RouteClaimsRequirement": {
+        "dev-jtm7f3iys0ltpeff.eu.auth0.com/roles": "receptionist"
+      },
       "RouteIsCaseSensitive": false,
       "SecurityOptions": {
         "IPAllowedList": [],
@@ -302,7 +304,7 @@
         "PUT",
         "DELETE"
       ],
-      "UpstreamPathTemplate": "/api/Offices/{everything}"
+      "UpstreamPathTemplate": "/Offices/{everything}"
     },
     {
       "AddClaimsToRequest": {},
@@ -378,7 +380,7 @@
         "PUT",
         "DELETE"
       ],
-      "UpstreamPathTemplate": "/api/Files/{everything}"
+      "UpstreamPathTemplate": "/Files/{everything}"
     },
     {
       "AddClaimsToRequest": {},
@@ -454,7 +456,7 @@
         "PUT",
         "DELETE"
       ],
-      "UpstreamPathTemplate": "/api/Accounts/{everything}"
+      "UpstreamPathTemplate": "/Accounts/{everything}"
     },
     {
       "AddClaimsToRequest": {},
@@ -530,7 +532,7 @@
         "PUT",
         "DELETE"
       ],
-      "UpstreamPathTemplate": "/api/Doctors/{everything}"
+      "UpstreamPathTemplate": "/Doctors/{everything}"
     },
     {
       "AddClaimsToRequest": {},
@@ -606,7 +608,7 @@
         "PUT",
         "DELETE"
       ],
-      "UpstreamPathTemplate": "/api/Patients/{everything}"
+      "UpstreamPathTemplate": "/Patients/{everything}"
     },
     {
       "AddClaimsToRequest": {},
@@ -682,7 +684,7 @@
         "PUT",
         "DELETE"
       ],
-      "UpstreamPathTemplate": "/api/Receptionists/{everything}"
+      "UpstreamPathTemplate": "/Receptionists/{everything}"
     },
     {
       "AddClaimsToRequest": {},
@@ -758,7 +760,7 @@
         "PUT",
         "DELETE"
       ],
-      "UpstreamPathTemplate": "/api/Specializations/{everything}"
+      "UpstreamPathTemplate": "/Specializations/{everything}"
     },
     {
       "AddClaimsToRequest": {},
@@ -834,7 +836,7 @@
         "PUT",
         "DELETE"
       ],
-      "UpstreamPathTemplate": "/api/Services/{everything}"
+      "UpstreamPathTemplate": "/Services/{everything}"
     }
   ],
   "DynamicRoutes": [],
