@@ -1,0 +1,6 @@
+@Documents.API_HostAddress = http://localhost:5007
+
+GET {{Documents.API_HostAddress}}/
+Accept: application/json
+
+###
