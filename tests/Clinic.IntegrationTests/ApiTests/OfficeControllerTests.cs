@@ -64,6 +64,35 @@ public class OfficeControllerTests : IntegrationTestsBase
     }
 
     [Fact]
+    public async Task GetAllOffices_ReturnsSameCollectionFromCache()
+    {
+        List<OfficeViewModel> expectedModelsList = new();
+
+        for (int i = 1; i < 3; i++)
+        {
+            var expectedModel = await CreateOffice(TestOfficeViewModels.CreateOffice());
+
+            expectedModelsList.Add(expectedModel!);
+        }
+
+        var actualResult = await Client.GetAsync("/api/offices");
+        actualResult.StatusCode.ShouldBe(HttpStatusCode.OK);
+
+        var responseModels = JsonConvert.DeserializeObject<IEnumerable<OfficeViewModel>>(await actualResult.Content.ReadAsStringAsync());
+
+        await CreateOffice(TestOfficeViewModels.CreateOffice());
+
+        var actualResultSecondRequest = await Client.GetAsync("/api/offices");
+        actualResultSecondRequest.StatusCode.ShouldBe(HttpStatusCode.OK);
+
+        var responseModelsSecondRequest = JsonConvert.DeserializeObject<IEnumerable<OfficeViewModel>>(await actualResultSecondRequest.Content.ReadAsStringAsync());
+
+        responseModels.ShouldNotBeNull();
+        responseModelsSecondRequest.ShouldNotBeNull();
+        responseModels.ShouldBeEquivalentTo(responseModelsSecondRequest);
+    }
+
+    [Fact]
     public async Task UpdateOffice_ValidInput_ReturnsOk()
     {
         var createRequest = TestOfficeViewModels.CreateOffice();
