@@ -4,6 +4,7 @@ using Clinic.IntegrationTests.TestData.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 
@@ -26,6 +27,8 @@ namespace Clinic.IntegrationTests.Infrastructure.Extensions
                     var database = client.GetDatabase("TestDb");
                     return database.GetCollection<OfficeEntity>("TestCollection");
                 });
+
+                services.AddMemoryCache();
 
                 if (descriptorMongo != null)
                     services.Remove(descriptorMongo);
