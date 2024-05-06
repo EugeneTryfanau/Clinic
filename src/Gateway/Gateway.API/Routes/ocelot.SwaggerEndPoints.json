@@ -1,0 +1,136 @@
+{
+  "SwaggerEndPoints": [
+    {
+      "Key": "Gateway.API",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Gateway.API",
+          "Version": "1.0",
+          "Url": "https://localhost:7047/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Appointments",
+      "TransformByOcelotConfig": true,
+      "Config": [
+        {
+          "Name": "Appointments.API.Appointments",
+          "Version": "1.0",
+          "Url": "https://localhost:7045/Appointments/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Documents",
+      "TransformByOcelotConfig": true,
+      "Config": [
+        {
+          "Name": "Appointments.API.Documents",
+          "Version": "1.0",
+          "Url": "https://localhost:7045/Documents/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Results",
+      "TransformByOcelotConfig": true,
+      "Config": [
+        {
+          "Name": "Appointments.API.Results",
+          "Version": "1.0",
+          "Url": "https://localhost:7045/Results/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Offices",
+      "TransformByOcelotConfig": true,
+      "Config": [
+        {
+          "Name": "Clinic.API.Offices",
+          "Version": "1.0",
+          "Url": "https://localhost:7056/Offices/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Files",
+      "TransformByOcelotConfig": true,
+      "Config": [
+        {
+          "Name": "Documents.API.Files",
+          "Version": "1.0",
+          "Url": "http://localhost:7052/Files/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Accounts",
+      "TransformByOcelotConfig": true,
+      "Config": [
+        {
+          "Name": "Profiles.API.Accounts",
+          "Version": "1.0",
+          "Url": "http://localhost:7081/Accounts/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Doctors",
+      "TransformByOcelotConfig": true,
+      "Config": [
+        {
+          "Name": "Profiles.API.Doctors",
+          "Version": "1.0",
+          "Url": "http://localhost:7081/Doctors/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Patients",
+      "TransformByOcelotConfig": true,
+      "Config": [
+        {
+          "Name": "Profiles.API.Patients",
+          "Version": "1.0",
+          "Url": "http://localhost:7081/Patients/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Receptionists",
+      "TransformByOcelotConfig": true,
+      "Config": [
+        {
+          "Name": "Profiles.API.Receptionists",
+          "Version": "1.0",
+          "Url": "http://localhost:7081/Receptionists/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Specializations",
+      "TransformByOcelotConfig": true,
+      "Config": [
+        {
+          "Name": "Profiles.API.Specializations",
+          "Version": "1.0",
+          "Url": "http://localhost:7081/Specializations/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "Services",
+      "TransformByOcelotConfig": true,
+      "Config": [
+        {
+          "Name": "Profiles.API.Services",
+          "Version": "1.0",
+          "Url": "http://localhost:7284/Services/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}

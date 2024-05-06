@@ -9,7 +9,7 @@ namespace Services.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServiceController(IServiceService serviceService, IMapper mapper) : ControllerBase
+    public class ServicesController(IServiceService serviceService, IMapper mapper) : ControllerBase
     {
         private readonly IServiceService _serviceService = serviceService;
         private readonly IMapper _mapper = mapper;

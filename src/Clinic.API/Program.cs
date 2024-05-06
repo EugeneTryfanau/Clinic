@@ -11,29 +11,7 @@ var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("CorsPolicy", builder =>
-        builder.WithOrigins(configuration["ClientSide:ClientBase"]!)
-        .AllowAnyMethod()
-        .AllowAnyHeader());
-});
-
 builder.Services.AddAutoMapper(typeof(Program));
-
-
-var domain = $"https://{builder.Configuration["Auth0:Domain"]}/";
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-.AddJwtBearer(options =>
-{
-    options.Authority = domain;
-    options.Audience = builder.Configuration["Auth0:Audience"];
-});
-
-builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("receptionist", policy => policy.RequireClaim("dev-jtm7f3iys0ltpeff.eu.auth0.com/roles", "receptionist"))
-    .AddPolicy("doctor", policy => policy.RequireClaim("dev-jtm7f3iys0ltpeff.eu.auth0.com/roles", "doctor"))
-    .AddPolicy("patient", policy => policy.RequireClaim("dev-jtm7f3iys0ltpeff.eu.auth0.com/roles", "patient"));
 
 builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
@@ -47,7 +25,6 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -55,11 +32,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseCors("CorsPolicy");
-
-app.UseAuthorization();
-app.UseAuthorization();
 
 app.MapControllers();
 

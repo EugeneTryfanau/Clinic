@@ -1,0 +1,24 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/Offices/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/Offices/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7056
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Auth0",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "dev-jtm7f3iys0ltpeff.eu.auth0.com/roles": "receptionist"
+      },
+      "SwaggerKey": "Offices"
+    }
+  ]
+}

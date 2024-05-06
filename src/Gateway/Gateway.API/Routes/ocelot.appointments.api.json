@@ -1,0 +1,43 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/Appointments/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/Appointments/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7045
+        }
+      ],
+      "SwaggerKey": "Appointments"
+    },
+    {
+      "UpstreamPathTemplate": "/Documents/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/Documents/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7045
+        }
+      ],
+      "SwaggerKey": "Documents"
+    },
+    {
+      "UpstreamPathTemplate": "/Results/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "DownstreamPathTemplate": "/api/Results/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7045
+        }
+      ],
+      "SwaggerKey": "Results"
+    }
+  ]
+}
