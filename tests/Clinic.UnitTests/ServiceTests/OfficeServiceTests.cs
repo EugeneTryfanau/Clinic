@@ -18,6 +18,7 @@ namespace Clinic.UnitTests.ServiceTests
         private readonly IMapper _mapper;
         private readonly IOfficeRepository _officeRepository;
         private readonly IMemoryCache _cache;
+        private readonly CacheOfficeService _cacheOfficeService;
         private readonly OfficeService _officeService;
 
         public OfficeServiceTests()
@@ -31,7 +32,8 @@ namespace Clinic.UnitTests.ServiceTests
 
             _officeRepository = Substitute.For<IOfficeRepository>();
             _cache = Substitute.For<IMemoryCache>();
-            _officeService = new OfficeService(_officeRepository, _mapper, _cache);
+            _cacheOfficeService = new CacheOfficeService(_cache, _officeRepository, _mapper);
+            _officeService = new OfficeService(_officeRepository, _mapper, _cacheOfficeService);
         }
 
         [Fact]
