@@ -1,0 +1,66 @@
+services:
+  #servicesdb:
+  #  image: mcr.microsoft.com/mssql/server:2017-latest
+
+  #profilesdb:
+  #  image: mcr.microsoft.com/mssql/server:2017-latest
+
+  #appointmentsdb:
+  #  image: appointmentsdb
+
+  officesdb:
+    image: 'mongo:latest'
+
+  #appointments.api:
+  #  image: ${DOCKER_REGISTRY-}appointmentsapi
+  #  build:
+  #    context: ./src/Appointments/Appointments.API/
+  #    dockerfile: Dockerfile
+
+  clinic.api:
+    image: ${DOCKER_REGISTRY-}clinicapi
+    build:
+      context: ./src/Clinic.API/
+      dockerfile: Dockerfile
+
+  #documents.api:
+  #  image: ${DOCKER_REGISTRY-}documentsapi
+  #  build:
+  #    context: ./src/Documents/Documents.API/
+  #    dockerfile: Dockerfile
+
+  gateway.api:
+    image: ${DOCKER_REGISTRY-}gatewayapi
+    build:
+      context: ./src/Gateway/Gateway.API/
+      dockerfile: Dockerfile
+
+  #notifications.api:
+  #  image: ${DOCKER_REGISTRY-}notificationsapi
+  #  build:
+  #    context: ./src/Notifications/Notifications.API/
+  #    dockerfile: Dockerfile
+
+  #profiles.api:
+  #  image: ${DOCKER_REGISTRY-}profilesapi
+  #  build:
+  #    context: ./src/Profiles/Profiles.API/
+  #    dockerfile: Dockerfile
+
+  #services.api:
+  #  image: ${DOCKER_REGISTRY-}servicesapi
+  #  build:
+  #    context: ./src/Services/services.API/
+  #    dockerfile: Dockerfile
+
+  clinic-react-client:
+    image: ${DOCKER_REGISTRY-}clinic-react-client
+    build:
+      context: ./client/clinic-react-client/
+      dockerfile: Dockerfile
+
+volumes:
+  #servicesdb:
+  #profilesdb:
+  #appointmentsdb:
+  officesdb:

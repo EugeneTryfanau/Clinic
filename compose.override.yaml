@@ -1,0 +1,164 @@
+services:
+  #servicesdb:
+  #  image: mcr.microsoft.com/mssql/server:2017-latest
+  #  container_name: servicesdb
+  #  environment:
+  #    - SA_PASSWORD=Pass@word
+  #    - ACCEPT_EULA=Y
+  #  restart: always
+  #  ports:
+  #    - "1433:1433"
+  #  volumes:
+  #    - servicesdb:/var/lib/mssql/data/ 
+
+  #profilesdb:
+  #  image: mcr.microsoft.com/mssql/server:2017-latest
+  #  container_name: profilesdb
+  #  environment:
+  #    - SA_PASSWORD=Pass@word
+  #    - ACCEPT_EULA=Y
+  #  restart: always
+  #  ports:
+  #    - "1433:1433"
+  #  volumes:
+  #    - profilesdb:/var/lib/mssql/data/ 
+      
+  #appointmentsdb:
+  #  container_name: appointmentsdb
+  #  environment:
+  #    - POSTGRES_USER=postgres
+  #    - POSTGRES_PASSWORD=postgres
+  #    - POSTGRES_DB=AppointmentsDb
+  #  restart: always
+  #  ports:
+  #      - "5433:5432"
+  #  volumes:
+  #    - appointmentsdb:/var/lib/postgresql/data/ 
+      
+  officesdb:
+    image: 'mongo:latest'
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - officesdb:/var/lib/mongo/data/
+
+  #appointments.api:
+  #  environment:
+  #    - ASPNETCORE_ENVIRONMENT=Development
+  #    - ASPNETCORE_HTTP_PORTS=8080
+  #    - ASPNETCORE_HTTPS_PORTS=8081
+  #    - ConnectionStrings__Database=Server=catalogdb;Port=5432;Database=AppointmentsDb;User Id=postgres;Password=postgres;Include Error Detail=true
+  #  depends_on:
+  #    - appointmentsdb
+  #  ports:
+  #    - "5175:8080"
+  #    - "7045:8081"
+  #  volumes:
+  #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+  #    - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  clinic.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ConnectionStrings__Database=ConnectionURI=mongodb://localhost:27017/;DatabaseName=Offices
+    depends_on:
+      - officesdb
+    ports:
+      - "5138:8080"
+      - "7056:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  #documents.api:
+  #  environment:
+  #    - ASPNETCORE_ENVIRONMENT=Development
+  #    - ASPNETCORE_HTTP_PORTS=8080
+  #    - ASPNETCORE_HTTPS_PORTS=8081
+  #  ports:
+  #    - "5007:8080"
+  #    - "7052:8081"
+  #  volumes:
+  #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+  #    - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  gateway.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+    depends_on:
+      #- appointments.api
+      - clinic.api
+      #- documents.api
+      #- notifications.api
+      #- profiles.api
+      #- services.api
+    ports:
+      - "5270:8080"
+      - "7047:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  #notifications.api:
+  #  environment:
+  #    - ASPNETCORE_ENVIRONMENT=Development
+  #    - ASPNETCORE_HTTP_PORTS=8080
+  #    - ASPNETCORE_HTTPS_PORTS=8081
+  #  ports:
+  #    - "5055:8080"
+  #    - "7262:8081"
+  #  volumes:
+  #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+  #    - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro 
+
+  #profiles.api:
+  #  environment:
+  #    - ASPNETCORE_ENVIRONMENT=Development
+  #    - ASPNETCORE_HTTP_PORTS=8080
+  #    - ASPNETCORE_HTTPS_PORTS=8081
+  #    - ConnectionStrings__Database=Server=profilesdb;Port=1433;Database=ProfilesDb;SA_PASSWORD=Pass@word;ACCEPT_EULA=Y
+  #  depends_on:
+  #    - profilesdb
+  #  ports:
+  #    - "5242:8080"
+  #    - "7081:8081"
+  #  volumes:
+  #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+  #    - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  #services.api:
+  #  environment:
+  #    - ASPNETCORE_ENVIRONMENT=Development
+  #    - ASPNETCORE_HTTP_PORTS=8080
+  #    - ASPNETCORE_HTTPS_PORTS=8081
+  #    - ConnectionStrings__Database=Server=servicesdb;Port=1433;Database=ServicesDb;SA_PASSWORD=Pass@word;ACCEPT_EULA=Y
+  #  depends_on:
+  #    - servicesdb
+  #  ports:
+  #    - "5159:8080"
+  #    - "7284:8081"
+  #  volumes:
+  #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+  #    - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+
+  clinic-react-client:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ApiSettings__GatewayAddress=https://gateway.api:8081
+    depends_on:
+      - gateway.api
+    ports:
+      - "5001:8080"
+      - "5127:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
