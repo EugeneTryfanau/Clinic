@@ -5,19 +5,20 @@ EXPOSE 8080
 EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
+ARG BUILD_CONFIGURATION=Debug
 WORKDIR /src
-COPY ["Profiles/Profiles.API.csproj", "Profiles.API/"]
-COPY ["Profiles/Profiles.BLL.csproj", "Profiles.BLL/"]
-COPY ["Profiles/Profiles.DAL.csproj", "Profiles.DAL/"]
-COPY ["StandartCRUD/StandartCRUD.csproj", "./common/"]
-RUN dotnet restore "./Profiles/./Profiles.API.csproj"
+COPY ["common/StandartCRUD/StandartCRUD.csproj", "common/StandartCRUD/"]
+COPY ["src/Profiles/Profiles.DAL/Profiles.DAL.csproj", "src/Profiles/Profiles.DAL/"]
+COPY ["src/Profiles/Profiles.BLL/Profiles.BLL.csproj", "src/Profiles/Profiles.BLL/"]
+COPY ["src/Profiles/Profiles.API/Profiles.API.csproj", "src/Profiles/Profiles.API/"]
+RUN dotnet restore "./src/Profiles/Profiles.API/Profiles.API.csproj"
 COPY . .
-WORKDIR "/src/Profiles/Profiles.API"
+WORKDIR "/src/src/Profiles/Profiles.API"
 RUN dotnet build "./Profiles.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
+ARG BUILD_CONFIGURATION=Debug
+RUN dotnet dev-certs https --trust
 RUN dotnet publish "./Profiles.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final

@@ -1,26 +1,13 @@
 ARG NODE_VERSION=20.11.1
 
-FROM node:${NODE_VERSION}-alpine as base
-WORKDIR /usr/src/app
+FROM node:22-alpine3.18
+WORKDIR /app/client/clinic-react-client
 
-FROM base as deps
-RUN --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm \
-    npm ci --omit=dev
+COPY /client/clinic-react-client/package*.json .
+RUN npm install
 
-FROM deps as build
-RUN --mount=type=bind,source=package.json,target=package.json \
-    --mount=type=bind,source=package-lock.json,target=package-lock.json \
-    --mount=type=cache,target=/root/.npm \
-    npm ci
 COPY . .
-RUN npm run build
-FROM base as final
-ENV NODE_ENV production
-USER node
-COPY package.json .
-COPY --from=deps /usr/src/app/node_modules ./node_modules
-COPY --from=build /usr/src/app/clinic-react-client ./clinic-react-client
-EXPOSE 7047
-CMD npm run dev
+#RUN npm run build
+EXPOSE 8080
+EXPOSE 8081
+CMD [ "npm", "run", "build" ]

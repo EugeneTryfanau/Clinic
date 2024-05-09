@@ -5,16 +5,17 @@ EXPOSE 8080
 EXPOSE 8081
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
+ARG BUILD_CONFIGURATION=Debug
 WORKDIR /src
-COPY ["Gateway/Gateway.API.csproj", "Gateway/Gateway.API/"]
-RUN dotnet restore "./Gateway/Gateway.API/./Gateway.API.csproj"
+COPY ["src/Gateway/Gateway.API/Gateway.API.csproj", "src/Gateway/Gateway.API/"]
+RUN dotnet restore "./src/Gateway/Gateway.API/Gateway.API.csproj"
 COPY . .
-WORKDIR "/src/Gateway/Gateway.API"
+WORKDIR "/src/src/Gateway/Gateway.API"
 RUN dotnet build "./Gateway.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
+ARG BUILD_CONFIGURATION=Debug
+RUN dotnet dev-certs https --trust
 RUN dotnet publish "./Gateway.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final

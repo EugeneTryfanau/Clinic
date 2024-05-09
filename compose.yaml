@@ -20,8 +20,8 @@ services:
   clinic.api:
     image: ${DOCKER_REGISTRY-}clinicapi
     build:
-      context: ./src/Clinic.API/
-      dockerfile: Dockerfile
+      context: . #/src/Clinic.API/
+      dockerfile: /src/Clinic.API/Dockerfile
 
   #documents.api:
   #  image: ${DOCKER_REGISTRY-}documentsapi
@@ -32,8 +32,8 @@ services:
   gateway.api:
     image: ${DOCKER_REGISTRY-}gatewayapi
     build:
-      context: ./src/Gateway/Gateway.API/
-      dockerfile: Dockerfile
+      context: . #/src/Gateway/Gateway.API/
+      dockerfile: /src/Gateway/Gateway.API/Dockerfile
 
   #notifications.api:
   #  image: ${DOCKER_REGISTRY-}notificationsapi
@@ -56,8 +56,8 @@ services:
   clinic-react-client:
     image: ${DOCKER_REGISTRY-}clinic-react-client
     build:
-      context: ./client/clinic-react-client/
-      dockerfile: Dockerfile
+      context: . #/client/clinic-react-client/
+      dockerfile: /client/clinic-react-client/Dockerfile
 
 volumes:
   #servicesdb:
