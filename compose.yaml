@@ -8,7 +8,7 @@ services:
   #appointmentsdb:
   #  image: appointmentsdb
 
-  officesdb:
+  mongo:
     image: 'mongo:latest'
 
   #appointments.api:
@@ -29,11 +29,11 @@ services:
   #    context: ./src/Documents/Documents.API/
   #    dockerfile: Dockerfile
 
-  gateway.api:
-    image: ${DOCKER_REGISTRY-}gatewayapi
-    build:
-      context: . #/src/Gateway/Gateway.API/
-      dockerfile: /src/Gateway/Gateway.API/Dockerfile
+  # gateway.api:
+  #   image: ${DOCKER_REGISTRY-}gatewayapi
+  #   build:
+  #     context: . #/src/Gateway/Gateway.API/
+  #     dockerfile: /src/Gateway/Gateway.API/Dockerfile
 
   #notifications.api:
   #  image: ${DOCKER_REGISTRY-}notificationsapi
@@ -53,14 +53,15 @@ services:
   #    context: ./src/Services/services.API/
   #    dockerfile: Dockerfile
 
-  clinic-react-client:
-    image: ${DOCKER_REGISTRY-}clinic-react-client
-    build:
-      context: . #/client/clinic-react-client/
-      dockerfile: /client/clinic-react-client/Dockerfile
+  # clinic-react-client:
+  #   image: ${DOCKER_REGISTRY-}clinic-react-client
+  #   build:
+  #     context: . #/client/clinic-react-client/
+  #     dockerfile: /client/clinic-react-client/Dockerfile
 
 volumes:
   #servicesdb:
   #profilesdb:
   #appointmentsdb:
-  officesdb:
+  mongo:
+    driver: local

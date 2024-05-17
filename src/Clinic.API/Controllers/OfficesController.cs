@@ -20,5 +20,13 @@ namespace Clinic.API.Controllers
 
             return _mapper.Map<IEnumerable<OfficeViewModel>>(offices);
         }
+
+        [HttpGet("value")]
+        public string GetValue()
+        {
+            return "работает";
+        }
     }
+
+    
 }
