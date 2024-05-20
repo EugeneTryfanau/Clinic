@@ -63,15 +63,12 @@ services:
     container_name: clinic.api
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ASPNETCORE_HTTP_PORTS: "8080"
-      ASPNETCORE_HTTPS_PORTS: "8081"
+      ASPNETCORE_HTTP_PORTS: "82"
+      ASPNETCORE_HTTPS_PORTS: "83"
       MongoDB__ConnectionURI: "mongodb://mongo:27017/"
       MongoDB__DatabaseName: "Offices"
     depends_on:
       - mongo
-    ports:
-      - "5138:8080"
-      - "7056:8081"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
       - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
@@ -88,24 +85,27 @@ services:
   #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
   #    - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 
-  # gateway.api:
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Development
-  #     - ASPNETCORE_HTTP_PORTS=8080
-  #     - ASPNETCORE_HTTPS_PORTS=8081
-  #   depends_on:
-  #     #- appointments.api
-  #     - clinic.api
-  #     #- documents.api
-  #     #- notifications.api
-  #     #- profiles.api
-  #     #- services.api
-  #   ports:
-  #     - "5270:8080"
-  #     - "7047:8081"
-  #   volumes:
-  #     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-  #     - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+  gateway.api:
+    container_name: gateway.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=80
+      - ASPNETCORE_HTTPS_PORTS=81
+    links:
+      - clinic.api
+    depends_on:
+      #- appointments.api
+      - clinic.api
+      #- documents.api
+      #- notifications.api
+      #- profiles.api
+      #- services.api
+    ports:
+      - "5270:80"
+      - "7047:81"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
+      - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
 
   #notifications.api:
   #  environment:

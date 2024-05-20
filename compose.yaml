@@ -29,11 +29,11 @@ services:
   #    context: ./src/Documents/Documents.API/
   #    dockerfile: Dockerfile
 
-  # gateway.api:
-  #   image: ${DOCKER_REGISTRY-}gatewayapi
-  #   build:
-  #     context: . #/src/Gateway/Gateway.API/
-  #     dockerfile: /src/Gateway/Gateway.API/Dockerfile
+  gateway.api:
+    image: ${DOCKER_REGISTRY-}gatewayapi
+    build:
+      context: . #/src/Gateway/Gateway.API/
+      dockerfile: /src/Gateway/Gateway.API/Dockerfile
 
   #notifications.api:
   #  image: ${DOCKER_REGISTRY-}notificationsapi

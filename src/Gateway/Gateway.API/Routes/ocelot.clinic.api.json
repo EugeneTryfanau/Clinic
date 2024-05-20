@@ -4,11 +4,11 @@
       "UpstreamPathTemplate": "/Offices/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "DownstreamPathTemplate": "/api/Offices/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7056
+          "Host": "clinic.api",
+          "Port": 82
         }
       ],
       "AuthenticationOptions": {
