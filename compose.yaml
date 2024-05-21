@@ -1,6 +1,6 @@
 services:
-  #servicesdb:
-  #  image: mcr.microsoft.com/mssql/server:2017-latest
+  servicesdb:
+   image: mcr.microsoft.com/mssql/server:2022-latest
 
   #profilesdb:
   #  image: mcr.microsoft.com/mssql/server:2017-latest
@@ -8,8 +8,8 @@ services:
   #appointmentsdb:
   #  image: appointmentsdb
 
-  mongo:
-    image: 'mongo:latest'
+  # mongo:
+  #   image: 'mongo:latest'
 
   #appointments.api:
   #  image: ${DOCKER_REGISTRY-}appointmentsapi
@@ -17,11 +17,11 @@ services:
   #    context: ./src/Appointments/Appointments.API/
   #    dockerfile: Dockerfile
 
-  clinic.api:
-    image: ${DOCKER_REGISTRY-}clinicapi
-    build:
-      context: . #/src/Clinic.API/
-      dockerfile: /src/Clinic.API/Dockerfile
+  # clinic.api:
+  #   image: ${DOCKER_REGISTRY-}clinicapi
+  #   build:
+  #     context: .
+  #     dockerfile: /src/Clinic.API/Dockerfile
 
   #documents.api:
   #  image: ${DOCKER_REGISTRY-}documentsapi
@@ -29,11 +29,11 @@ services:
   #    context: ./src/Documents/Documents.API/
   #    dockerfile: Dockerfile
 
-  gateway.api:
-    image: ${DOCKER_REGISTRY-}gatewayapi
-    build:
-      context: . #/src/Gateway/Gateway.API/
-      dockerfile: /src/Gateway/Gateway.API/Dockerfile
+  # gateway.api:
+  #   image: ${DOCKER_REGISTRY-}gatewayapi
+  #   build:
+  #     context: .
+  #     dockerfile: /src/Gateway/Gateway.API/Dockerfile
 
   #notifications.api:
   #  image: ${DOCKER_REGISTRY-}notificationsapi
@@ -47,21 +47,21 @@ services:
   #    context: ./src/Profiles/Profiles.API/
   #    dockerfile: Dockerfile
 
-  #services.api:
-  #  image: ${DOCKER_REGISTRY-}servicesapi
-  #  build:
-  #    context: ./src/Services/services.API/
-  #    dockerfile: Dockerfile
+  services.api:
+   image: ${DOCKER_REGISTRY-}servicesapi
+   build:
+     context: .
+     dockerfile: /src/Services/services.API/Dockerfile
 
   # clinic-react-client:
   #   image: ${DOCKER_REGISTRY-}clinic-react-client
   #   build:
-  #     context: . #/client/clinic-react-client/
+  #     context: .
   #     dockerfile: /client/clinic-react-client/Dockerfile
 
 volumes:
-  #servicesdb:
+  servicesdb:
   #profilesdb:
   #appointmentsdb:
-  mongo:
-    driver: local
+  # mongo:
+  #   driver: local

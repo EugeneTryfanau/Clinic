@@ -12,7 +12,7 @@ namespace Services.DAL
         {
             services.AddDbContext<ServicesDbContext>((serviceProvider, options) =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("ServicesDbConnection"), b => b.MigrationsAssembly("Services.DAL"));
+                options.UseSqlServer(configuration.GetConnectionString("ServiceDbConnection"), b => b.MigrationsAssembly("Services.DAL"));
             });
 
             services.AddScoped<IServiceRepository, ServiceRepository>();

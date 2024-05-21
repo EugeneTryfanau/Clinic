@@ -1,15 +1,31 @@
 services:
-  #servicesdb:
-  #  image: mcr.microsoft.com/mssql/server:2017-latest
-  #  container_name: servicesdb
-  #  environment:
-  #    - SA_PASSWORD=Pass@word
-  #    - ACCEPT_EULA=Y
-  #  restart: always
-  #  ports:
-  #    - "1433:1433"
-  #  volumes:
-  #    - servicesdb:/var/lib/mssql/data/ 
+  servicesdb:
+   image: mcr.microsoft.com/mssql/server:2022-latest
+   container_name: servicesdb
+   environment:
+     - ACCEPT_EULA=Y
+     - MSSQL_SA_PASSWORD=Password1!
+   restart: always
+   ports:
+     - "1433:1433"
+   volumes:
+     - servicesdb:/var/lib/mssql/data/ 
+
+  services.api:
+   environment:
+     ASPNETCORE_ENVIRONMENT: Development
+     ASPNETCORE_HTTP_PORTS: "84"
+     ASPNETCORE_HTTPS_PORTS: "85"
+     TZ: "Europe/Moscow"
+     ConnectionStrings:ServiceDbConnection: "Server=servicesdb,1433;Database=ServicesDB;User=SA;Password=Password1!;MultipleActiveResultSets=True;TrustServerCertificate=true"
+   depends_on:
+     - servicesdb
+   ports:
+     - "5159:84"
+     - "7284:85"
+   volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
+      - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
 
   #profilesdb:
   #  image: mcr.microsoft.com/mssql/server:2017-latest
@@ -35,14 +51,14 @@ services:
   #  volumes:
   #    - appointmentsdb:/var/lib/postgresql/data/ 
       
-  mongo:
-    image: mongo:latest
-    container_name: mongo
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongo:/data/db
-      - ./init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+  # mongo:
+  #   image: mongo:latest
+  #   container_name: mongo
+  #   ports:
+  #     - "27017:27017"
+  #   volumes:
+  #     - mongo:/data/db
+  #     - ./init-mongo.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
 
   #appointments.api:
   #  environment:
@@ -59,19 +75,19 @@ services:
   #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
   #    - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 
-  clinic.api:
-    container_name: clinic.api
-    environment:
-      ASPNETCORE_ENVIRONMENT: Development
-      ASPNETCORE_HTTP_PORTS: "82"
-      ASPNETCORE_HTTPS_PORTS: "83"
-      MongoDB__ConnectionURI: "mongodb://mongo:27017/"
-      MongoDB__DatabaseName: "Offices"
-    depends_on:
-      - mongo
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
-      - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
+  # clinic.api:
+  #   container_name: clinic.api
+  #   environment:
+  #     ASPNETCORE_ENVIRONMENT: Development
+  #     ASPNETCORE_HTTP_PORTS: "82"
+  #     ASPNETCORE_HTTPS_PORTS: "83"
+  #     MongoDB__ConnectionURI: "mongodb://mongo:27017/"
+  #     MongoDB__DatabaseName: "Offices"
+  #   depends_on:
+  #     - mongo
+  #   volumes:
+  #     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
+  #     - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
 
   #documents.api:
   #  environment:
@@ -85,27 +101,27 @@ services:
   #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
   #    - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 
-  gateway.api:
-    container_name: gateway.api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=80
-      - ASPNETCORE_HTTPS_PORTS=81
-    links:
-      - clinic.api
-    depends_on:
-      #- appointments.api
-      - clinic.api
-      #- documents.api
-      #- notifications.api
-      #- profiles.api
-      #- services.api
-    ports:
-      - "5270:80"
-      - "7047:81"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
-      - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
+  # gateway.api:
+  #   container_name: gateway.api
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ASPNETCORE_HTTP_PORTS=80
+  #     - ASPNETCORE_HTTPS_PORTS=81
+  #   links:
+  #     - clinic.api
+  #   depends_on:
+  #     #- appointments.api
+  #     - clinic.api
+  #     #- documents.api
+  #     #- notifications.api
+  #     #- profiles.api
+  #     #- services.api
+  #   ports:
+  #     - "5270:80"
+  #     - "7047:81"
+  #   volumes:
+  #     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
+  #     - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
 
   #notifications.api:
   #  environment:
@@ -134,33 +150,12 @@ services:
   #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
   #    - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
 
-  #services.api:
-  #  environment:
-  #    - ASPNETCORE_ENVIRONMENT=Development
-  #    - ASPNETCORE_HTTP_PORTS=8080
-  #    - ASPNETCORE_HTTPS_PORTS=8081
-  #    - ConnectionStrings__Database=Server=servicesdb;Port=1433;Database=ServicesDb;SA_PASSWORD=Pass@word;ACCEPT_EULA=Y
-  #  depends_on:
-  #    - servicesdb
-  #  ports:
-  #    - "5159:8080"
-  #    - "7284:8081"
-  #  volumes:
-  #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-  #    - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
-
   # clinic-react-client:
-  #   environment:
-  #     - ASPNETCORE_ENVIRONMENT=Development
-  #     - ASPNETCORE_HTTP_PORTS=8080
-  #     - ASPNETCORE_HTTPS_PORTS=8081
-  #     - ASPNETCORE_URLS=https://localhost;http://localhost
-  #     #- ApiSettings__GatewayAddress=https://gateway.api:8081
+  #   container_name: client.app
   #   depends_on:
   #     - gateway.api
   #   ports:
-  #     - "5001:8080"
-  #     - "5173:8081"
+  #     - "5173:5173"
   #   volumes:
-  #     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-  #     - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+  #     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
+  #     - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/

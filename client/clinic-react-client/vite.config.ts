@@ -6,6 +6,7 @@ import fs from 'fs';
 import path from 'path';
 import child_process from 'child_process';
 import { env } from 'process';
+import react from 'react';
 
 const baseFolder =
     env.APPDATA !== undefined && env.APPDATA !== ''
@@ -30,8 +31,8 @@ if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
     }
 }
 
-const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
-    env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:5001';
+const target = env.ASPNETCORE_HTTPS_PORT ? `https://0.0.0.0:${env.ASPNETCORE_HTTPS_PORT}` :
+    env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://0.0.0.0:5001';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -42,16 +43,21 @@ export default defineConfig({
         }
     },
     server: {
+        watch:{
+            usePolling: true,
+        },
+        host: true,
+        strictPort: true,
         proxy: {
-            '^/weatherforecast': {
+            '^/': {
                 target,
                 secure: false
             }
         },
         port: 5173,
-        https: {
-            key: fs.readFileSync(keyFilePath),
-            cert: fs.readFileSync(certFilePath),
-        }
+        // https: {
+        //     key: fs.readFileSync(keyFilePath),
+        //     cert: fs.readFileSync(certFilePath),
+        // }
     }
 })

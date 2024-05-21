@@ -1,13 +1,14 @@
 ARG NODE_VERSION=20.11.1
 
-FROM node:22-alpine3.18
-WORKDIR /app/client/clinic-react-client
+FROM node:20.11.1-alpine
+USER root
 
-COPY /client/clinic-react-client/package*.json .
+WORKDIR /app
+COPY ["client/clinic-react-client/package*.json", "client/clinic-react-client/"]
+WORKDIR /app/client/clinic-react-client
+COPY . .
+RUN npm install esbuild@0.19.10
 RUN npm install
 
-COPY . .
-#RUN npm run build
-EXPOSE 8080
-EXPOSE 8081
-CMD [ "npm", "run", "build" ]
+EXPOSE 5173
+CMD [ "npm", "run", "dev" ]
