@@ -1,7 +1,35 @@
 services:
-  servicesdb:
+  # servicesdb:
+  #  image: mcr.microsoft.com/mssql/server:2022-latest
+  #  container_name: servicesdb
+  #  environment:
+  #    - ACCEPT_EULA=Y
+  #    - MSSQL_SA_PASSWORD=Password1!
+  #  restart: always
+  #  ports:
+  #    - "1433:1433"
+  #  volumes:
+  #    - servicesdb:/var/lib/mssql/data/ 
+
+  # services.api:
+  #  environment:
+  #    ASPNETCORE_ENVIRONMENT: Development
+  #    ASPNETCORE_HTTP_PORTS: "84"
+  #    ASPNETCORE_HTTPS_PORTS: "85"
+  #    TZ: "Europe/Moscow"
+  #    ConnectionStrings:ServicesDbConnection: "Server=servicesdb,1433;Database=ServicesDB;User=SA;Password=Password1!;MultipleActiveResultSets=True;TrustServerCertificate=true"
+  #  depends_on:
+  #    - servicesdb
+  #  ports:
+  #    - "5159:84"
+  #    - "7284:85"
+  #  volumes:
+  #     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
+  #     - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
+
+  profilesdb:
    image: mcr.microsoft.com/mssql/server:2022-latest
-   container_name: servicesdb
+   container_name: profilesdb
    environment:
      - ACCEPT_EULA=Y
      - MSSQL_SA_PASSWORD=Password1!
@@ -9,35 +37,7 @@ services:
    ports:
      - "1433:1433"
    volumes:
-     - servicesdb:/var/lib/mssql/data/ 
-
-  services.api:
-   environment:
-     ASPNETCORE_ENVIRONMENT: Development
-     ASPNETCORE_HTTP_PORTS: "84"
-     ASPNETCORE_HTTPS_PORTS: "85"
-     TZ: "Europe/Moscow"
-     ConnectionStrings:ServiceDbConnection: "Server=servicesdb,1433;Database=ServicesDB;User=SA;Password=Password1!;MultipleActiveResultSets=True;TrustServerCertificate=true"
-   depends_on:
-     - servicesdb
-   ports:
-     - "5159:84"
-     - "7284:85"
-   volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
-      - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
-
-  #profilesdb:
-  #  image: mcr.microsoft.com/mssql/server:2017-latest
-  #  container_name: profilesdb
-  #  environment:
-  #    - SA_PASSWORD=Pass@word
-  #    - ACCEPT_EULA=Y
-  #  restart: always
-  #  ports:
-  #    - "1433:1433"
-  #  volumes:
-  #    - profilesdb:/var/lib/mssql/data/ 
+     - profilesdb:/var/lib/mssql/data/ 
       
   #appointmentsdb:
   #  container_name: appointmentsdb
@@ -135,20 +135,21 @@ services:
   #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
   #    - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro 
 
-  #profiles.api:
-  #  environment:
-  #    - ASPNETCORE_ENVIRONMENT=Development
-  #    - ASPNETCORE_HTTP_PORTS=8080
-  #    - ASPNETCORE_HTTPS_PORTS=8081
-  #    - ConnectionStrings__Database=Server=profilesdb;Port=1433;Database=ProfilesDb;SA_PASSWORD=Pass@word;ACCEPT_EULA=Y
-  #  depends_on:
-  #    - profilesdb
-  #  ports:
-  #    - "5242:8080"
-  #    - "7081:8081"
-  #  volumes:
-  #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-  #    - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+  profiles.api:
+   environment:
+     ASPNETCORE_ENVIRONMENT: Development
+     ASPNETCORE_HTTP_PORTS: "86"
+     ASPNETCORE_HTTPS_PORTS: "87"
+     TZ: "Europe/Moscow"
+     ConnectionStrings:ProfilesDbConnection: "Server=profilesdb,1434;Database=ProfilesDB;User=SA;Password=Password1!;MultipleActiveResultSets=True;TrustServerCertificate=true"
+   depends_on:
+     - profilesdb
+   ports:
+     - "5242:86"
+     - "7081:87"
+   volumes:
+     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
+     - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
 
   # clinic-react-client:
   #   container_name: client.app

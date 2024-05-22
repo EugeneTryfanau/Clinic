@@ -1,9 +1,9 @@
 services:
-  servicesdb:
-   image: mcr.microsoft.com/mssql/server:2022-latest
+  # servicesdb:
+  #  image: mcr.microsoft.com/mssql/server:2022-latest
 
-  #profilesdb:
-  #  image: mcr.microsoft.com/mssql/server:2017-latest
+  profilesdb:
+   image: mcr.microsoft.com/mssql/server:2022-latest
 
   #appointmentsdb:
   #  image: appointmentsdb
@@ -41,17 +41,17 @@ services:
   #    context: ./src/Notifications/Notifications.API/
   #    dockerfile: Dockerfile
 
-  #profiles.api:
-  #  image: ${DOCKER_REGISTRY-}profilesapi
-  #  build:
-  #    context: ./src/Profiles/Profiles.API/
-  #    dockerfile: Dockerfile
-
-  services.api:
-   image: ${DOCKER_REGISTRY-}servicesapi
+  profiles.api:
+   image: ${DOCKER_REGISTRY-}profilesapi
    build:
      context: .
-     dockerfile: /src/Services/services.API/Dockerfile
+     dockerfile: /src/Profiles/Profiles.API/Dockerfile
+
+  # services.api:
+  #  image: ${DOCKER_REGISTRY-}servicesapi
+  #  build:
+  #    context: .
+  #    dockerfile: /src/Services/services.API/Dockerfile
 
   # clinic-react-client:
   #   image: ${DOCKER_REGISTRY-}clinic-react-client
@@ -60,8 +60,8 @@ services:
   #     dockerfile: /client/clinic-react-client/Dockerfile
 
 volumes:
-  servicesdb:
-  #profilesdb:
+  # servicesdb:
+  profilesdb:
   #appointmentsdb:
   # mongo:
   #   driver: local

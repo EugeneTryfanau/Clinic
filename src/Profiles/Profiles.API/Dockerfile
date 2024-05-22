@@ -1,11 +1,11 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER app
+USER $APP_UID
 WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
+EXPOSE 86
+EXPOSE 87
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Debug
+ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["common/StandartCRUD/StandartCRUD.csproj", "common/StandartCRUD/"]
 COPY ["src/Profiles/Profiles.DAL/Profiles.DAL.csproj", "src/Profiles/Profiles.DAL/"]
@@ -17,8 +17,7 @@ WORKDIR "/src/src/Profiles/Profiles.API"
 RUN dotnet build "./Profiles.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Debug
-RUN dotnet dev-certs https --trust
+ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "./Profiles.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
