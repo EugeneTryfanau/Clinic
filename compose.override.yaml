@@ -105,17 +105,17 @@ services:
   #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
   #    - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
 
-  documents.api:
-   environment:
-     ASPNETCORE_ENVIRONMENT: Development
-     ASPNETCORE_HTTP_PORTS: "88"
-     ASPNETCORE_HTTPS_PORTS: "89"
-   ports:
-     - "5007:88"
-     - "7052:89"
-   volumes:
-     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
-     - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
+  # documents.api:
+  #  environment:
+  #    ASPNETCORE_ENVIRONMENT: Development
+  #    ASPNETCORE_HTTP_PORTS: "88"
+  #    ASPNETCORE_HTTPS_PORTS: "89"
+  #  ports:
+  #    - "5007:88"
+  #    - "7052:89"
+  #  volumes:
+  #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
+  #    - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -136,6 +136,8 @@ services:
      ASPNETCORE_HTTPS_PORTS: "91"
      RabbitMq:RabbitMqHost: "rabbitmq"
      RabbitMq:RabbitMqQueue: "MyQueue"
+     RABBITMQ_USER: user
+     RABBITMQ_PASS: password
    depends_on:
      - rabbitmq
    ports:
@@ -147,35 +149,45 @@ services:
    networks:
       - mynetwork
 
-# upper parts is done
-# lower parts is undone
-
-  #appointmentsdb:
+  # appointmentsdb:
   #  container_name: appointmentsdb
   #  environment:
-  #    - POSTGRES_USER=postgres
-  #    - POSTGRES_PASSWORD=postgres
-  #    - POSTGRES_DB=AppointmentsDb
+  #    POSTGRES_USER: postgres
+  #    POSTGRES_PASSWORD: postgres
+  #    POSTGRES_DB: AppointmentsDb
   #  restart: always
   #  ports:
   #      - "5433:5432"
   #  volumes:
   #    - appointmentsdb:/var/lib/postgresql/data/ 
+  #  networks:
+  #     - mynetwork
 
-  #appointments.api:
+  # appointments.api:
   #  environment:
-  #    - ASPNETCORE_ENVIRONMENT=Development
-  #    - ASPNETCORE_HTTP_PORTS=8080
-  #    - ASPNETCORE_HTTPS_PORTS=8081
-  #    - ConnectionStrings__Database=Server=catalogdb;Port=5432;Database=AppointmentsDb;User Id=postgres;Password=postgres;Include Error Detail=true
+  #    ASPNETCORE_ENVIRONMENT: Development
+  #    ASPNETCORE_HTTP_PORTS: "92"
+  #    ASPNETCORE_HTTPS_PORTS: "93"
+  #    RabbitMq:RabbitMqHost: "rabbitmq"
+  #    RabbitMq:RabbitMqQueue: "MyQueue"
+  #    RABBITMQ_USER: user
+  #    RABBITMQ_PASS: password
+  #    ConnectionStrings:DefaultConnection: "Host=appointmentsdb;Port=5432;Database=AppointmentsDb;Username=postgres;Password=postgres"
   #  depends_on:
   #    - appointmentsdb
+  #    - rabbitmq
   #  ports:
-  #    - "5175:8080"
-  #    - "7045:8081"
+  #    - "5175:92"
+  #    - "7045:93"
   #  volumes:
-  #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
-  #    - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+  #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
+  #    - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
+  #  networks:
+  #     - mynetwork
+
+
+# upper parts are done
+# lower parts are undone
 
   # clinic-react-client:
   #   container_name: client.app
