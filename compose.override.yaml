@@ -134,10 +134,11 @@ services:
      ASPNETCORE_ENVIRONMENT: Development
      ASPNETCORE_HTTP_PORTS: "90"
      ASPNETCORE_HTTPS_PORTS: "91"
-     RabbitMq:RabbitMqHost: "rabbitmq"
-     RabbitMq:RabbitMqQueue: "MyQueue"
+     RabbitMq__RabbitMqHost: "rabbitmq"
+     RabbitMq__RabbitMqQueue: "MyQueue"
+     RABBITMQ_HOST: rabbitmq
      RABBITMQ_USER: user
-     RABBITMQ_PASS: password
+     RABBITMQ_PASSWORD: password
    depends_on:
      - rabbitmq
    ports:
@@ -149,41 +150,43 @@ services:
    networks:
       - mynetwork
 
-  # appointmentsdb:
-  #  container_name: appointmentsdb
-  #  environment:
-  #    POSTGRES_USER: postgres
-  #    POSTGRES_PASSWORD: postgres
-  #    POSTGRES_DB: AppointmentsDb
-  #  restart: always
-  #  ports:
-  #      - "5433:5432"
-  #  volumes:
-  #    - appointmentsdb:/var/lib/postgresql/data/ 
-  #  networks:
-  #     - mynetwork
+  appointmentsdb:
+   image: postgres:latest
+   container_name: appointmentsdb
+   environment:
+     POSTGRES_USER: postgres
+     POSTGRES_PASSWORD: postgres
+     POSTGRES_DB: AppointmentsDb
+   restart: always
+   ports:
+       - "5433:5432"
+   volumes:
+     - appointmentsdb:/var/lib/postgresql/data/ 
+   networks:
+      - mynetwork
 
-  # appointments.api:
-  #  environment:
-  #    ASPNETCORE_ENVIRONMENT: Development
-  #    ASPNETCORE_HTTP_PORTS: "92"
-  #    ASPNETCORE_HTTPS_PORTS: "93"
-  #    RabbitMq:RabbitMqHost: "rabbitmq"
-  #    RabbitMq:RabbitMqQueue: "MyQueue"
-  #    RABBITMQ_USER: user
-  #    RABBITMQ_PASS: password
-  #    ConnectionStrings:DefaultConnection: "Host=appointmentsdb;Port=5432;Database=AppointmentsDb;Username=postgres;Password=postgres"
-  #  depends_on:
-  #    - appointmentsdb
-  #    - rabbitmq
-  #  ports:
-  #    - "5175:92"
-  #    - "7045:93"
-  #  volumes:
-  #    - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
-  #    - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
-  #  networks:
-  #     - mynetwork
+  appointments.api:
+   environment:
+     ASPNETCORE_ENVIRONMENT: Development
+     ASPNETCORE_HTTP_PORTS: "92"
+     ASPNETCORE_HTTPS_PORTS: "93"
+     RabbitMq__RabbitMqHost: "rabbitmq"
+     RabbitMq__RabbitMqQueue: "MyQueue"
+     RABBITMQ_HOST: rabbitmq
+     RABBITMQ_USER: user
+     RABBITMQ_PASSWORD: password
+     ConnectionStrings:DefaultConnection: "Host=appointmentsdb;Port=5432;Database=AppointmentsDb;Username=postgres;Password=postgres"
+   depends_on:
+     - appointmentsdb
+     - rabbitmq
+   ports:
+     - "5175:92"
+     - "7045:93"
+   volumes:
+     - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets
+     - ${USERPROFILE}/.aspnet/https:/home/app/.aspnet/https/
+   networks:
+      - mynetwork
 
 
 # upper parts are done

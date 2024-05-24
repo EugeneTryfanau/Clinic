@@ -5,17 +5,17 @@ services:
   # profilesdb:
   #  image: mcr.microsoft.com/mssql/server:2022-latest
 
-  #appointmentsdb:
-  #  image: appointmentsdb
+  appointmentsdb:
+   image: appointmentsdb
 
   # mongo:
   #   image: 'mongo:latest'
 
-  #appointments.api:
-  #  image: ${DOCKER_REGISTRY-}appointmentsapi
-  #  build:
-  #    context: ./src/Appointments/Appointments.API/
-  #    dockerfile: Dockerfile
+  appointments.api:
+   image: ${DOCKER_REGISTRY-}appointmentsapi
+   build:
+     context: .
+     dockerfile: /src/Appointments/Appointments.API/Dockerfile
 
   # clinic.api:
   #   image: ${DOCKER_REGISTRY-}clinicapi
@@ -23,11 +23,11 @@ services:
   #     context: .
   #     dockerfile: /src/Clinic.API/Dockerfile
 
-  documents.api:
-   image: ${DOCKER_REGISTRY-}documentsapi
-   build:
-     context: .
-     dockerfile: /src/Documents/Documents.API/Dockerfile
+  # documents.api:
+  #  image: ${DOCKER_REGISTRY-}documentsapi
+  #  build:
+  #    context: .
+  #    dockerfile: /src/Documents/Documents.API/Dockerfile
 
   # gateway.api:
   #   image: ${DOCKER_REGISTRY-}gatewayapi
@@ -63,9 +63,9 @@ networks:
   mynetwork:
     driver: bridge
 
-# volumes:
+volumes:
   # servicesdb:
   # profilesdb:
-  # appointmentsdb:
+   appointmentsdb:
   # mongo:
   #   driver: local

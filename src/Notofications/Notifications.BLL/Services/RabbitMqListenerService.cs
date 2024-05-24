@@ -24,8 +24,10 @@ namespace Notifications.BLL.Services
 
             var _host = configuration["RabbitMq:RabbitMqHost"]!;
             _queue = configuration["RabbitMq:RabbitMqQueue"]!;
+            var userName = configuration["RabbitMq:RABBITMQ_USER"]!;
+            var password = configuration["RabbitMq:RABBITMQ_PASSWORD"]!;
 
-            var factory = new ConnectionFactory { HostName = _host };
+            var factory = new ConnectionFactory { HostName = _host, UserName = userName, Password = password };
             _connection = factory.CreateConnection();
             _channel = _connection.CreateModel();
             _channel.QueueDeclare(queue: _queue, durable: false, exclusive: false, autoDelete: false, arguments: null);

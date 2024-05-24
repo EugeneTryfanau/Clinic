@@ -10,6 +10,8 @@ namespace Appointments.BLL.Services
     {
         private readonly string _host = configuration["RabbitMq:RabbitMqHost"]!;
         private readonly string _queue = configuration["RabbitMq:RabbitMqQueue"]!;
+        private readonly string _userName = configuration["RabbitMq:RABBITMQ_USER"]!;
+        private readonly string _password = configuration["RabbitMq:RABBITMQ_PASSWORD"]!;
 
         public void SendMessage(object obj)
         {
@@ -19,7 +21,7 @@ namespace Appointments.BLL.Services
 
         public void SendMessage(string message)
         {
-            var factory = new ConnectionFactory() { HostName = _host };
+            var factory = new ConnectionFactory { HostName = _host, UserName = _userName, Password = _password };
             using var connection = factory.CreateConnection();
             using var channel = connection.CreateModel();
             channel.QueueDeclare(queue: _queue,
