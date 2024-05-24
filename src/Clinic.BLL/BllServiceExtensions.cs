@@ -8,6 +8,7 @@ namespace Clinic.BLL
     {
         public static void AddBLLDependencies(this IServiceCollection services)
         {
+            services.AddScoped<ICacheOfficeService, CacheOfficeService>();
             services.AddScoped<IOfficeService, OfficeService>();
         }
     }

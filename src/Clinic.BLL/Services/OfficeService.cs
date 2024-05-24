@@ -8,15 +8,13 @@ using StandartCRUD.StandartBLL;
 
 namespace Clinic.BLL.Services
 {
-    public class OfficeService(IOfficeRepository officeRepository, IMapper mapper) : 
-        GenericService<OfficeEntity, Office>(officeRepository, mapper), 
+    public class OfficeService(IOfficeRepository officeRepository, IMapper mapper, ICacheOfficeService cacheService) :
+        GenericService<OfficeEntity, Office>(officeRepository, mapper),
         IOfficeService
     {
         public async Task<IEnumerable<Office>> GetAllAsync(string? address, string? phoneNumber, StandartStatus? isActive, CancellationToken cancellationToken)
         {
-            var offices = await officeRepository.GetAllAsync(address, phoneNumber, isActive, cancellationToken);
-
-            return _mapper.Map<IEnumerable<Office>>(offices);
+            return await cacheService.TryGetOrCreateAsync(address, phoneNumber, isActive, cancellationToken);
         }
     }
 }

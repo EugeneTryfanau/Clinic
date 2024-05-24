@@ -1,7 +1,6 @@
 using Clinic.API.Middlewares;
 using Clinic.BLL;
 using Clinic.DAL;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +10,7 @@ var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
 
+builder.Services.AddMemoryCache();
 builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();

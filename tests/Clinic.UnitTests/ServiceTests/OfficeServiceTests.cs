@@ -5,6 +5,7 @@ using Clinic.BLL.Services;
 using Clinic.DAL.Entities;
 using Clinic.DAL.Interfaces;
 using Clinic.UnitTests.TestData.Offices;
+using Microsoft.Extensions.Caching.Memory;
 using NSubstitute;
 using NSubstitute.ReturnsExtensions;
 using Shouldly;
@@ -16,6 +17,8 @@ namespace Clinic.UnitTests.ServiceTests
     {
         private readonly IMapper _mapper;
         private readonly IOfficeRepository _officeRepository;
+        private readonly IMemoryCache _cache;
+        private readonly CacheOfficeService _cacheOfficeService;
         private readonly OfficeService _officeService;
 
         public OfficeServiceTests()
@@ -28,7 +31,9 @@ namespace Clinic.UnitTests.ServiceTests
             _mapper = mapper;
 
             _officeRepository = Substitute.For<IOfficeRepository>();
-            _officeService = new OfficeService(_officeRepository, _mapper);
+            _cache = Substitute.For<IMemoryCache>();
+            _cacheOfficeService = new CacheOfficeService(_cache, _officeRepository, _mapper);
+            _officeService = new OfficeService(_officeRepository, _mapper, _cacheOfficeService);
         }
 
         [Fact]
