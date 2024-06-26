@@ -4,11 +4,11 @@
       "UpstreamPathTemplate": "/Services/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "DownstreamPathTemplate": "/api/Services/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7284
+          "Host": "services.api",
+          "Port": 84
         }
       ],
       "SwaggerKey": "Services"

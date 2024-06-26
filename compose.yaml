@@ -1,0 +1,71 @@
+services:
+  servicesdb:
+   image: mcr.microsoft.com/mssql/server:2022-latest
+
+  profilesdb:
+   image: mcr.microsoft.com/mssql/server:2022-latest
+
+  appointmentsdb:
+   image: appointmentsdb
+
+  mongo:
+    image: 'mongo:latest'
+
+  appointments.api:
+   image: ${DOCKER_REGISTRY-}appointmentsapi
+   build:
+     context: .
+     dockerfile: /src/Appointments/Appointments.API/Dockerfile
+
+  clinic.api:
+    image: ${DOCKER_REGISTRY-}clinicapi
+    build:
+      context: .
+      dockerfile: /src/Clinic.API/Dockerfile
+
+  documents.api:
+   image: ${DOCKER_REGISTRY-}documentsapi
+   build:
+     context: .
+     dockerfile: /src/Documents/Documents.API/Dockerfile
+
+  gateway.api:
+    image: ${DOCKER_REGISTRY-}gatewayapi
+    build:
+      context: .
+      dockerfile: /src/Gateway/Gateway.API/Dockerfile
+
+  notifications.api:
+   image: ${DOCKER_REGISTRY-}notificationsapi
+   build:
+     context: .
+     dockerfile: /src/Notofications/Notifications.API/Dockerfile
+
+  profiles.api:
+   image: ${DOCKER_REGISTRY-}profilesapi
+   build:
+     context: .
+     dockerfile: /src/Profiles/Profiles.API/Dockerfile
+
+  services.api:
+   image: ${DOCKER_REGISTRY-}servicesapi
+   build:
+     context: .
+     dockerfile: /src/Services/services.API/Dockerfile
+
+  clinic-react-client:
+    image: ${DOCKER_REGISTRY-}clinic-react-client
+    build:
+      context: .
+      dockerfile: /client/clinic-react-client/Dockerfile
+
+networks:
+  mynetwork:
+    driver: bridge
+
+volumes:
+  servicesdb:
+  profilesdb:
+   appointmentsdb:
+  mongo:
+    driver: local

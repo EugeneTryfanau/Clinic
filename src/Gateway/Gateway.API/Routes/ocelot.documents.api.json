@@ -4,11 +4,11 @@
       "UpstreamPathTemplate": "/Files/{everything}",
       "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
       "DownstreamPathTemplate": "/api/Files/{everything}",
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7052
+          "Host": "documents.api",
+          "Port": 88
         }
       ],
       "SwaggerKey": "Files"
